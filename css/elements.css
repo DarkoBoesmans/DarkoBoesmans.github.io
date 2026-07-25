@@ -1,0 +1,25 @@
+:root {
+  interpolate-size: allow-keywords;
+  transition: all 0.3s ease-in-out;
+}
+
+body,
+html {
+  width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+p {
+  color: inherit;
+}
+
+a {
+  text-decoration: none;
+}

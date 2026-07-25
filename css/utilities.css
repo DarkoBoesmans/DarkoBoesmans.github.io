@@ -1,0 +1,20 @@
+/* Utility Classes */
+
+/* Parallax Effect */
+.parallax {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Mobile fix - disable fixed background on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .parallax {
+    background-attachment: scroll;
+  }
+}
+
+.u-hidden {
+  display: none;
+}
