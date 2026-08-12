@@ -1,0 +1,139 @@
+<section class="mx-auto max-w-7xl px-4 py-[1vw] sm:px-6 lg:px-8">
+  <div class="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1.618fr] lg:gap-8">
+    
+    <!-- 1. LINKER KOLOM (PROFIELKAART) -->
+    <div class="relative flex flex-col justify-between overflow-hidden rounded-3xl bg-[color:var(--color-primary)] p-6 sm:p-8 text-[color:var(--color-white)] shadow-xl min-h-[520px]">
+      
+      <!-- Visueel geïntegreerde Tab "About Me" linksboven -->
+      <div class="absolute top-0 left-0 rounded-br-2xl bg-[color:var(--color-black)]/30 px-5 py-2 text-xs font-semibold uppercase tracking-widest text-[color:var(--color-white)]/90 backdrop-blur-md">
+        About Me
+      </div>
+
+      <!-- Media & Decoratieve Concentrische Cirkels -->
+      <div class="relative mt-10 flex flex-col items-center text-center">
+        <!-- SVG Decoratief Patroon -->
+        <div class="absolute -top-4 pointer-events-none flex items-center justify-center opacity-25">
+          <svg width="260" height="260" viewBox="0 0 200 200" class="animate-[spin_40s_linear_infinite]">
+            <circle cx="100" cy="100" r="40" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" />
+            <circle cx="100" cy="100" r="65" fill="none" stroke="currentColor" stroke-width="1" />
+            <circle cx="100" cy="100" r="90" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="6 6" />
+          </svg>
+        </div>
+
+        <!-- Ronde Profielfoto -->
+        <div class="relative z-10 h-32 w-32 overflow-hidden rounded-full border-2 border-[color:var(--color-accent)] shadow-lg">
+          <img 
+            src="src/content/img/profilePic.png" 
+            alt="Darko Boesmans" 
+            class="h-full w-full object-cover"
+          />
+        </div>
+
+        <!-- Typografie -->
+        <h2 class="mt-6 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+          DARKO BOESMANS
+        </h2>
+        <p class="mt-1 text-sm text-[color:var(--color-white)]/75 font-medium">
+          Based in Belgium
+        </p>
+      </div>
+
+      <!-- Onderkant: Onderstreept e-mailadres -->
+      <div class="mt-8 border-t border-white/10 pt-5 text-center">
+        <a 
+          href="mailto:info@darkoboesmans.be" 
+          class="text-sm font-medium underline underline-offset-4 hover:text-[color:var(--color-accent)] transition-colors"
+        >
+          info@darkoboesmans.be
+        </a>
+      </div>
+    </div>
+
+    <!-- 2. RECHTER KOLOM (CONTENT SECTIE) -->
+    <div class="flex flex-col justify-between gap-6">
+      
+      <!-- Hoofdtitel -->
+      <div>
+        <h1 class="font-display text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-[color:var(--color-white)]">
+          Design Engineer &amp; Front-End Developer
+        </h1>
+      </div>
+
+      <!-- Bento Grid System 3x3 -->
+      <div class="grid flex-1 grid-cols-1 gap-4 sm:grid-cols-3 sm:grid-rows-3">
+        
+        <!-- Item 1: Current Obsessions (Spans 2 rows) - Oranje accent -->
+        <div class="sm:row-span-2 rounded-2xl bg-[color:var(--color-accent)] p-5 text-[color:var(--color-black)] flex flex-col justify-between shadow-md">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider opacity-75">Current Obsessions</span>
+            <h3 class="mt-2 font-display text-xl font-bold">Astro, Bun &amp; GSAP</h3>
+            <ul class="mt-3 space-y-2 text-sm font-medium">
+              <li class="flex items-center gap-1.5"><span>•</span> Performance SSG</li>
+              <li class="flex items-center gap-1.5"><span>•</span> Fast Runtime</li>
+              <li class="flex items-center gap-1.5"><span>•</span> Micro-interactions</li>
+              <li class="flex items-center gap-1.5"><span>•</span> BEM &amp; ITCSS</li>
+            </ul>
+          </div>
+          <span class="mt-4 text-xs font-semibold opacity-60">Always evolving 🚀</span>
+        </div>
+
+        <!-- Item 2: Approach Card - Donkere achtergrond -->
+        <div class="rounded-2xl border border-white/15 bg-white/10 p-5 text-[color:var(--color-white)] backdrop-blur-sm flex flex-col justify-between">
+          <span class="text-xs font-semibold uppercase tracking-wider text-white/60">Approach</span>
+          <p class="text-sm font-medium leading-snug">Component-driven &amp; accessible web interfaces.</p>
+        </div>
+
+        <!-- Item 3: Secondary Accent Card - Geel/Bruin -->
+        <div class="rounded-2xl bg-[color:var(--color-secondary)] p-5 text-[color:var(--color-white)] flex flex-col justify-between shadow-md">
+          <span class="text-xs font-semibold uppercase tracking-wider opacity-80">Location</span>
+          <p class="font-display text-xl font-bold">Lebbeke, BE 🇧🇪</p>
+        </div>
+
+        <!-- Item 4: Wit Card met rand (Spans 2 columns) -->
+        <div class="sm:col-span-2 rounded-2xl bg-[color:var(--color-white)] p-5 text-[color:var(--color-black)] border border-black/10 flex flex-col justify-between shadow-md">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-[color:var(--color-primary)]">Architecture</span>
+            <p class="mt-1 text-sm font-medium leading-relaxed">
+              Crafting scalable front-end systems with zero-JS by default, enhanced only where interaction adds value.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 5: Social Media Iconen -->
+        <div class="rounded-2xl border border-white/15 bg-white/10 p-4 text-[color:var(--color-white)] backdrop-blur-sm flex items-center justify-evenly">
+          <a 
+            href="https://github.com" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="p-2 transition-colors hover:text-[color:var(--color-accent)]" 
+            aria-label="GitHub"
+          >
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <a 
+            href="https://linkedin.com" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="p-2 transition-colors hover:text-[color:var(--color-accent)]" 
+            aria-label="LinkedIn"
+          >
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+        </div>
+
+        <!-- Item 6: Contact Me CTA Button (Spans 2 columns) - Groen accent -->
+        <a 
+          href="#contact" 
+          class="group sm:col-span-2 rounded-2xl bg-[color:var(--color-primary)] p-5 text-[color:var(--color-white)] transition-all duration-300 hover:bg-[color:var(--color-accent)] hover:text-[color:var(--color-black)] flex items-center justify-between shadow-md"
+        >
+          <span class="font-display text-lg font-bold">Contact Me</span>
+          <svg class="h-6 w-6 transform transition-transform duration-300 group-hover:translate-x-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          </svg>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</section>

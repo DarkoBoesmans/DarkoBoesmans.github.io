@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+---
+
+<BaseLayout title="About | Darko Boesmans" description="About Darko Boesmans, junior-to-medior front-end developer and web designer.">
+  <Header active="about" />
+
+  <main class="mx-auto max-w-5xl px-6 py-16 lg:px-8">
+    <section class="rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-glow backdrop-blur-xl">
+      <p class="text-xs uppercase tracking-[0.35em] text-white/45">About</p>
+      <h1 class="mt-4 font-display text-4xl text-white sm:text-5xl">About me</h1>
+      <div class="mt-6 space-y-4 text-sm leading-7 text-white/72">
+        <p>
+          Hi! I’m Darko, an enthusiastic front-end developer and web designer who likes building websites that feel
+          intentional, fast, and easy to maintain.
+        </p>
+        <p>
+          I care about the full delivery chain: interface design, content structure, accessibility, and the systems
+          that keep a site adaptable over time.
+        </p>
+        <p>
+          Outside of work, I stay active through Chiro, hiking, and other activities that keep me curious and disciplined.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

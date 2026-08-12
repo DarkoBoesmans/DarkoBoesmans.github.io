@@ -1,42 +1,27 @@
-# 💻 Darko Boesmans' Portfolio
+# Darko Boesmans Portfolio
 
-Welcome to the repository for my personal portfolio website, where I showcase my web development and design work. Feel free to explore the code, check out the live site, and get in touch!
+This repository is being migrated from a legacy PHP portfolio into a modern Astro-based codebase.
 
-## 🌐 Live Demo
+## Stack
 
-[Check out the live version of my portfolio here!](https://DarkoBoesmans.github.io)
+- Astro with static site generation
+- TypeScript in strict mode
+- Tailwind CSS for styling
+- GSAP for motion and ScrollTrigger-based reveals
+- Keystatic-ready content structure with MDX case studies
+- Bun for package management
 
-## 📋 Project Overview
+## Structure
 
-This is my personal portfolio built to showcase my skills, projects, and professional journey as a front-end developer and web designer. The site includes:
+- `src/components/layout` for global shell pieces
+- `src/components/ui` for reusable interface elements
+- `src/components/sections` for page sections
+- `src/content/projects` for MDX case studies
+- `src/layouts` for shared page layouts
+- `src/pages` for file-based routing
+- `src/styles/global.css` for global tokens and Tailwind entry styles
+- `src/utils/animations.ts` for motion helpers
 
-- **Home Page**: An introduction to who I am and what I do.
-- **Projects**: A collection of case studies demonstrating my design and development work.
-- **About Me**: Information about my background, experience, and hobbies.
-- **Contact**: A way for visitors to reach out to me.
+## Current Status
 
-## 🚀 Features
-
-- Responsive design for desktop and mobile.
-- Interactive project gallery with detailed case studies.
-- Contact form integrated with [service, e.g., Formspree] for easy communication.
-- Animated transitions for a smooth browsing experience.
-
-## 🛠️ Technologies Used
-
-- **HTML5**: For semantic structure.
-- **CSS3** (Sass/SCSS): For custom styling and animations.
-- **JavaScript**: To enhance interactivity.
-- **Frameworks**: Bootstrap.
-- **Version Control**: Git and GitHub.
-
-## 🖼️ Screenshots
-
-![Home Page](path-to-image)  
-_A quick glance at the landing page_
-
-![About Section](path-to-image)  
-_Showcasing one of the case studies in the project gallery_
-
-![Case Study](path-to-image)  
-_Showcasing one of the case studies in the project gallery_
+The Astro scaffold is in place, but dependencies still need to be installed before the project can be run locally. The legacy PHP files remain in the repository for reference until the migration is fully complete.

@@ -1,0 +1,35 @@
+---
+import "../styles/global.css";
+import SEO from "../components/layout/SEO.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title,
+  description = "Portfolio of Darko Boesmans, Design Engineer & Front-End Developer.",
+  image = "/open-graph/index.png",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#151311" />
+    <link rel="icon" href="/favicon_dark.svg" type="image/svg+xml" />
+
+    <SEO title={title} description={description} image={image} />
+  </head>
+  <body class="min-h-screen antialiased">
+    <div
+      class="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(88,196,255,0.2),_transparent_42%),radial-gradient(circle_at_bottom_right,_rgba(244,114,182,0.12),_transparent_32%),linear-gradient(180deg,_#11141a_0%,_#090b0f_100%)]"
+    >
+    </div>
+    <slot />
+  </body>
+</html>
