@@ -1,0 +1,121 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/layout/Header.astro";
+import Footer from "../../components/layout/Footer.astro";
+import { getCollection } from "astro:content";
+
+export const getStaticPaths = async () => {
+  const projects = await getCollection("projects");
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+};
+
+const { project } = Astro.props;
+---
+
+<BaseLayout title={`${project.data.title} | Darko Boesmans`} description={project.data.outcome}>
+  <Header active="work" />
+  
+  <main class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+    <!-- Hero Section -->
+    <section class="rounded-[2rem] border border-white/10 bg-[color:var(--color-primary)] p-8 shadow-glow backdrop-blur-xl" data-reveal>
+      <p class="text-xs uppercase tracking-[0.35em] text-white/45">Case study</p>
+      <h1 class="mt-4 font-display text-4xl text-white sm:text-5xl">{project.data.title}</h1>
+      <p class="mt-4 max-w-3xl text-base leading-7 text-white/72">{project.data.outcome}</p>
+      
+      <!-- Live Link -->
+      <a 
+        href={project.data.link} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="mt-6 inline-flex items-center gap-2 rounded-lg bg-[color:var(--color-accent)] px-5 py-2.5 text-sm font-semibold text-[color:var(--color-black)] transition-all hover:bg-[color:var(--color-accent)]/90 hover:shadow-lg"
+      >
+        <span>Check out the live website</span>
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+        </svg>
+      </a>
+    </section>
+
+    <!-- Overview Cards Grid -->
+    <section class="mt-8 grid gap-4 lg:grid-cols-3" data-reveal>
+      <article class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow backdrop-blur-xl">
+        <h2 class="text-lg font-semibold text-white">Overview</h2>
+        <dl class="mt-4 space-y-4 text-sm leading-7 text-white/72">
+          <div>
+            <dt class="font-semibold text-white">Client</dt>
+            <dd>{project.data.client}</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-white">Goal</dt>
+            <dd>{project.data.goal}</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-white">Outcome</dt>
+            <dd>{project.data.outcome}</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow backdrop-blur-xl">
+        <h2 class="text-lg font-semibold text-white">Challenge</h2>
+        <p class="mt-4 text-sm leading-7 text-white/72">{project.data.challenge}</p>
+      </article>
+
+      <article class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow backdrop-blur-xl">
+        <h2 class="text-lg font-semibold text-white">Results</h2>
+        <p class="mt-4 text-sm leading-7 text-white/72">{project.data.results}</p>
+      </article>
+    </section>
+
+    <!-- Process & Solution -->
+    <section class="mt-8 grid gap-4 lg:grid-cols-2" data-reveal>
+      <article class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow backdrop-blur-xl">
+        <h2 class="text-lg font-semibold text-white">Process</h2>
+        <div class="mt-4 text-sm leading-7 text-white/72">
+          <p><strong class="text-white">Research</strong><br />{project.data.research}</p>
+        </div>
+        <div class="mt-5">
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-white/60">Tools & Technologies</h3>
+          <ul class="mt-3 flex flex-wrap gap-2">
+            {project.data.tools.map((tool) => (
+              <li class="rounded-full border border-[color:var(--color-accent)]/30 bg-[color:var(--color-black)]/20 px-3 py-1 text-xs text-white/70">
+                {tool}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </article>
+
+      <article class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow backdrop-blur-xl">
+        <h2 class="text-lg font-semibold text-white">Solution</h2>
+        <p class="mt-4 text-sm leading-7 text-white/72">{project.data.solution}</p>
+      </article>
+    </section>
+
+    <!-- Reflection -->
+    <section class="mt-8 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow backdrop-blur-xl" data-reveal>
+      <h2 class="text-lg font-semibold text-white">Reflection</h2>
+      <p class="mt-4 text-sm leading-7 text-white/72">{project.data.reflection}</p>
+    </section>
+
+    <!-- MDX Content -->
+    <article class="prose prose-invert mt-8 max-w-none" data-reveal>
+      <Content />
+    </article>
+
+    <!-- Navigation to other projects -->
+    <nav class="mt-12 flex items-center justify-between border-t border-white/10 pt-8" data-reveal>
+      <a href="/" class="text-sm text-[color:var(--color-accent)] transition-colors hover:text-[color:var(--color-accent)]/80">
+        ← Back to home
+      </a>
+      <a href="/#work" class="text-sm text-[color:var(--color-accent)] transition-colors hover:text-[color:var(--color-accent)]/80">
+        View all work →
+      </a>
+    </nav>
+  </main>
+
+  <Footer />
+</BaseLayout>

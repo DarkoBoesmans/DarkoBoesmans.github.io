@@ -1,37 +1,37 @@
-# ----------------------------
-# Node Dependencies
-# ----------------------------
+```
+# Dependencies
 node_modules/
-# Als u pnpm gebruikt, kan het nuttig zijn om te checken of lockfiles correct zijn geconfigureerd.
-# Voor bun:
-bun.lockb
 
-# TypeScript / JavaScript build artifacts
+# Build outputs
 dist/
 build/
-astro.assets/
+*.js
+*.mjs
+*.css
 
-# Astro cache en lokale ontwikkelbestanden
-.astro/
-.output/
+# Environment
+.env
+.env.local
+.env.*
 
-# Testing directories (indien aanwezig)
-__tests__/
-test-data/
+# Cache directories
+.cache/
+.node_cache/
 
-# ----------------------------
-# IDE & OS Files
-# ----------------------------
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files
 .vscode/
+.idea/
 *.swp
-*~
-
-# Logs and temporary files
-npm-debug.log*
-yarn-error.log*
-
-# ----------------------------
-# Old PHP Files (Optioneel, maar goed voor duidelijkheid)
-# ----------------------------
-# Indien u de oude PHP bestanden wilt 'vrijgeven' van tracking:
-# *.php
+*.swo
+```

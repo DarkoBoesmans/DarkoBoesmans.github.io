@@ -25,11 +25,17 @@ const {
 
     <SEO title={title} description={description} image={image} />
   </head>
-  <body class="min-h-screen antialiased">
+  <body class="min-h-screen antialiased bg-[color:var(--color-charcoal)]">
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Background Gradient - Radial design per spec -->
     <div
-      class="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(88,196,255,0.2),_transparent_42%),radial-gradient(circle_at_bottom_right,_rgba(244,114,182,0.12),_transparent_32%),linear-gradient(180deg,_#11141a_0%,_#090b0f_100%)]"
+      class="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(217,155,67,0.15),_transparent_42%),radial-gradient(circle_at_bottom_right,_rgba(122,79,46,0.12),_transparent_32%),linear-gradient(180deg,_#1a1816_0%,_#151311_100%)]"
     >
     </div>
-    <slot />
+    <main id="main-content">
+      <slot />
+    </main>
   </body>
 </html>
