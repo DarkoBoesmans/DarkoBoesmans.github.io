@@ -1,0 +1,165 @@
+---
+title: Healthcare Patient Portal
+description: A secure, accessible patient portal for a Belgian hospital network enabling appointment booking, medical records access, and telemedicine consultations.
+client: Hospital Group Flanders
+goal: Digitize patient interactions while maintaining strict GDPR compliance and ensuring accessibility for elderly and disabled users.
+outcome: 78% patient adoption rate within 6 months, 45% reduction in phone calls to reception, full WCAG 2.2 AAA compliance.
+challenge: Building trust with non-technical users, ensuring security without friction, supporting users aged 18-95 with varying digital literacy.
+results: 78% adoption, 45% call reduction, 92% patient satisfaction score, zero security incidents, AAA accessibility certification.
+research: Conducted 40 interviews across age groups, partnered with accessibility organizations, performed contextual inquiry in waiting rooms.
+tools:
+  - Astro
+  - TypeScript
+  - Tailwind CSS
+  - HL7 FHIR API
+  - WebAuthn
+  - Twilio Video
+solution: Created a progressive onboarding flow with guided tours, implemented passwordless authentication, designed large-touch targets and high-contrast modes for elderly users.
+link: https://example-hospital.be
+reflection: Healthcare UX is about empathy first. Every design decision impacts someone's health journey—there's no room for ego or trends.
+coverImage: null
+---
+
+## The Human Context
+
+Designing for healthcare isn't like designing for e-commerce or finance. The stakes are fundamentally different:
+
+- Users are often stressed, anxious, or in pain
+- Digital literacy varies dramatically (ages 18-95)
+- Mistakes can have serious health consequences
+- Privacy isn't a feature—it's a legal and ethical requirement
+
+### Research Process
+
+We spent weeks in hospital waiting rooms, observing and interviewing patients:
+
+> "I just want to know when my appointment is without calling and waiting on hold for 20 minutes."
+> — Maria, 67, arthritis patient
+
+This quote became our North Star: **reduce friction, increase clarity**.
+
+## Security & Accessibility Balance
+
+### Passwordless Authentication
+
+Traditional passwords create barriers for elderly users. We implemented WebAuthn:
+
+```typescript
+// Biometric authentication flow
+async function authenticatePatient(patientId: string) {
+  const challenge = await server.getChallenge(patientId);
+  
+  const credential = await navigator.credentials.get({
+    publicKey: {
+      challenge: challenge,
+      rpId: 'hospital.be',
+      userVerification: 'required',
+    },
+  });
+  
+  return server.verify(credential);
+}
+```
+
+Benefits:
+- No passwords to remember
+- Phishing-resistant
+- Works with fingerprint, face recognition, or device PIN
+- Falls back to SMS for users without biometric devices
+
+### GDPR by Design
+
+Every feature was built with privacy as a default:
+
+1. **Data Minimization**: Only collect what's strictly necessary
+2. **Explicit Consent**: Clear, granular consent dialogs
+3. **Right to Erasure**: One-click data export and deletion
+4. **Audit Logging**: Complete trail of data access
+
+## Accessibility Implementation
+
+Achieving WCAG 2.2 AAA required attention to every detail:
+
+### Typography for Low Vision
+
+```css
+/* Minimum 18px base size, scalable to 200% */
+:root {
+  --text-base: clamp(1.125rem, 2vw, 1.25rem);
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --text-base: 1.25rem;
+    --color-text: #000000;
+    --color-background: #ffffff;
+  }
+}
+```
+
+### Cognitive Load Reduction
+
+- Progressive disclosure: Show only essential information first
+- Consistent navigation patterns across all pages
+- Plain language (B1 reading level) instead of medical jargon
+- Confirmation dialogs for critical actions
+
+### Motor Impairment Support
+
+- All touch targets minimum 60×60px (exceeds 44px requirement)
+- Keyboard navigation for all interactive elements
+- Voice control compatibility testing
+- Extended timeout periods for form completion
+
+## Technical Architecture
+
+### FHIR Integration
+
+```typescript
+// HL7 FHIR API client for medical records
+class FhirClient {
+  async getPatientRecords(patientId: string) {
+    const response = await fetch(`/fhir/Patient/${patientId}`, {
+      headers: {
+        'Authorization': `Bearer ${await getAuthToken()}`,
+        'Accept': 'application/fhir+json',
+      },
+    });
+    
+    return response.json();
+  }
+  
+  async bookAppointment(appointment: Appointment) {
+    // Validate against available slots
+    // Check insurance coverage
+    // Send confirmation via preferred channel
+  }
+}
+```
+
+### Telemedicine Feature
+
+Built on Twilio Video with custom accessibility enhancements:
+
+- Real-time captioning for hearing-impaired users
+- Screen reader announcements for participant changes
+- High-contrast UI controls
+- Bandwidth adaptation for rural areas
+
+## Measurable Impact
+
+| Metric | Before | After (6 months) |
+|--------|--------|------------------|
+| Phone Calls to Reception | 2,400/week | 1,320/week (-45%) |
+| Patient Satisfaction | 68% | 92% |
+| No-Show Rate | 18% | 9% |
+| Portal Adoption | 0% | 78% |
+| Accessibility Score | N/A | 100% AAA |
+
+## Reflections
+
+This project taught me that **inclusive design isn't charity—it's good design**. Features we built for elderly users (clear typography, simple navigation, explicit feedback) improved the experience for everyone.
+
+The biggest challenge wasn't technical—it was earning trust. Patients needed to feel confident that their sensitive health data was secure. By being transparent about data usage and giving users complete control, we achieved 78% adoption without a single marketing campaign.
+
+Healthcare technology has the power to reduce inequality in health outcomes. That responsibility shapes how I approach every design decision.

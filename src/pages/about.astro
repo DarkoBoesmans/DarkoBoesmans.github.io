@@ -4,26 +4,177 @@ import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
 ---
 
-<BaseLayout title="About | Darko Boesmans" description="About Darko Boesmans, junior-to-medior front-end developer and web designer.">
+<BaseLayout title="About | Darko Boesmans" description="Learn about Darko Boesmans, a Design Engineer & Front-End Developer based in Lebbeke, Belgium, specializing in accessible, performant web experiences.">
   <Header active="about" />
 
   <main class="mx-auto max-w-5xl px-6 py-16 lg:px-8">
-    <section class="rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-glow backdrop-blur-xl">
+    <!-- Hero Section -->
+    <section class="rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-glow backdrop-blur-xl" data-reveal>
       <p class="text-xs uppercase tracking-[0.35em] text-white/45">About</p>
-      <h1 class="mt-4 font-display text-4xl text-white sm:text-5xl">About me</h1>
-      <div class="mt-6 space-y-4 text-sm leading-7 text-white/72">
-        <p>
-          Hi! I’m Darko, an enthusiastic front-end developer and web designer who likes building websites that feel
-          intentional, fast, and easy to maintain.
-        </p>
-        <p>
-          I care about the full delivery chain: interface design, content structure, accessibility, and the systems
-          that keep a site adaptable over time.
-        </p>
-        <p>
-          Outside of work, I stay active through Chiro, hiking, and other activities that keep me curious and disciplined.
-        </p>
+      <h1 class="mt-4 font-display text-4xl text-white sm:text-5xl">Lebbeke, Belgium — 2024</h1>
+      
+      <div class="mt-8 grid gap-8 lg:grid-cols-[1fr_2fr]">
+        <!-- Portrait -->
+        <div class="relative aspect-[4/5] overflow-hidden rounded-2xl border border-white/10 shadow-xl">
+          <img 
+            src="/profile-pic.jpg" 
+            alt="Darko Boesmans portrait" 
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+        </div>
+        
+        <!-- Bio -->
+        <div class="space-y-6 text-sm leading-7 text-white/72">
+          <p class="body-large">
+            <span class="font-display text-4xl font-bold text-[color:var(--color-copper)] float-left mr-2 mt-[-8px] leading-none">H</span>
+            i! I'm Darko, an enthusiastic front-end developer and web designer who likes building websites that feel intentional, fast, and easy to maintain.
+          </p>
+          <p>
+            I care about the full delivery chain: interface design, content structure, accessibility, and the systems that keep a site adaptable over time. My approach combines editorial sophistication with modern interaction design—think 1960s executive aesthetics meeting Apple-level craft.
+          </p>
+          <p>
+            With expertise in Astro, TypeScript, Tailwind CSS, and GSAP, I build component-driven systems that scale. I believe performance is a feature, not an afterthought, and that inclusive design benefits everyone.
+          </p>
+          <p>
+            Outside of work, I stay active through Chiro, hiking, and other activities that keep me curious and disciplined. I'm based in Lebbeke, Belgium, and available for freelance projects and full-time opportunities.
+          </p>
+          
+          <!-- Quick Facts -->
+          <div class="mt-8 grid grid-cols-2 gap-4 border-t border-white/10 pt-6">
+            <div>
+              <h3 class="text-xs font-semibold uppercase tracking-wider text-white/60">Location</h3>
+              <p class="mt-1 text-sm text-white">Lebbeke, Belgium 🇧🇪</p>
+            </div>
+            <div>
+              <h3 class="text-xs font-semibold uppercase tracking-wider text-white/60">Availability</h3>
+              <p class="mt-1 text-sm text-[color:var(--color-copper)]">Open for opportunities</p>
+            </div>
+            <div>
+              <h3 class="text-xs font-semibold uppercase tracking-wider text-white/60">Experience</h3>
+              <p class="mt-1 text-sm text-white">Junior-to-Midior</p>
+            </div>
+            <div>
+              <h3 class="text-xs font-semibold uppercase tracking-wider text-white/60">Response Time</h3>
+              <p class="mt-1 text-sm text-white">Within 24 hours</p>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
+
+    <!-- Skills Matrix -->
+    <section class="mt-8 rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-glow backdrop-blur-xl" data-reveal>
+      <h2 class="font-display text-2xl text-white">Skills & Expertise</h2>
+      
+      <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <!-- Front-End Development -->
+        <div class="rounded-xl border border-white/10 bg-white/5 p-5">
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-[color:var(--color-copper)]">Front-End Development</h3>
+          <ul class="mt-3 space-y-2 text-sm text-white/72">
+            <li class="flex items-center justify-between">
+              <span>Astro / SSG</span>
+              <span class="text-[color:var(--color-copper)]">Expert</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>TypeScript</span>
+              <span class="text-[color:var(--color-copper)]">Advanced</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Tailwind CSS</span>
+              <span class="text-[color:var(--color-copper)]">Expert</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>GSAP Animations</span>
+              <span class="text-[color:var(--color-copper)]">Advanced</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Design & UX -->
+        <div class="rounded-xl border border-white/10 bg-white/5 p-5">
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-[color:var(--color-copper)]">Design & UX</h3>
+          <ul class="mt-3 space-y-2 text-sm text-white/72">
+            <li class="flex items-center justify-between">
+              <span>UI Design Systems</span>
+              <span class="text-[color:var(--color-copper)]">Advanced</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Accessibility (WCAG)</span>
+              <span class="text-[color:var(--color-copper)]">Expert</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Responsive Design</span>
+              <span class="text-[color:var(--color-copper)]">Expert</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>User Research</span>
+              <span class="text-[color:var(--color-copper)]">Intermediate</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Tools & Workflow -->
+        <div class="rounded-xl border border-white/10 bg-white/5 p-5">
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-[color:var(--color-copper)]">Tools & Workflow</h3>
+          <ul class="mt-3 space-y-2 text-sm text-white/72">
+            <li class="flex items-center justify-between">
+              <span>Git / Version Control</span>
+              <span class="text-[color:var(--color-copper)]">Advanced</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Keystatic CMS</span>
+              <span class="text-[color:var(--color-copper)]">Advanced</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Bun / npm</span>
+              <span class="text-[color:var(--color-copper)]">Advanced</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Performance Optimization</span>
+              <span class="text-[color:var(--color-copper)]">Advanced</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hobbies & Interests -->
+    <section class="mt-8 rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-glow backdrop-blur-xl" data-reveal>
+      <h2 class="font-display text-2xl text-white">Beyond Code</h2>
+      <div class="mt-6 grid gap-6 sm:grid-cols-3">
+        <div class="rounded-xl border border-white/10 bg-white/5 p-5 text-center">
+          <div class="text-4xl mb-3">🏕️</div>
+          <h3 class="text-sm font-semibold text-white">Chiro</h3>
+          <p class="mt-2 text-xs text-white/60">Youth organization leadership and community building</p>
+        </div>
+        <div class="rounded-xl border border-white/10 bg-white/5 p-5 text-center">
+          <div class="text-4xl mb-3">🥾</div>
+          <h3 class="text-sm font-semibold text-white">Hiking</h3>
+          <p class="mt-2 text-xs text-white/60">Exploring Belgian trails and nature reserves</p>
+        </div>
+        <div class="rounded-xl border border-white/10 bg-white/5 p-5 text-center">
+          <div class="text-4xl mb-3">📚</div>
+          <h3 class="text-sm font-semibold text-white">Continuous Learning</h3>
+          <p class="mt-2 text-xs text-white/60">Staying current with web technologies and design trends</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="mt-8" data-reveal>
+      <a 
+        href="/#contact" 
+        class="group flex items-center justify-between rounded-2xl bg-[color:var(--color-copper)] p-6 text-[color:var(--color-charcoal)] transition-all hover:bg-[color:var(--color-copper)]/90 hover:shadow-lg spring-smooth"
+      >
+        <div>
+          <h3 class="font-display text-xl font-bold">Let's work together</h3>
+          <p class="mt-1 text-sm font-medium opacity-80">Available for freelance and full-time opportunities</p>
+        </div>
+        <svg class="h-6 w-6 transform transition-transform duration-300 group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+      </a>
     </section>
   </main>
 

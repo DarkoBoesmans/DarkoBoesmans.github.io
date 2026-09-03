@@ -1,0 +1,113 @@
+---
+title: Financial Dashboard Application
+description: A real-time financial analytics dashboard for a Belgian investment firm with complex data visualization requirements.
+client: InvestTech Solutions
+goal: Create an intuitive interface for complex financial data while maintaining sub-second update latency for real-time market data.
+outcome: Delivered a performant dashboard handling 10,000+ data points per second with 99.9% uptime and positive user feedback from traders.
+challenge: Balancing information density with clarity, ensuring accessibility for colorblind users, and maintaining performance with real-time WebSocket streams.
+results: 40% faster decision-making, 60% reduction in user errors, <100ms data refresh latency, full WCAG 2.2 AA compliance.
+research: Shadowed 8 traders for 3 weeks, analyzed 2 years of support tickets, conducted usability testing with 15 participants including colorblind users.
+tools:
+  - Astro
+  - TypeScript
+  - D3.js
+  - Tailwind CSS
+  - WebSocket API
+  - Chart.js
+solution: Developed a modular widget system with lazy loading, implemented virtual scrolling for large datasets, and created custom accessible chart components with screen reader support.
+link: https://example-investtech.be
+reflection: Working with domain experts taught me that the best interfaces disappear—traders shouldn't think about the UI, they should think about the market.
+coverImage: null
+---
+
+## Understanding the Domain
+
+Financial trading dashboards are among the most demanding interfaces to design. Users need to:
+
+- Process vast amounts of real-time data
+- Make split-second decisions under pressure
+- Monitor multiple data streams simultaneously
+- Maintain accuracy despite cognitive load
+
+### User Research Insights
+
+Through ethnographic research with traders, we discovered:
+
+> "I don't need prettier charts. I need to know *now* if my position changed."
+
+This insight drove our entire design philosophy: **clarity over beauty, speed over features**.
+
+## Technical Architecture
+
+### Real-Time Data Pipeline
+
+```typescript
+// WebSocket handler with automatic reconnection
+class MarketDataStream {
+  private ws: WebSocket | null = null;
+  private reconnectAttempts = 0;
+  
+  connect() {
+    this.ws = new WebSocket('wss://api.investtech.be/stream');
+    this.ws.onmessage = (event) => this.handleMessage(event);
+    this.ws.onclose = () => this.scheduleReconnect();
+  }
+  
+  private handleMessage(event: MessageEvent) {
+    const data = JSON.parse(event.data);
+    // Update store with minimal re-renders
+    store.batchUpdate(data);
+  }
+}
+```
+
+### Performance Optimizations
+
+1. **Virtual Scrolling**: Only render visible rows in data tables
+2. **Memoization**: Cache expensive calculations using WeakMap
+3. **Web Workers**: Offload chart rendering to background threads
+4. **Delta Updates**: Only transmit changed values over WebSocket
+
+## Accessibility Implementation
+
+Creating accessible data visualizations required innovative solutions:
+
+### Screen Reader Support
+
+```html
+<!-- Accessible chart with textual description -->
+<div role="img" aria-labelledby="chart-title" aria-describedby="chart-desc">
+  <svg aria-hidden="true">...</svg>
+  <div id="chart-desc" class="sr-only">
+    Line chart showing portfolio value from €10,000 to €12,500 over 6 months,
+    with peak at €13,200 on March 15th and lowest point at €9,800 on January 8th.
+  </div>
+</div>
+```
+
+### Colorblind-Friendly Palette
+
+We tested all visualizations with simulators and actual colorblind users:
+
+- Avoided red/green distinctions
+- Used patterns and shapes as secondary encodings
+- Provided high-contrast mode toggle
+
+## Results
+
+The dashboard now serves 50+ traders daily with:
+
+| Metric | Target | Achieved |
+|--------|--------|----------|
+| Data Refresh Latency | <200ms | 87ms avg |
+| System Uptime | 99.5% | 99.94% |
+| User Error Rate | <5% | 2.1% |
+| WCAG Compliance | AA | AA + some AAA |
+
+## Key Learnings
+
+1. **Domain knowledge is crucial**: You can't design for traders without understanding trading
+2. **Performance is non-negotiable**: Milliseconds matter in financial contexts
+3. **Accessibility benefits everyone**: Features designed for disabilities often improve UX for all users
+
+This project stretched my skills in data visualization, real-time systems, and inclusive design—areas I continue to explore in my work.
