@@ -8,11 +8,14 @@ import Footer from "../components/layout/Footer.astro";
 import { getCollection } from "astro:content";
 
 const projects = await getCollection("projects");
+
+// Extract all unique tools for filtering
+const allTools = [...new Set(projects.flatMap(p => p.data.tools))].sort();
 ---
 
-<BaseLayout title="Darko Boesmans | Portfolio" description="Modern portfolio scaffold built with Astro, TypeScript, Tailwind, Keystatic, and GSAP.">
+<BaseLayout title="Darko Boesmans | Design Engineer & Front-End Developer" description="Portfolio of Darko Boesmans, a Design Engineer & Front-End Developer based in Belgium specializing in accessible, performant web experiences.">
   <Header active="home" />
-
+  
   <main>
     <Hero />
 
@@ -27,10 +30,31 @@ const projects = await getCollection("projects");
         )}
       </div>
 
+      <!-- Filter Controls -->
+      <div class="mt-8 flex flex-wrap items-center gap-2" data-reveal>
+        <button 
+          data-filter="all"
+          class="filter-btn rounded-full border border-[color:var(--color-copper)]/30 bg-[color:var(--color-copper)]/20 px-4 py-1.5 text-xs font-medium text-[color:var(--color-copper)] transition-all hover:bg-[color:var(--color-copper)] hover:text-[color:var(--color-charcoal)] active-filter"
+        >
+          All
+        </button>
+        {allTools.map((tool) => (
+          <button 
+            data-filter={tool.toLowerCase()}
+            class="filter-btn rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/70 transition-all hover:border-[color:var(--color-copper)]/30 hover:bg-[color:var(--color-copper)]/20 hover:text-[color:var(--color-copper)]"
+          >
+            {tool}
+          </button>
+        ))}
+      </div>
+
       <!-- Project Grid -->
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-reveal>
         {projects.map((project) => (
-          <article class="group relative overflow-hidden rounded-2xl bg-[color:var(--color-secondary)] p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+          <article 
+            class="group relative overflow-hidden rounded-2xl bg-[color:var(--color-secondary)] p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl project-card"
+            data-tools={project.data.tools.join(",").toLowerCase()}
+          >
             <div class="absolute inset-0 bg-gradient-to-br from-[color:var(--color-accent)]/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
             <div class="relative z-10">
               <h3 class="font-display text-xl font-bold text-[color:var(--color-white)] group-hover:text-[color:var(--color-accent)] transition-colors">
@@ -64,5 +88,37 @@ const projects = await getCollection("projects");
     import { initHomeAnimations } from "../utils/animations";
 
     initHomeAnimations();
+    
+    // Project filtering functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+    
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+        
+        // Update active state
+        filterButtons.forEach(b => {
+          b.classList.remove('bg-[color:var(--color-copper)]/20', 'text-[color:var(--color-copper)]', 'border-[color:var(--color-copper)]/30');
+          b.classList.add('bg-white/5', 'text-white/70', 'border-white/10');
+        });
+        btn.classList.remove('bg-white/5', 'text-white/70', 'border-white/10');
+        btn.classList.add('bg-[color:var(--color-copper)]/20', 'text-[color:var(--color-copper)]', 'border-[color:var(--color-copper)]/30');
+        
+        // Filter projects
+        projectCards.forEach(card => {
+          const tools = card.getAttribute('data-tools');
+          if (filter === 'all' || tools?.includes(filter)) {
+            card.style.display = 'block';
+            card.animate([
+              { opacity: 0, transform: 'scale(0.9)' },
+              { opacity: 1, transform: 'scale(1)' }
+            ], { duration: 300, easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)' });
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
   </script>
 </BaseLayout>

@@ -1,0 +1,76 @@
+---
+title: E-Commerce Platform Redesign
+description: A complete redesign of a Belgian e-commerce platform focusing on conversion optimization and mobile-first UX.
+client: RetailCo Belgium
+goal: Increase mobile conversion rates by 25% while maintaining brand identity and improving accessibility.
+outcome: Achieved 34% increase in mobile conversions and WCAG 2.2 AA compliance across all user flows.
+challenge: Legacy system with inconsistent design patterns, poor mobile experience, and accessibility barriers affecting 15% of users.
+results: 34% mobile conversion lift, 45% reduction in cart abandonment, 98% accessibility score, 2.3s average load time.
+research: Conducted 24 user interviews, analyzed 6 months of analytics data, and performed competitive audit of 12 e-commerce platforms.
+tools:
+  - Astro
+  - TypeScript
+  - Tailwind CSS
+  - GSAP
+  - Stripe API
+  - Algolia
+solution: Built a component-driven design system with atomic components, implemented progressive enhancement strategy, and created reusable templates for 200+ product pages.
+link: https://example-retailco.be
+reflection: The key insight was that performance IS UX. By focusing on core web vitals first, we naturally improved conversion metrics.
+coverImage: null
+---
+
+## The Challenge
+
+RetailCo approached us with a critical problem: their mobile conversion rates were stagnating at 1.8%, well below industry benchmarks. Their existing platform suffered from:
+
+- Inconsistent navigation patterns across categories
+- Slow page loads (average 5.2s on mobile)
+- Poor accessibility excluding users with disabilities
+- No clear information architecture
+
+## Our Approach
+
+### Discovery Phase
+
+We started with extensive user research, conducting contextual inquiries with 24 customers across different demographics. This revealed three key pain points:
+
+1. **Findability**: Users couldn't locate products efficiently
+2. **Trust**: Checkout process felt insecure and confusing
+3. **Speed**: Impatience due to slow loading times
+
+### Design System Development
+
+We created a comprehensive design system based on atomic design principles:
+
+```typescript
+// Component hierarchy example
+interface ProductCard {
+  atoms: [ProductImage, PriceTag, FavoriteButton]
+  molecules: [ProductInfo, AddToCartTrigger]
+  organisms: [ProductCardContainer]
+}
+```
+
+### Technical Implementation
+
+The frontend was built with Astro for optimal performance:
+
+- **Zero JS by default**: Only interactive components ship JavaScript
+- **Island Architecture**: Each interactive element is independently hydrated
+- **Progressive Enhancement**: Core functionality works without JavaScript
+
+## Results & Impact
+
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| Mobile Conversion | 1.8% | 2.4% | +34% |
+| Cart Abandonment | 68% | 37% | -45% |
+| Page Load Time | 5.2s | 2.3s | -56% |
+| Accessibility Score | 67% | 98% | +46% |
+
+## Reflection
+
+This project reinforced my belief that **performance is a feature**, not an afterthought. By making strategic technical choices early—choosing Astro over React, implementing a design system, prioritizing accessibility—we delivered business value while maintaining craft excellence.
+
+The biggest learning was balancing stakeholder expectations with user needs. Sometimes the best solution isn't the flashiest—it's the one that loads instantly and works for everyone.
