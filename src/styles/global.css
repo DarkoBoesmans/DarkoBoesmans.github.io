@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Space+Grotesk:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,28 +6,32 @@
 
 @layer base {
   :root {
-    --color-white: #f4f1ea;
-    --color-black: #151311;
-    --color-primary: #235347;
-    --color-secondary: #7a4f2e;
-    --color-accent: #d99b43;
+    /* Design System Colors - Mad Men Editorial × Apple Fluid Craft */
+    --color-cream: #F4F1EA;        /* Base Warmth - Page background, card interiors */
+    --color-forest: #235347;       /* Dominant Depth - Large sections, hero backgrounds */
+    --color-cognac: #7A4F2E;       /* Secondary Warmth - Project cards, containers */
+    --color-copper: #D99B43;       /* Accent Spark - CTAs, active states */
+    --color-charcoal: #151311;     /* Technical Border - Fine lines, borders */
+    
+    /* Legacy aliases for backward compatibility */
+    --color-white: var(--color-cream);
+    --color-black: var(--color-charcoal);
+    --color-primary: var(--color-forest);
+    --color-secondary: var(--color-cognac);
+    --color-accent: var(--color-copper);
 
+    /* Typography */
     --font-sans: "Space Grotesk", sans-serif;
     --font-display: "Fraunces", serif;
 
-    --font-size-smaller: 14px;
-    --font-size-small: 17px;
-    --font-size-p: 20px;
-    --font-size-h10: 24px;
-    --font-size-h9: 29px;
-    --font-size-h8: 35px;
-    --font-size-h7: 41px;
-    --font-size-h6: 50px;
-    --font-size-h5: 60px;
-    --font-size-h4: 72px;
-    --font-size-h3: 86px;
-    --font-size-h2: 103px;
-    --font-size-h1: 124px;
+    /* Type Scale - Desktop */
+    --text-display: clamp(3rem, 6vw, 5rem);
+    --text-h1: clamp(2.5rem, 5vw, 4rem);
+    --text-h2: clamp(2rem, 4vw, 3rem);
+    --text-h3: 1.75rem;
+    --text-body-lg: 1.25rem;
+    --text-body: 1rem;
+    --text-caption: 0.875rem;
   }
 
   html {
@@ -36,23 +40,182 @@
 
   body {
     margin: 0;
-    background-color: var(--color-black);
-    color: var(--color-white);
+    background-color: var(--color-charcoal);
+    color: var(--color-cream);
     font-family: var(--font-sans);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
+  /* Selection */
   ::selection {
-    background-color: rgba(103, 232, 249, 0.25);
-    color: var(--color-white);
+    background-color: rgba(217, 155, 67, 0.3);
+    color: var(--color-cream);
   }
 
+  /* Links */
   a {
     color: inherit;
     text-decoration: none;
+    transition: color 0.2s ease;
   }
 
+  /* Images */
   img {
     max-width: 100%;
     display: block;
+  }
+
+  /* Accessibility - Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Accessibility - Reduced Transparency */
+  @media (prefers-reduced-transparency: reduce) {
+    .backdrop-blur-xl,
+    .backdrop-blur-md,
+    .backdrop-blur-sm {
+      backdrop-filter: none;
+    }
+  }
+
+  /* Focus Visible - Copper Gold Outline */
+  :focus-visible {
+    outline: 2px solid var(--color-copper);
+    outline-offset: 2px;
+  }
+
+  /* Skip Link */
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--color-copper);
+    color: var(--color-charcoal);
+    padding: 8px 16px;
+    z-index: 100;
+    transition: top 0.2s;
+  }
+  
+  .skip-link:focus {
+    top: 0;
+  }
+}
+
+@layer components {
+  /* Glassmorphism Cards - Executive Desk Layers */
+  .glass-card {
+    background: rgba(244, 241, 234, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(217, 155, 67, 0.2);
+    box-shadow: 
+      0 4px 6px rgba(21, 19, 17, 0.1),
+      0 10px 15px rgba(21, 19, 17, 0.15);
+  }
+
+  .glass-card-interactive {
+    background: rgba(244, 241, 234, 0.85);
+    backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(217, 155, 67, 0.2);
+    box-shadow: 
+      0 4px 6px rgba(21, 19, 17, 0.1),
+      0 10px 15px rgba(21, 19, 17, 0.15);
+    transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.4s ease;
+  }
+
+  .glass-card-interactive:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+      0 8px 12px rgba(21, 19, 17, 0.15),
+      0 16px 24px rgba(21, 19, 17, 0.2);
+  }
+
+  /* Buttons - Copper CTA */
+  .btn-primary {
+    background: var(--color-copper);
+    color: var(--color-charcoal);
+    font-family: var(--font-display);
+    font-weight: 600;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(217, 155, 67, 0.3);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.97);
+  }
+
+  /* Typography Hierarchy */
+  .display-text {
+    font-family: var(--font-display);
+    font-size: var(--text-display);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+
+  .heading-1 {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+  }
+
+  .heading-2 {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+  }
+
+  .heading-3 {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    line-height: 1.2;
+    font-weight: 500;
+  }
+
+  .body-large {
+    font-size: var(--text-body-lg);
+    line-height: 1.6;
+  }
+
+  .body {
+    font-size: var(--text-body);
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+  }
+
+  .caption {
+    font-size: var(--text-caption);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+  }
+}
+
+@layer utilities {
+  /* Spring Animation Utilities */
+  .spring-smooth {
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .spring-bounce {
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1.2);
   }
 }

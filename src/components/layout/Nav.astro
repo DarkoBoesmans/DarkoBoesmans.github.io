@@ -12,18 +12,19 @@ const links = [
 ];
 ---
 
-<nav class="flex items-center justify-between gap-6 rounded-full border border-white/10 bg-white/5 px-5 py-3 shadow-glow backdrop-blur-xl">
-  <a href="/" class="font-display text-sm font-bold uppercase tracking-[0.35em] text-white/90">
+<nav class="flex items-center justify-between gap-6 rounded-full border border-white/10 bg-[color:var(--color-cream)]/10 px-5 py-3 shadow-glow backdrop-blur-xl">
+  <a href="/" class="font-display text-sm font-bold uppercase tracking-[0.35em] text-[color:var(--color-cream)]/90 hover:text-[color:var(--color-copper)] transition-colors" aria-label="Darko Boesmans - Home">
     Darko Boesmans
   </a>
-  <div class="flex items-center gap-2 text-sm text-white/70">
+  <div class="flex items-center gap-2 text-sm text-[color:var(--color-cream)]/70">
     {links.map((link) => (
       <a
         href={link.href}
         class:list={[
-          "rounded-full px-3 py-2 transition-colors hover:text-white",
-          active === link.key && "bg-white/10 text-white",
+          "rounded-full px-3 py-2 transition-all duration-300 hover:text-[color:var(--color-copper)] spring-smooth",
+          active === link.key && "bg-[color:var(--color-copper)]/20 text-[color:var(--color-copper)] font-semibold",
         ]}
+        aria-current={active === link.key ? "page" : undefined}
       >
         {link.label}
       </a>
