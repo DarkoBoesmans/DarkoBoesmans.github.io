@@ -1,19 +1,13 @@
-```
-# Editor/IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
-*.tmp
-
-# Logs and temp files
-*.log
-
-# Environment files
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 .env
 .env.local
-*.env.*
-
-# Dependency directories
-node_modules/
-```
+.env.*
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+.vscode/
+.idea/
