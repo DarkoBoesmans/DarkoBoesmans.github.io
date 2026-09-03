@@ -9,7 +9,15 @@
     "preview": "astro preview",
     "check": "astro check",
     "lint": "biome check .",
-    "format": "biome check --write ."
+    "format": "biome check --write .",
+    "keystatic": "keystatic",
+    "cms": "keystatic",
+    "clean": "rm -rf dist/ .astro/ node_modules/",
+    "reinstall": "npm run clean && npm install",
+    "typecheck": "tsc --noEmit",
+    "validate": "npm run check && npm run lint",
+    "prebuild": "npm run validate",
+    "postbuild": "echo 'Build complete! Preview with: npm run preview'"
   },
   "dependencies": {
     "@astrojs/mdx": "7.0.5",
