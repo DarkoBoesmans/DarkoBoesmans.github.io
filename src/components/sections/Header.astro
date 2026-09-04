@@ -4,122 +4,21 @@ interface Props {
 }
 
 const { profileImage = "/profile-pic.jpg" } = Astro.props;
+
+import Right from './header/Right.astro';
+import Left from './header/Left.astro';
 ---
 
 <div class="w-full h-full flex flex-col">
   
-  <!-- Main Title with Line Break - Above Grid -->
-  <div class="mb-6 lg:mb-8" data-reveal>
-    <h1 class="font-display text-[clamp(2.5rem,5vw,4rem)] font-extrabold tracking-tight leading-[1.05] text-[color:var(--color-forest)]">
-      Design Engineer &amp;<br />Front-End Developer
-    </h1>
-  </div>
-
   <!-- Golden Ratio Split: Left (smaller ~38.2%) | Right (larger ~61.8%) -->
   <div class="grid grid-cols-1 gap-4 lg:gap-[1vw] lg:grid-cols-[0.382fr_0.618fr] flex-1 min-h-0">
     
-    <!-- LEFT COLUMN: Profile + 3 stacked cells -->
-    <div class="flex flex-col gap-4 lg:gap-[1vw] min-h-0">
-      
-      <!-- Profile Card -->
-      <div class="relative flex flex-col justify-between overflow-hidden rounded-2xl bg-[color:var(--color-cognac)] p-4 sm:p-6 text-[color:var(--color-cream)] shadow-xl transition-all duration-300 hover:shadow-2xl flex-shrink-0">
-        
-        <!-- About Me Tab -->
-        <a href="/about" class="absolute top-0 left-0 rounded-br-xl bg-[color:var(--color-charcoal)]/30 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-widest text-[color:var(--color-cream)]/90 backdrop-blur-md transition-colors hover:bg-[color:var(--color-copper)]/80 hover:text-[color:var(--color-charcoal)]">
-          About Me
-        </a>
-
-        <!-- Profile Photo -->
-        <div class="relative mt-8 flex flex-col items-center text-center">
-          <button class="relative z-10 h-24 w-24 sm:h-28 sm:w-28 overflow-hidden rounded-full border-2 border-[color:var(--color-copper)] shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer group" aria-label="View profile details">
-            <img 
-              src={profileImage} 
-              alt="Darko Boesmans - Design Engineer & Front-End Developer" 
-              class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
-              loading="lazy"
-            />
-          </button>
-
-          <h2 class="mt-4 font-display text-xl sm:text-2xl font-bold tracking-tight">
-            DARKO BOESMANS
-          </h2>
-          <p class="mt-1 text-xs sm:text-sm text-[color:var(--color-cream)]/75 font-medium">
-            Lebbeke, Belgium
-          </p>
-        </div>
-
-        <!-- Email Link -->
-        <div class="mt-4 border-t border-white/10 pt-4 text-center">
-          <a 
-            href="mailto:info@darkoboesmans.be" 
-            class="text-xs sm:text-sm font-medium underline underline-offset-4 hover:text-[color:var(--color-copper)] transition-colors"
-          >
-            info@darkoboesmans.be
-          </a>
-        </div>
-      </div>
-
-      <!-- Left Column Bento: 3 stacked cells -->
-      <div class="grid grid-rows-3 gap-4 lg:gap-[1vw] flex-1 min-h-0">
-        
-        <!-- 1. Left Upper: Announcement (Green Border, White Fill, Single Row) -->
-        <div class="row-span-1 border-2 border-[color:var(--color-forest)] bg-[color:var(--color-cream)] rounded-xl p-3 sm:p-4 flex items-center justify-center transition-all duration-300 hover:shadow-md">
-          <span class="font-display font-semibold text-sm sm:text-base text-[color:var(--color-forest)] text-center capitalize">
-            Available for new projects
-          </span>
-        </div>
-
-        <!-- 2. Left Middle: Quick Glance (Brown Fill, White Text, Two Rows) -->
-        <div class="row-span-1 bg-[color:var(--color-cognac)] text-[color:var(--color-cream)] rounded-xl p-3 sm:p-4 flex flex-col justify-center transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-          <span class="font-display font-semibold text-sm sm:text-base leading-none mb-1 capitalize">Creative</span>
-          <span class="font-body text-xs sm:text-sm opacity-90 leading-none">Digital solutions</span>
-        </div>
-
-        <!-- 3. Left Bottom: Link (Yellow Fill, Green Text, Single Row) -->
-        <a href="#" class="row-span-1 bg-[color:var(--color-copper)] text-[color:var(--color-forest)] rounded-xl p-3 sm:p-4 flex items-center justify-center transition-all duration-300 hover:brightness-110">
-          <span class="font-display font-semibold text-sm sm:text-base capitalize">Stats for nerds</span>
-        </a>
-      </div>
-    </div>
-
-    <!-- RIGHT COLUMN: 2x3 Grid (2 columns, 3 rows) -->
-    <div class="grid grid-cols-2 grid-rows-3 gap-4 lg:gap-[1vw] min-h-0">
-      
-      <!-- 4. Middle Top: Quick Glance (Brown Fill, White Text, Two Rows) -->
-      <div class="col-span-1 row-span-1 bg-[color:var(--color-cognac)] text-[color:var(--color-cream)] rounded-xl p-3 sm:p-4 flex flex-col justify-center transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-        <span class="font-display font-semibold text-sm sm:text-base leading-none mb-1 capitalize">Front end</span>
-        <span class="font-body text-xs sm:text-sm opacity-90 leading-none">Development</span>
-      </div>
-
-      <!-- 5. Middle Middle: Link (Yellow Fill, Green Text, Single Row) -->
-      <a href="#work" class="col-span-1 row-span-1 bg-[color:var(--color-copper)] text-[color:var(--color-forest)] rounded-xl p-3 sm:p-4 flex items-center justify-center transition-all duration-300 hover:brightness-110">
-        <span class="font-display font-semibold text-sm sm:text-base capitalize">My work</span>
-      </a>
-
-      <!-- 6. Middle Bottom: Split Icons (Black Fill, White Icons) -->
-      <div class="col-span-1 row-span-1 bg-[color:var(--color-charcoal)] rounded-xl flex overflow-hidden">
-        <a href="https://github.com/DarkoBoesmans" target="_blank" rel="noopener noreferrer" class="flex-1 flex items-center justify-center text-[color:var(--color-cream)] hover:bg-[color:var(--color-cream)]/10 transition-colors">
-          <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.927 0-1.088.39-1.979 1.029-2.668-.102-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.689 1.028 1.58 1.028 2.668 0 3.825-2.339 4.673-4.566 4.92.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
-        </a>
-        <a href="https://linkedin.com/in/darkoboesmans" target="_blank" rel="noopener noreferrer" class="flex-1 flex items-center justify-center text-[color:var(--color-cream)] hover:bg-[color:var(--color-cream)]/10 transition-colors border-l border-[color:var(--color-cream)]/20">
-          <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"/></svg>
-        </a>
-      </div>
-
-      <!-- 7. Top Right: Current Obsessions (Spans 2 rows, Green Border, White Fill, Two Rows Text) -->
-      <div class="col-span-1 row-span-2 border-2 border-[color:var(--color-forest)] bg-[color:var(--color-cream)] rounded-xl p-4 sm:p-6 flex flex-col justify-center transition-all duration-300 hover:shadow-md">
-        <span class="font-display font-semibold text-lg sm:text-xl text-[color:var(--color-forest)] mb-3 capitalize">Current Obsessions</span>
-        <p class="font-body text-sm sm:text-base text-[color:var(--color-forest)] leading-relaxed">
-          Using Ollama to train local AI stack.<br/>
-          Making my own server to move away from subscriptions
-        </p>
-      </div>
-
-      <!-- 8. Bottom Right: CTA (Green Fill, White Text) -->
-      <a href="#contact" class="col-span-1 row-span-1 bg-[color:var(--color-forest)] text-[color:var(--color-cream)] rounded-xl p-4 sm:p-6 flex items-center justify-center transition-all duration-300 hover:bg-[color:var(--color-forest)]/90 shadow-lg">
-        <span class="font-display font-semibold text-lg sm:text-xl capitalize">Contact me</span>
-      </a>
-    </div>
-
+    <!-- LEFT COLUMN -->
+    <Left profileImage={profileImage} />
+    
+    <!-- RIGHT COLUMN -->
+    <Right profileImage={profileImage} />
+    
   </div>
 </div>

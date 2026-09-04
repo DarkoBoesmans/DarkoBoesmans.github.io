@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "client": {
+      "type": "string"
+    },
+    "goal": {
+      "type": "string"
+    },
+    "outcome": {
+      "type": "string"
+    },
+    "challenge": {
+      "type": "string"
+    },
+    "results": {
+      "type": "string"
+    },
+    "research": {
+      "type": "string"
+    },
+    "tools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "solution": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string",
+      "format": "uri"
+    },
+    "reflection": {
+      "type": "string"
+    },
+    "coverImage": {
+      "type": "string"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "client",
+    "goal",
+    "outcome",
+    "challenge",
+    "results",
+    "research",
+    "tools",
+    "solution",
+    "link",
+    "reflection"
+  ]
+}
