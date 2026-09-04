@@ -1,0 +1,39 @@
+---
+interface Props {
+  profileImage?: string;
+}
+
+const { profileImage = "/profile-pic.jpg" } = Astro.props;
+
+import ProfileCard from './ProfileCard.astro';
+---
+
+<div class="flex flex-col gap-4 lg:gap-[1vw] h-full">
+  
+  <!-- Profile Card -->
+  <div class="flex-shrink-0">
+    <ProfileCard profileImage={profileImage} />
+  </div>
+
+  <!-- Left Column Bento: 3 stacked cells -->
+  <div class="grid grid-rows-3 gap-4 lg:gap-[1vw] flex-1 min-h-0">
+    
+    <!-- 1. Left Upper: Announcement (Green Border, White Fill, Single Row) -->
+    <div class="row-span-1 border-2 border-[color:var(--color-forest)] bg-[color:var(--color-cream)] rounded-xl p-3 sm:p-4 flex items-center justify-center transition-all duration-300 hover:shadow-md">
+      <span class="font-display font-semibold text-sm sm:text-base text-[color:var(--color-forest)] text-center capitalize">
+        Available for new projects
+      </span>
+    </div>
+
+    <!-- 2. Left Middle: Quick Glance (Brown Fill, White Text, Two Rows) -->
+    <div class="row-span-1 bg-[color:var(--color-cognac)] text-[color:var(--color-cream)] rounded-xl p-3 sm:p-4 flex flex-col justify-center transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+      <span class="font-display font-semibold text-sm sm:text-base leading-none mb-1 capitalize">Creative</span>
+      <span class="font-body text-xs sm:text-sm opacity-90 leading-none">Digital solutions</span>
+    </div>
+
+    <!-- 3. Left Bottom: Link (Yellow Fill, Green Text, Single Row) -->
+    <a href="#" class="row-span-1 bg-[color:var(--color-copper)] text-[color:var(--color-forest)] rounded-xl p-3 sm:p-4 flex items-center justify-center transition-all duration-300 hover:brightness-110">
+      <span class="font-display font-semibold text-sm sm:text-base capitalize">Stats for nerds</span>
+    </a>
+  </div>
+</div>

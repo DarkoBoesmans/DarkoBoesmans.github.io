@@ -1,0 +1,16 @@
+---
+import MiddleColumn from './MiddleColumn.astro';
+import SocialIcons from './SocialIcons.astro';
+import RightColumn from './RightColumn.astro';
+---
+
+<div class="grid grid-cols-2 grid-rows-3 gap-4 lg:gap-[1vw] min-h-0">
+  <!-- Column 1: Middle Top + Middle Middle -->
+  <MiddleColumn />
+  
+  <!-- Column 1 Row 3: Social Icons -->
+  <SocialIcons />
+  
+  <!-- Column 2: Current Obsessions (rows 1-2) + CTA (row 3) -->
+  <RightColumn />
+</div>
