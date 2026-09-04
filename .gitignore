@@ -35,3 +35,4 @@ yarn-error.log*
 # ----------------------------
 # Indien u de oude PHP bestanden wilt 'vrijgeven' van tracking:
 # *.php
+.aider*

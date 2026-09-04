@@ -1,54 +1,27 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Header from "../components/layout/Header.astro";
-import Hero from "../components/sections/Header.astro";
-import About from "../components/sections/About.astro";
-import Contact from "../components/sections/Contact.astro";
-import Footer from "../components/layout/Footer.astro";
-
-const projects = [
-  {
-    title: "Studio Redesign",
-    slug: "studio-redesign",
-    description: "A modular portfolio foundation focused on clarity, performance, and editorial case studies.",
-    tags: ["Astro", "Tailwind", "GSAP"],
-  },
-  {
-    title: "Design System Refresh",
-    slug: "design-system-refresh",
-    description: "A reusable UI layer that keeps layouts consistent without locking content into a rigid template.",
-    tags: ["Accessibility", "Components", "TypeScript"],
-  },
-  {
-    title: "Content-First Portfolio",
-    slug: "content-first-portfolio",
-    description: "A Git-based case-study flow designed to scale from one project to a larger body of work.",
-    tags: ["MDX", "CMS", "Performance"],
-  },
-];
+import Nav from "../components/Nav.astro";
+import Header from "../components/Header.astro";
+import About from "../components/About.astro";
+import Contact from "../components/Contact.astro";
 ---
 
-<BaseLayout title="Darko Boesmans | Portfolio" description="Modern portfolio scaffold built with Astro, TypeScript, Tailwind, Keystatic, and GSAP.">
-  <Header active="home" />
+<BaseLayout
+  title="Darko Boesmans | Portfolio"
+  description="Modern portfolio scaffold built with Astro, TypeScript, Tailwind, Keystatic, and GSAP."
+>
+  <header class="h-screen w-full">
+    <Header active="home" />
+  </header>
+
+  <Nav />
 
   <main>
-    <Hero />
-
-    <section id="work" class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-      <div class="flex items-end justify-between gap-6" data-reveal>
-        <div>
-          <p class="text-xs uppercase tracking-[0.35em] text-white/45">Work</p>
-          <h2 class="mt-4 font-display text-3xl text-white">Selected case studies</h2>
-        </div>
-        <a href="/studio-redesign" class="text-sm text-cyan-300 transition-colors hover:text-cyan-200">Open latest case study</a>
-      </div>
-    </section>
-
     <About />
     <Contact />
   </main>
 
-  <Footer />
+  <footer class="mx-auto max-w-7xl px-6 py-16 lg:px-8"></footer>
 
   <script type="module">
     import { initHomeAnimations } from "../utils/animations";
