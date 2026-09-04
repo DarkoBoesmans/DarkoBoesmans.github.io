@@ -8,8 +8,8 @@ interface Props {
 const { active = "home" } = Astro.props;
 ---
 
-<header id="main-header" class="fixed inset-0 z-50 flex items-center justify-center bg-[color:var(--color-forest)]">
-  <div class="w-full h-full p-[1vw] overflow-auto">
+<header id="main-header" class="fixed inset-0 z-50 bg-[color:var(--color-forest)]">
+  <div class="w-full h-full p-[1vw] overflow-y-auto">
     <slot />
   </div>
   
