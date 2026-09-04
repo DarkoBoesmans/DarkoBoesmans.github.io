@@ -6,8 +6,8 @@ interface Props {
 const { profileImage = "/profile-pic.jpg" } = Astro.props;
 ---
 
-<section class="mx-auto max-w-7xl px-4 py-[1vw] sm:px-6 lg:px-8">
-  <div class="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1.618fr] lg:gap-8">
+<div class="w-full h-full">
+  <div class="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1.618fr] lg:gap-8 h-full">
     
     <!-- Profile Card -->
     <div class="relative flex flex-col justify-between overflow-hidden rounded-3xl bg-[color:var(--color-forest)] p-6 sm:p-8 text-[color:var(--color-cream)] shadow-xl min-h-[520px] transition-all duration-300 hover:shadow-2xl">
@@ -145,4 +145,4 @@ const { profileImage = "/profile-pic.jpg" } = Astro.props;
     </div>
 
   </div>
-</section>
+</div>

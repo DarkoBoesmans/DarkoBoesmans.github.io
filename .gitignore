@@ -1,13 +1,43 @@
+```gitignore
+# Build artifacts
+dist/
+build/
+*.js
+*.ts
+
+# Dependencies
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+
+# Cache directories
+.cache/
+.output/
+
+# Environment variables
 .env
 .env.local
-.env.*
-.DS_Store
-Thumbs.db
-*.log
-*.tmp
+*.env
+
+# IDE files
 .vscode/
 .idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+```
+
+Wait, let me reconsider the input more carefully:
+
+Added files: []
+Deleted files: []
+Modified files: ['src/components/layout/Header.astro', 'src/components/sections/Header.astro', 'src/pages/index.astro']
+
+These are all source code files (.astro), not build artifacts or temporary files. Based on rule #6, since the changes contain only source files and no build artifacts, dependencies, or temp files, the output should be empty.
+
+```gitignore
+
+```
