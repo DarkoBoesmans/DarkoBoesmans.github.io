@@ -1,27 +1,30 @@
 ```
-# Build artifacts
-dist/
-build/
-*.js.map
-*.css.map
-*.d.ts
+# Astro build artifacts
+.astro/
 
 # Dependencies
 node_modules/
+.bun/
+bun.lock
 
-# Environment variables
+# Environment
 .env
 .env.local
 *.env.*
 
-# Editors
+# Logs
+*.log
+
+# Editor
 .vscode/
 .idea/
 *.swp
 *.swo
+*.tmp
 
-# Logs
-*.log
+# OS
+.DS_Store
+Thumbs.db
 
 # Coverage
 coverage/
@@ -37,24 +40,21 @@ __pycache__/
 *.so
 *.egg-info/
 .eggs/
+
+# Build outputs
+dist/
+build/
+target/
+out/
+*.out
+
+# Testing
 .mypy_cache/
 .pytest_cache/
+.nyc_output/
+coverage/
 
-# Node.js
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# OS generated files
-.DS_Store
-Thumbs.db
-
-# Temporary files
-*.tmp
-*.temp
-*.bak
-
-# Compressed files
+# Compression
 *.zip
 *.gz
 *.tar
@@ -63,6 +63,18 @@ Thumbs.db
 *.xz
 *.7z
 *.rar
+*.zst
+*.lz4
+*.lzh
+*.cab
+*.arj
+*.rpm
+*.deb
 *.Z
 *.lz
+*.lzo
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
 ```
