@@ -8,6 +8,34 @@ interface Props {
 const { active = "home" } = Astro.props;
 ---
 
-<header class="mx-auto max-w-7xl px-6 pt-6 lg:px-8">
-  <Nav active={active} />
+<header id="main-header" class="fixed inset-0 z-50 flex items-center justify-center bg-[color:var(--color-forest)]">
+  <div class="w-full h-full p-[1vw] overflow-auto">
+    <slot />
+  </div>
+  
+  <!-- Navigation (hidden initially, appears on scroll) -->
+  <div id="scroll-nav" class="fixed top-0 left-0 right-0 z-[60] transform -translate-y-full transition-transform duration-500 ease-out will-change-transform">
+    <Nav active={active} />
+  </div>
 </header>
+
+<script>
+  // Show/hide navigation on scroll
+  const header = document.getElementById('main-header');
+  const scrollNav = document.getElementById('scroll-nav');
+  let headerHeight = window.innerHeight;
+  
+  // Update header height on resize
+  window.addEventListener('resize', () => {
+    headerHeight = window.innerHeight;
+  });
+  
+  // Scroll listener
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > headerHeight - 100) {
+      scrollNav.classList.remove('-translate-y-full');
+    } else {
+      scrollNav.classList.add('-translate-y-full');
+    }
+  }, { passive: true });
+</script>

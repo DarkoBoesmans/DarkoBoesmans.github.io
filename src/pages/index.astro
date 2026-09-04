@@ -14,10 +14,11 @@ const allTools = [...new Set(projects.flatMap(p => p.data.tools))].sort();
 ---
 
 <BaseLayout title="Darko Boesmans | Design Engineer & Front-End Developer" description="Portfolio of Darko Boesmans, a Design Engineer & Front-End Developer based in Belgium specializing in accessible, performant web experiences.">
-  <Header active="home" />
-  
-  <main>
+  <Header active="home">
     <Hero />
+  </Header>
+  
+  <main class="relative z-10 bg-[color:var(--color-forest)]">
 
     <section id="work" class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
       <div class="flex items-end justify-between gap-6" data-reveal>
