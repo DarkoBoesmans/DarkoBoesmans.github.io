@@ -6,11 +6,12 @@ import About from "../components/sections/About.astro";
 import Contact from "../components/sections/Contact.astro";
 import Footer from "../components/layout/Footer.astro";
 import { getCollection } from "astro:content";
+import type { Project } from "../content/config";
 
 const projects = await getCollection("projects");
 
 // Extract all unique tools for filtering
-const allTools = [...new Set(projects.flatMap(p => p.data.tools))].sort();
+const allTools = [...new Set(projects.flatMap((p) => p.data.tools))].sort();
 ---
 
 <BaseLayout title="Darko Boesmans | Design Engineer & Front-End Developer" description="Portfolio of Darko Boesmans, a Design Engineer & Front-End Developer based in Belgium specializing in accessible, performant web experiences.">
@@ -67,7 +68,7 @@ const allTools = [...new Set(projects.flatMap(p => p.data.tools))].sort();
                 {project.data.description}
               </p>
               <ul class="mt-4 flex flex-wrap gap-2">
-                {project.data.tools.slice(0, 3).map((tool) => (
+                {project.data.tools.slice(0, 3).map((tool: string) => (
                   <li class="rounded-full border border-[color:var(--color-accent)]/30 bg-[color:var(--color-black)]/20 px-3 py-1 text-xs text-[color:var(--color-white)]/70">
                     {tool}
                   </li>
