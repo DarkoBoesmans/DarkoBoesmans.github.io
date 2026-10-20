@@ -1,0 +1,15 @@
+/* Derived from src/utils/animations.ts (GSAP power2.out / power3.out reveals). */
+:root{
+  --duration-fast:150ms; /* @kind other */
+  --duration-base:300ms; /* @kind other */
+  --duration-reveal:900ms; /* @kind other */
+  --duration-nav:500ms; /* @kind other */
+
+  --ease-out-2:cubic-bezier(0.34,1,0.68,1); /* @kind other */   /* GSAP power2.out */
+  --ease-out-3:cubic-bezier(0.22,1,0.36,1); /* @kind other */   /* GSAP power3.out */
+  --ease-standard:var(--ease-out-2);
+
+  --reveal-offset-y:24px;
+  --reveal-stagger:80ms; /* @kind other */
+  --transition-base:all var(--duration-base) var(--ease-out-2);
+}

@@ -1,0 +1,59 @@
+// Legal pages. `__body` styles rendered Markdown, so it targets plain elements inside it.
+@use '../tools/mixins' as *;
+
+.c-legal {
+  max-width: 68ch;
+  margin-inline: auto;
+
+  &__title {
+    @include display(clamp(41px, 6vw, 86px));
+  }
+
+  &__updated {
+    margin-top: 16px;
+    color: var(--text-muted);
+    font-size: 15px;
+  }
+
+  &__body {
+    margin-top: clamp(32px, 5vh, 56px);
+
+    > * + * {
+      margin-top: 1em;
+    }
+
+    h2 {
+      margin-top: 2em;
+      font-size: clamp(24px, 2.4vw, 35px);
+      line-height: 1.05;
+    }
+
+    ul {
+      padding-left: 1.2em;
+      list-style: disc;
+    }
+
+    li + li {
+      margin-top: 0.4em;
+    }
+
+    a {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+    }
+
+    th,
+    td {
+      padding: 10px 12px 10px 0;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+  }
+}

@@ -1,0 +1,50 @@
+// UTILITIES — single-purpose helpers and the scroll-reveal state.
+@use '../settings/tokens' as *;
+
+.u-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+// Hidden only when JS runs. If the module script never starts (`.js-ready` missing),
+// the failsafe shows everything after 2s.
+.js [data-reveal]:not(.is-revealed) {
+  opacity: 0;
+}
+
+.js:not(.js-ready) [data-reveal] {
+  animation: u-reveal-failsafe 0s 2s forwards;
+}
+
+.js [data-reveal].is-revealed {
+  animation: u-reveal 900ms $ease-out var(--reveal-delay, 0ms) both;
+}
+
+@keyframes u-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes u-reveal-failsafe {
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+}

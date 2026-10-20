@@ -1,0 +1,26 @@
+---
+// Lucide icons, inlined at build time (no third-party request at runtime).
+import arrowRight from 'lucide-static/icons/arrow-right.svg?raw';
+import check from 'lucide-static/icons/check.svg?raw';
+import copy from 'lucide-static/icons/copy.svg?raw';
+import github from 'lucide-static/icons/github.svg?raw';
+import linkedin from 'lucide-static/icons/linkedin.svg?raw';
+import moon from 'lucide-static/icons/moon.svg?raw';
+import sun from 'lucide-static/icons/sun.svg?raw';
+import x from 'lucide-static/icons/x.svg?raw';
+
+const icons = { 'arrow-right': arrowRight, check, copy, github, linkedin, moon, sun, x };
+
+interface Props {
+  name: keyof typeof icons;
+  size?: number;
+}
+
+const { name, size = 20 } = Astro.props;
+const svg = icons[name]
+  .replace('width="24"', `width="${size}"`)
+  .replace('height="24"', `height="${size}"`)
+  .replace('<svg', '<svg aria-hidden="true" focusable="false"');
+---
+
+<Fragment set:html={svg} />

@@ -1,0 +1,32 @@
+---
+import Toggles from './Toggles.astro';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  /** Always visible (legal pages). On the home page it appears after scrolling. */
+  always?: boolean;
+}
+
+const { lang, always = false } = Astro.props;
+const d = t(lang);
+const home = `/${lang}/`;
+---
+
+<header class:list={['c-nav', { 'c-nav--always': always }]} inert={!always}>
+  <nav class="c-nav__bar" aria-label={d.nav.label}>
+    <a class="c-nav__brand" href={`${home}#top`}>
+      <span class="c-nav__logo" aria-hidden="true"></span>
+      <span>Darko<br />Boesmans</span>
+    </a>
+    <div class="c-nav__links">
+      <a class="c-nav__link" href={`${home}#about`}>{d.nav.about}</a>
+      <a class="c-nav__link" href={`${home}#work`}>{d.nav.work}</a>
+      <Toggles lang={lang} variant="nav" />
+      <a class="c-button c-button--primary c-button--small" href={`${home}#contact`}>
+        <span class="c-button__dot" aria-hidden="true"></span>
+        {d.nav.contact}
+      </a>
+    </div>
+  </nav>
+</header>

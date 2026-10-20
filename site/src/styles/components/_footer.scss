@@ -1,0 +1,31 @@
+@use '../settings/tokens' as *;
+
+.c-footer {
+  padding: clamp(32px, 5vh, 56px) $page-pad;
+
+  &__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 32px;
+  }
+
+  &__copy {
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 20px;
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 14px;
+  }
+}

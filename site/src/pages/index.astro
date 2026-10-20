@@ -1,0 +1,38 @@
+---
+// Language gate: Flanders → /nl/, everyone else → /en/. A saved choice always wins.
+const site = Astro.site ?? Astro.url;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Darko Boesmans</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" hreflang="en" href={new URL('/en/', site).href} />
+    <link rel="alternate" hreflang="nl-BE" href={new URL('/nl/', site).href} />
+    <script is:inline>
+      (function () {
+        var lang;
+        try { lang = localStorage.getItem('db-lang'); } catch (e) {}
+        if (lang !== 'en' && lang !== 'nl') {
+          var list = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'])
+            .map(function (l) { return String(l).toLowerCase(); });
+          var tz = '';
+          try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+          var first = list[0] || '';
+          // Belgian Dutch locale, or Belgian time zone without a French/German first language.
+          var flemish = list.indexOf('nl-be') > -1 || list.indexOf('vls') > -1 ||
+            (tz === 'Europe/Brussels' && first.indexOf('fr') !== 0 && first.indexOf('de') !== 0);
+          lang = flemish ? 'nl' : 'en';
+        }
+        location.replace('/' + lang + '/' + location.hash);
+      })();
+    </script>
+    <noscript><meta http-equiv="refresh" content="0; url=/en/" /></noscript>
+  </head>
+  <body>
+    <p><a href="/en/">English</a> · <a href="/nl/">Nederlands</a></p>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+// ELEMENTS — bare HTML elements, no classes.
+html {
+  scroll-behavior: smooth;
+
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  overflow-x: clip;
+  background: var(--page);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: clamp(16px, 1.15vw, 19px);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  line-height: 0.94;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--ink-green);
+  text-decoration: none;
+  transition: color 150ms linear;
+
+  &:hover {
+    color: var(--ink-brown);
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink-green);
+  outline-offset: 2px;
+}
+
+[data-dark] :focus-visible,
+[data-dark]:focus-visible {
+  outline-color: var(--gold);
+}
+
+::selection {
+  background: var(--green);
+  color: var(--gold);
+}

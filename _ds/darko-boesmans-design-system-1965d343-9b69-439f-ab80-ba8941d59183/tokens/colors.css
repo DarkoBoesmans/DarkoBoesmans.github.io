@@ -1,0 +1,42 @@
+:root{
+  /* Base palette — verbatim from src/styles/global.css */
+  --color-white:#f4f1ea;
+  --color-black:#151311;
+  --color-primary:#235347;
+  --color-secondary:#7a4f2e;
+  --color-accent:#d99b43;
+
+  /* Tints derived from the five base values (oklch mixes, not new hues) */
+  --color-primary-dark:#183a31;
+  --color-primary-soft:#dfe3dd;
+  --color-accent-soft:#f3e3c8;
+  --color-secondary-soft:#e7dbcf;
+  --color-line:#d8d2c5;
+  --color-line-strong:#b9b1a1;
+  --color-ink-60:#615c55;
+  --color-ink-40:#8d867d;
+
+  /* Semantic aliases */
+  --surface-page:var(--color-white);
+  --surface-card:#fbf9f4;
+  --surface-inverse:var(--color-black);
+  --surface-brand:var(--color-primary);
+  --surface-muted:var(--color-primary-soft);
+  --surface-highlight:var(--color-accent-soft);
+
+  --text-body:var(--color-black);
+  --text-muted:var(--color-ink-60);
+  --text-subtle:var(--color-ink-40);
+  --text-on-brand:var(--color-white);
+  --text-on-inverse:var(--color-white);
+  --text-brand:var(--color-primary);
+  --text-accent:var(--color-secondary);
+
+  --border-default:var(--color-line);
+  --border-strong:var(--color-line-strong);
+  --border-inverse:var(--color-black);
+
+  --focus-ring:var(--color-primary);
+  --selection-bg:var(--color-primary);
+  --selection-fg:var(--color-accent);
+}

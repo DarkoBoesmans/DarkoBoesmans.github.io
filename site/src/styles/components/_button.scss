@@ -1,0 +1,109 @@
+// Button: ≥44px, full pill, real font, one dot, arrow turns (350ms),
+// glow follows the cursor, magnet lean (translate set by pointer.ts), press .97.
+@use '../settings/tokens' as *;
+
+.c-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 26px;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  transition:
+    translate 350ms $ease-spring,
+    transform 400ms $ease-spring,
+    background-color 150ms linear;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+    background: radial-gradient(120px circle at var(--glow-x, 50%) var(--glow-y, 50%), rgb(244 241 234 / 0.3), transparent 70%);
+    transition: opacity 250ms linear;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+
+  &:active {
+    transform: scale(0.97);
+    transition-duration: 100ms;
+  }
+
+  &__dot {
+    flex: none;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  &__icon {
+    display: flex;
+    transition: transform 350ms $ease-spring;
+  }
+
+  &:hover &__icon,
+  &:focus-visible &__icon {
+    transform: rotate(-45deg);
+  }
+
+  &--small {
+    min-height: 44px;
+    padding: 10px 20px;
+    font-size: 15px;
+  }
+
+  &--primary,
+  &--primary:hover {
+    background: var(--green);
+    color: var(--cream);
+  }
+
+  &--primary:hover {
+    background: var(--green-dark);
+  }
+
+  &--accent,
+  &--accent:hover {
+    background: var(--gold);
+    color: var(--ink);
+  }
+
+  &--accent &__dot {
+    background: var(--green);
+  }
+
+  &--outline,
+  &--outline:hover {
+    border-color: var(--gold);
+    background: transparent;
+    color: var(--gold);
+  }
+
+  &--outline:hover {
+    background: rgb(217 155 67 / 0.14);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    translate: none !important;
+
+    &:hover .c-button__icon {
+      transform: none;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+---
+import type { MarkdownInstance } from 'astro';
+import Legal from '../../layouts/Legal.astro';
+import type { Lang } from '../../i18n';
+
+export function getStaticPaths() {
+  const langs = ['en', 'nl'];
+  const pages = ['privacy', 'cookies', 'terms', 'legal-notice'];
+  return langs.flatMap((lang) => pages.map((page) => ({ params: { lang, page } })));
+}
+
+type Doc = MarkdownInstance<{ title: string; updated: string }>;
+const docs = import.meta.glob<Doc>('../../legal/*/*.md', { eager: true });
+
+const { lang, page } = Astro.params as { lang: Lang; page: string };
+const doc = docs[`../../legal/${lang}/${page}.md`];
+if (!doc) throw new Error(`Missing legal page: ${lang}/${page}`);
+const { Content, frontmatter } = doc;
+---
+
+<Legal lang={lang} title={frontmatter.title} updated={frontmatter.updated}>
+  <Content />
+</Legal>

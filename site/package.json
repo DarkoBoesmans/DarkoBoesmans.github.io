@@ -1,0 +1,22 @@
+{
+  "name": "darkoboesmans-portfolio",
+  "type": "module",
+  "private": true,
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/fraunces": "^5.2.0",
+    "@fontsource-variable/space-grotesk": "^5.2.0",
+    "astro": "^5.14.0",
+    "lucide-static": "0.544.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "sass": "^1.93.0",
+    "typescript": "^5.9.0"
+  }
+}

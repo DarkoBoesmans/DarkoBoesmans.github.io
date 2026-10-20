@@ -1,0 +1,41 @@
+:root{
+  --font-sans:"Space Grotesk",sans-serif;
+  --font-display:"Fraunces",serif;
+
+  /* Editorial scale — verbatim px values from the source repo */
+  --font-size-smaller:14px;
+  --font-size-small:17px;
+  --font-size-p:20px;
+  --font-size-h10:24px;
+  --font-size-h9:29px;
+  --font-size-h8:35px;
+  --font-size-h7:41px;
+  --font-size-h6:50px;
+  --font-size-h5:60px;
+  --font-size-h4:72px;
+  --font-size-h3:86px;
+  --font-size-h2:103px;
+  --font-size-h1:124px;
+
+  --font-weight-regular:400;
+  --font-weight-medium:500;
+  --font-weight-bold:700;
+  --font-weight-black:900;
+
+  --line-height-display:0.94;
+  --line-height-heading:1.08;
+  --line-height-body:1.55;
+  --line-height-tight:1.2;
+
+  --tracking-display:-0.02em;
+  --tracking-body:0em;
+  --tracking-label:0.14em;
+
+  /* Semantic aliases */
+  --text-display-font:var(--font-display);
+  --text-display-weight:var(--font-weight-black);
+  --text-heading-font:var(--font-display);
+  --text-heading-weight:var(--font-weight-bold);
+  --text-body-font:var(--font-sans);
+  --text-label-font:var(--font-sans);
+}

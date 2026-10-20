@@ -1,0 +1,15 @@
+:root{
+  --radius-none:0px;
+  --radius-sm:4px;
+  --radius-md:8px;
+  --radius-lg:16px;
+  --radius-xl:24px;
+  --radius-pill:999px;
+  /* The DB mark is a 2500px squircle with a 625px corner — 25% of the side */
+  --radius-squircle:25%;
+
+  --border-width-hairline:1px;
+  --border-width-strong:2px;
+  --border-hairline:var(--border-width-hairline) solid var(--border-default);
+  --border-ink:var(--border-width-strong) solid var(--color-black);
+}

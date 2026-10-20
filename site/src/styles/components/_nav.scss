@@ -1,0 +1,111 @@
+@use '../settings/tokens' as *;
+@use '../tools/mixins' as *;
+
+.c-nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
+  padding: 12px clamp(12px, 2vw, 20px);
+  opacity: 0;
+  transform: translateY(-110%);
+  transition:
+    transform 420ms $ease-spring,
+    opacity 260ms linear;
+
+  &.is-visible,
+  &--always {
+    opacity: 1;
+    transform: none;
+  }
+
+  &--always {
+    position: sticky;
+    top: 0;
+  }
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding: 8px clamp(12px, 1.6vw, 20px);
+    border: 2px solid var(--line-green);
+    border-radius: $radius;
+    background: var(--page);
+  }
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink-green);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+
+  &__logo {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    background: url('/favicon-light.svg') center / contain no-repeat;
+
+    [data-theme='dark'] & {
+      background-image: url('/favicon-dark.svg');
+    }
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: clamp(12px, 1.6vw, 28px);
+  }
+
+  &__link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--text);
+    font-size: 15px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 9px;
+      left: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 300ms $ease-spring;
+    }
+
+    &:hover::after,
+    &:focus-visible::after {
+      transform: scaleX(1);
+    }
+
+    @include below($bp-md) {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transform: none;
+    transition: opacity 200ms linear;
+  }
+}
+
+.c-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  height: 3px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+}

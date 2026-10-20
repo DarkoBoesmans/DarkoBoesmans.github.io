@@ -1,0 +1,23 @@
+---
+import { t, legalPages, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const d = t(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="c-footer">
+  <div class="o-container c-footer__inner">
+    <p class="c-footer__copy">© {year} Darko Boesmans. {d.footer.rights}</p>
+    <nav aria-label={d.footer.label}>
+      <ul class="c-footer__list">
+        {legalPages.map((page) => <li><a class="c-footer__link" href={`/${lang}/${page}/`}>{d.legal[page]}</a></li>)}
+      </ul>
+    </nav>
+    <a class="c-footer__link" href={`/${lang}/#top`}>{d.footer.top}</a>
+  </div>
+</footer>

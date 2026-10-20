@@ -1,0 +1,13 @@
+// OBJECTS — layout without looks.
+@use '../settings/tokens' as *;
+
+.o-container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+.o-section {
+  padding: $section-pad $page-pad;
+  scroll-margin-top: 96px;
+}

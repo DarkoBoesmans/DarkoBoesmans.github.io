@@ -1,0 +1,10 @@
+/* Flat, print-led surfaces: cards separate with hairlines, not drop shadows.
+   Shadows exist only for lifted/overlay states and stay warm and low-contrast. */
+:root{
+  --shadow-none:none;
+  --shadow-hover:0 6px 18px rgba(21,19,17,0.06);
+  --shadow-overlay:0 24px 60px rgba(21,19,17,0.18);
+  --shadow-inset-hairline:inset 0 0 0 1px var(--border-default);
+  --scrim-inverse:rgba(21,19,17,0.62);
+  --blur-overlay:8px;
+}

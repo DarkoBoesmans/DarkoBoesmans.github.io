@@ -1,0 +1,22 @@
+// TOOLS — mixins only, no CSS output.
+@use '../settings/tokens' as *;
+
+@mixin from($bp) {
+  @media (min-width: $bp) {
+    @content;
+  }
+}
+
+@mixin below($bp) {
+  @media (max-width: ($bp - 1px)) {
+    @content;
+  }
+}
+
+@mixin display($size) {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: $size;
+  line-height: 0.94;
+  letter-spacing: -0.025em;
+}

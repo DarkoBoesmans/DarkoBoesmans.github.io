@@ -1,0 +1,76 @@
+---
+import Icon from './Icon.astro';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const d = t(lang);
+const c = d.contact;
+---
+
+<section id="contact" class="o-section c-contact" data-dark>
+  <div class="o-container o-split" data-reveal>
+    <div class="c-contact__intro">
+      <h2 class="c-contact__title">{c.title}</h2>
+      <p class="c-contact__text">{c.text}</p>
+      <div class="c-contact__actions">
+        <button class="c-button c-button--outline" type="button" data-copy-email data-ok={c.copied} data-fail={c.copyFail} aria-live="polite">
+          <span data-copy-label>darkoboesmans@gmail.com</span>
+          <span class="c-button__icon"><Icon name="copy" size={18} /></span>
+        </button>
+        <a class="c-contact__social" href="https://github.com/DarkoBoesmans" target="_blank" rel="noopener noreferrer" aria-label={`GitHub (${d.hero.newTab})`}>
+          <Icon name="github" size={22} />
+        </a>
+        <a class="c-contact__social" href="https://www.linkedin.com/in/darkoboesmans" target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn (${d.hero.newTab})`}>
+          <Icon name="linkedin" size={22} />
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <form class="c-form" novalidate data-contact-form data-err-message={c.errMessage} data-subject={c.subject} data-project={c.project} data-what-it-is={c.whatItIs}>
+        <fieldset class="c-form__group">
+          <legend class="c-form__legend">{c.kindsLegend}</legend>
+          <div class="c-form__chips">
+            {
+              c.kinds.map((kind) => (
+                <label class="c-form__chip">
+                  <input class="c-form__check" type="checkbox" name="kind" value={kind} />
+                  <span class="c-form__chip-label">{kind}</span>
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+
+        <label class="c-form__label" for="contact-message">{c.message}</label>
+        <textarea class="c-form__field" id="contact-message" name="message" rows="5" required placeholder={c.messagePlaceholder} aria-describedby="contact-error contact-note"></textarea>
+
+        <p class="c-form__error" id="contact-error" role="alert" hidden>
+          <Icon name="x" size={16} />
+          <span data-form-error></span>
+        </p>
+
+        <p class="c-form__note" id="contact-note">
+          {c.note} <a href={`/${lang}/privacy/`}>{c.privacy}</a>.
+        </p>
+
+        <button class="c-button c-button--accent" type="submit">
+          <span class="c-button__dot" aria-hidden="true"></span>
+          {c.send}
+          <span class="c-button__icon"><Icon name="arrow-right" /></span>
+        </button>
+      </form>
+
+      <div class="c-contact__done" tabindex="-1" data-contact-done hidden>
+        <Icon name="check" size={32} />
+        <h3 class="c-contact__done-title">{c.doneTitle}</h3>
+        <p>{c.doneText}</p>
+        <button class="c-button c-button--outline c-button--small" type="button" data-contact-reset>{c.another}</button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,21 @@
+/* Intentional addition: the source repo has no spacing scale (Tailwind defaults
+   were used). This 4px-rooted scale matches the spacing seen in the layout. */
+:root{
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-5:24px;
+  --space-6:32px;
+  --space-7:48px;
+  --space-8:64px;
+  --space-9:96px;
+  --space-10:128px;
+  --space-11:160px;
+
+  --gutter-inline:clamp(20px,5vw,64px); /* @kind spacing */
+  --section-block:clamp(64px,10vw,160px); /* @kind spacing */
+  --measure-prose:64ch;
+  --container-max:1200px;
+  --container-wide:1440px;
+}

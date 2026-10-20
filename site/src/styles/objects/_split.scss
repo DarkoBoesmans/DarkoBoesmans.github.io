@@ -1,0 +1,17 @@
+// OBJECTS — golden-ratio split: 61.8% / 38.2%. One column below $bp-lg.
+@use '../settings/tokens' as *;
+@use '../tools/mixins' as *;
+
+.o-split {
+  display: grid;
+  gap: clamp(28px, 4vw, 64px);
+  grid-template-columns: minmax(0, 1fr);
+
+  @include from($bp-lg) {
+    grid-template-columns: minmax(0, $phi * 1fr) minmax(0, 1fr);
+
+    &--narrow-first {
+      grid-template-columns: minmax(0, 1fr) minmax(0, $phi * 1fr);
+    }
+  }
+}
