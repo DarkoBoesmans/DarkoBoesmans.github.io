@@ -1,0 +1,29 @@
+---
+// Home page for /en/ and /nl/: the sections in reading order.
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Hero from '../../components/Hero.astro';
+import About from '../../components/About.astro';
+import Work from '../../components/Work.astro';
+import Contact from '../../components/Contact.astro';
+import Footer from '../../components/Footer.astro';
+import { t, type Lang } from '../../i18n';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'en' } }, { params: { lang: 'nl' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+const d = t(lang);
+---
+
+<Base lang={lang} title={d.meta.title} description={d.meta.description}>
+  <Nav lang={lang} />
+  <main id="main">
+    <Hero lang={lang} />
+    <About lang={lang} />
+    <Work lang={lang} />
+    <Contact lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</Base>

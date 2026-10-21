@@ -1,0 +1,96 @@
+// Toggles: EN/NL switch and theme button, styled per placement (hero or nav).
+@use '../settings/tokens' as *;
+
+.c-toggles {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--page);
+
+  :focus-visible {
+    outline-color: var(--ink-green);
+  }
+
+  &--hero {
+    position: absolute;
+    top: clamp(10px, 1vw, 16px);
+    right: clamp(10px, 1vw, 16px);
+    z-index: 3;
+  }
+
+  &--nav {
+    padding: 2px;
+    border: 1px solid var(--line);
+  }
+
+  &__group {
+    display: flex;
+    gap: 2px;
+  }
+
+  &__lang {
+    display: grid;
+    place-items: center;
+    min-width: 44px;
+    height: 44px;
+    padding-inline: 12px;
+    border-radius: 999px;
+    color: var(--ink-green);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    transition:
+      background-color 200ms linear,
+      color 200ms linear;
+
+    &.is-active,
+    &.is-active:hover {
+      background: var(--green);
+      color: var(--cream);
+    }
+  }
+
+  &__divider {
+    width: 1px;
+    height: 24px;
+    background: var(--line);
+  }
+
+  &__theme {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink-green);
+    transition:
+      background-color 200ms linear,
+      transform 400ms $ease-spring;
+
+    &:hover {
+      background: rgb(217 155 67 / 0.2);
+    }
+
+    &:active {
+      transform: scale(0.94) rotate(-20deg);
+      transition-duration: 100ms;
+    }
+  }
+
+  &__icon {
+    display: flex;
+  }
+
+  &__icon--sun,
+  [data-theme='dark'] &__icon--moon {
+    display: none;
+  }
+
+  [data-theme='dark'] &__icon--sun {
+    display: flex;
+  }
+}

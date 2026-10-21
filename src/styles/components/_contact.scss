@@ -1,0 +1,70 @@
+// Contact: dark block with intro + actions on one side and the form on the other.
+@use '../settings/tokens' as *;
+
+.c-contact {
+  display: flex;
+  align-items: center;
+  min-height: 80vh;
+  background: var(--block);
+  color: var(--cream);
+
+  &__intro {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 3vh, 32px);
+  }
+
+  &__title {
+    font-size: clamp(41px, 6vw, 103px);
+    letter-spacing: -0.03em;
+  }
+
+  &__text {
+    max-width: 56ch;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__social,
+  &__social:hover {
+    display: inline-grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border: 2px solid var(--gold);
+    border-radius: 999px;
+    color: var(--gold);
+    transition:
+      background-color 200ms linear,
+      transform 400ms $ease-spring;
+  }
+
+  &__social:hover {
+    background: rgb(217 155 67 / 0.16);
+    transform: translateY(-2px);
+  }
+
+  &__done {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: clamp(28px, 3vw, 44px);
+    border-radius: $radius-xl;
+    background: var(--green);
+    color: var(--cream);
+
+    svg {
+      color: var(--gold);
+    }
+  }
+
+  &__done-title {
+    font-size: clamp(24px, 2.4vw, 41px);
+    line-height: 1;
+  }
+}

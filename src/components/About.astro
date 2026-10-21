@@ -1,0 +1,54 @@
+---
+// About section: story, drives, quote, photo, skills and life outside work as one bento grid.
+import { t, type Lang } from '../i18n';
+import { aboutPhoto } from '../data/media';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const a = t(lang).about;
+const areas = ['lang', 'code', 'caps', 'tech'] as const;
+---
+
+<section id="about" class="o-section c-about">
+  <div class="o-container c-bento">
+    <div class="c-bento__cell c-bento__story" data-reveal>
+      <h2 class="c-bento__lead">{a.pathA}<br /><em>{a.pathB}</em></h2>
+      {a.story.map((p) => <p>{p}</p>)}
+    </div>
+
+    <div class="c-bento__cell c-bento__drives" data-reveal data-dark>
+      <h3 class="c-bento__heading">{a.drives}</h3>
+      {a.drivesItems.map((p) => <p>{p}</p>)}
+    </div>
+
+    <blockquote class="c-bento__cell c-bento__quote" data-reveal>
+      <span class="c-bento__quote-label">{a.quoteLabel}</span>
+      <span class="c-bento__quote-text">{a.quote}</span>
+    </blockquote>
+
+    <div class="c-bento__cell c-bento__photo" data-reveal>
+      {aboutPhoto ? <img src={aboutPhoto} alt={a.photoAlt} loading="lazy" /> : <p class="c-bento__empty">{a.photoEmpty}</p>}
+    </div>
+
+    {
+      a.skills.map((group, i) => (
+        <div class={`c-bento__cell c-bento__skill c-bento__skill--${areas[i]}`} data-reveal>
+          <h3 class="c-bento__skill-title">{group.name}</h3>
+          <ul class="c-chip-list">
+            {group.items.map((item) => <li class="c-chip">{item}</li>)}
+          </ul>
+        </div>
+      ))
+    }
+
+    <div class="c-bento__cell c-bento__beyond" data-reveal data-dark>
+      <h3 class="c-bento__heading">{a.beyond}</h3>
+      <div class="c-bento__columns">
+        {a.beyondItems.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </div>
+</section>

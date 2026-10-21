@@ -1,0 +1,38 @@
+---
+// Language (EN/NL) and light/dark theme switches, used in the hero and in the nav.
+import Icon from './Icon.astro';
+import { t, langs, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  variant: 'hero' | 'nav';
+}
+
+const { lang, variant } = Astro.props;
+const d = t(lang);
+const rest = Astro.url.pathname.replace(/^\/(en|nl)/, '') || '/';
+---
+
+<div class={`c-toggles c-toggles--${variant}`}>
+  <div class="c-toggles__group" role="group" aria-label={d.toggles.lang}>
+    {
+      langs.map((l) => (
+        <a
+          class:list={['c-toggles__lang', { 'is-active': l === lang }]}
+          href={`/${l}${rest}`}
+          hreflang={l}
+          lang={l}
+          aria-current={l === lang ? 'true' : undefined}
+          data-lang={l}
+        >
+          {l.toUpperCase()}
+        </a>
+      ))
+    }
+  </div>
+  <span class="c-toggles__divider" aria-hidden="true"></span>
+  <button class="c-toggles__theme" type="button" aria-label={d.toggles.theme} aria-pressed="false" data-theme-toggle>
+    <span class="c-toggles__icon c-toggles__icon--moon"><Icon name="moon" /></span>
+    <span class="c-toggles__icon c-toggles__icon--sun"><Icon name="sun" /></span>
+  </button>
+</div>

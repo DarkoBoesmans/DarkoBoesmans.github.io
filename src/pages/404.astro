@@ -1,0 +1,18 @@
+---
+// Not-found page, in both languages because GitHub Pages serves one 404 for the whole site.
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+---
+
+<Base lang="en" title="Page not found | Darko Boesmans" description="This page does not exist.">
+  <Nav lang="en" always />
+  <main id="main" class="o-section">
+    <article class="c-legal">
+      <h1 class="c-legal__title">This page does not exist.</h1>
+      <div class="c-legal__body">
+        <p>The link may be old or mistyped. <a href="/en/">Go to the homepage</a>.</p>
+        <p lang="nl-BE">Deze pagina bestaat niet. De link is misschien oud of verkeerd getypt. <a href="/nl/">Naar de homepagina</a>.</p>
+      </div>
+    </article>
+  </main>
+</Base>

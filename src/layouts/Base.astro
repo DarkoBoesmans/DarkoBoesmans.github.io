@@ -1,0 +1,65 @@
+---
+// HTML shell for every page: meta tags, fonts, global styles, theme bootstrap and the shared scripts.
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/fraunces/wght-italic.css';
+import '@fontsource-variable/space-grotesk';
+import '../styles/main.scss';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+}
+
+const { lang, title, description } = Astro.props;
+const d = t(lang);
+const site = Astro.site ?? Astro.url;
+const rest = Astro.url.pathname.replace(/^\/(en|nl)/, '') || '/';
+---
+
+<!doctype html>
+<html lang={lang === 'nl' ? 'nl-BE' : 'en'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, site).href} />
+    <meta name="theme-color" content="#235347" />
+    <!-- Link previews (LinkedIn, Slack, …) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={new URL(Astro.url.pathname, site).href} />
+    <meta property="og:image" content={new URL('/images/profile.webp', site).href} />
+    <meta property="og:locale" content={lang === 'nl' ? 'nl_BE' : 'en_GB'} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" hreflang="en" href={new URL(`/en${rest}`, site).href} />
+    <link rel="alternate" hreflang="nl-BE" href={new URL(`/nl${rest}`, site).href} />
+    <link rel="alternate" hreflang="x-default" href={new URL('/', site).href} />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      (function () {
+        var theme;
+        try { theme = localStorage.getItem('db-theme'); } catch (e) {}
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="c-skip" href="#main">{d.skip}</a>
+    <div class="c-progress" aria-hidden="true"></div>
+    <div class="c-cursor" aria-hidden="true">
+      <span class="c-cursor__ring"></span>
+      <span class="c-cursor__dot"></span>
+    </div>
+    <slot />
+    <script>
+      import '../scripts/main';
+    </script>
+  </body>
+</html>
