@@ -1,11 +1,11 @@
 ---
-// Language (EN/NL) and light/dark theme switches, used in the hero and in the nav.
+// Language (EN/NL) and light/dark theme switches, used in the nav and in the footer.
 import Icon from './Icon.astro';
 import { t, langs, type Lang } from '../i18n';
 
 interface Props {
   lang: Lang;
-  variant: 'hero' | 'nav';
+  variant: 'nav' | 'footer';
 }
 
 const { lang, variant } = Astro.props;
@@ -30,7 +30,6 @@ const rest = Astro.url.pathname.replace(/^\/(en|nl)/, '') || '/';
       ))
     }
   </div>
-  <span class="c-toggles__divider" aria-hidden="true"></span>
   <button class="c-toggles__theme" type="button" aria-label={d.toggles.theme} aria-pressed="false" data-theme-toggle>
     <span class="c-toggles__icon c-toggles__icon--moon"><Icon name="moon" /></span>
     <span class="c-toggles__icon c-toggles__icon--sun"><Icon name="sun" /></span>

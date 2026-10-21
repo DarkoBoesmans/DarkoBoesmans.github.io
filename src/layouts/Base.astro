@@ -1,8 +1,6 @@
 ---
 // HTML shell for every page: meta tags, fonts, global styles, theme bootstrap and the shared scripts.
-import '@fontsource-variable/fraunces';
-import '@fontsource-variable/fraunces/wght-italic.css';
-import '@fontsource-variable/space-grotesk';
+import '@fontsource-variable/archivo/wdth.css';
 import '../styles/main.scss';
 import { t, type Lang } from '../i18n';
 
@@ -26,7 +24,7 @@ const rest = Astro.url.pathname.replace(/^\/(en|nl)/, '') || '/';
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={new URL(Astro.url.pathname, site).href} />
-    <meta name="theme-color" content="#235347" />
+    <meta name="theme-color" content="#121212" />
     <!-- Link previews (LinkedIn, Slack, …) -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
@@ -36,6 +34,16 @@ const rest = Astro.url.pathname.replace(/^\/(en|nl)/, '') || '/';
     <meta property="og:locale" content={lang === 'nl' ? 'nl_BE' : 'en_GB'} />
     <meta name="twitter:card" content="summary" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Darko Boesmans',
+      jobTitle: 'Design engineer and front-end developer',
+      email: 'mailto:darkoboesmans@gmail.com',
+      url: new URL('/', site).href,
+      address: { '@type': 'PostalAddress', addressCountry: 'BE' },
+      sameAs: ['https://github.com/DarkoBoesmans', 'https://www.linkedin.com/in/darkoboesmans'],
+    })} />
     <link rel="alternate" hreflang="en" href={new URL(`/en${rest}`, site).href} />
     <link rel="alternate" hreflang="nl-BE" href={new URL(`/nl${rest}`, site).href} />
     <link rel="alternate" hreflang="x-default" href={new URL('/', site).href} />
@@ -53,11 +61,6 @@ const rest = Astro.url.pathname.replace(/^\/(en|nl)/, '') || '/';
   </head>
   <body>
     <a class="c-skip" href="#main">{d.skip}</a>
-    <div class="c-progress" aria-hidden="true"></div>
-    <div class="c-cursor" aria-hidden="true">
-      <span class="c-cursor__ring"></span>
-      <span class="c-cursor__dot"></span>
-    </div>
     <slot />
     <script>
       import '../scripts/main';

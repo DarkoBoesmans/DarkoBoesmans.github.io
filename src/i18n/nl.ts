@@ -12,8 +12,10 @@ export const nl: Dict = {
   hero: {
     tab: 'Over mij',
     alt: 'Portret van Darko Boesmans',
-    title: 'Design Engineer & Front-End Developer',
+    title: 'Design engineer & front-end developer',
+    status: 'Status',
     avail: 'Beschikbaar voor nieuwe projecten',
+    role: 'Discipline',
     front: 'Front-end',
     dev: 'Ontwikkeling',
     obs: 'Huidige obsessies',
@@ -24,7 +26,6 @@ export const nl: Dict = {
     creative: 'Creatieve',
     digital: 'Digitale oplossingen',
     myWork: 'Mijn werk',
-    stats: 'Statistieken voor nerds',
     contactMe: 'Contacteer mij',
     newTab: 'opent in een nieuw tabblad',
     mailSubject: 'We willen graag met je samenwerken!',
@@ -52,7 +53,7 @@ export const nl: Dict = {
       'Als ik niet achter een scherm zit, ben ik opnieuw beginnen lopen en wandelen. Als voorbereiding op een nieuwe backpacktrip. Een tent en een kampvuur met een mooi uitzicht verkies ik soms boven een hotelkamer. Het houdt me scherp en geeft me ruimte om na te denken over de volgende stap.',
     ],
     photoAlt: 'Darko buiten tijdens een wandeling',
-    photoEmpty: 'Foto volgt binnenkort',
+    skillsTitle: 'Gereedschap',
     skills: [
       { name: 'Talen', items: ['Nederlands', 'Engels'] },
       { name: 'Code', items: ['JavaScript', 'TypeScript', 'HTML', 'CSS', 'SCSS', 'SQL', 'Astro', 'Tailwind', 'SAPUI5', 'Git'] },
@@ -62,6 +63,7 @@ export const nl: Dict = {
   },
   work: {
     title: 'Uitgelicht werk',
+    built: 'Gemaakt met',
     intro: 'Drie projecten, van een festivalsite tot het portfolio dat je nu leest.',
     empty: 'Screenshot volgt binnenkort',
     screenshot: 'screenshot',

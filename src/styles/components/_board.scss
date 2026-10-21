@@ -1,0 +1,28 @@
+// Board: a Mondrian composition. Black ground, planes on top; the gap between planes IS the line.
+@use '../settings/tokens' as *;
+
+.c-board {
+  display: grid;
+  gap: $line;
+  padding: $line;
+  background: var(--line);
+
+  // Intro: the planes switch on one by one (each child sets --i in the markup).
+  &--intro > * {
+    animation: c-board-on 600ms $ease calc(var(--i, 0) * 70ms) both;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+}
+
+@keyframes c-board-on {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+
+  to {
+    clip-path: inset(0);
+  }
+}

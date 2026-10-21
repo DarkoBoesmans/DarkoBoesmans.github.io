@@ -1,5 +1,6 @@
 ---
 // Lucide icons, inlined at build time (no third-party request at runtime).
+import arrowDown from 'lucide-static/icons/arrow-down.svg?raw';
 import arrowRight from 'lucide-static/icons/arrow-right.svg?raw';
 import check from 'lucide-static/icons/check.svg?raw';
 import copy from 'lucide-static/icons/copy.svg?raw';
@@ -9,7 +10,7 @@ import moon from 'lucide-static/icons/moon.svg?raw';
 import sun from 'lucide-static/icons/sun.svg?raw';
 import x from 'lucide-static/icons/x.svg?raw';
 
-const icons = { 'arrow-right': arrowRight, check, copy, github, linkedin, moon, sun, x };
+const icons = { 'arrow-down': arrowDown, 'arrow-right': arrowRight, check, copy, github, linkedin, moon, sun, x };
 
 interface Props {
   name: keyof typeof icons;

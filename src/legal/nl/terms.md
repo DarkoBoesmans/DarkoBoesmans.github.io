@@ -17,7 +17,7 @@ Namen, logo's en screenshots van de Bosfeesten en Chiro Popov zijn eigendom van 
 
 Opensourceonderdelen:
 
-- Lettertypes Fraunces en Space Grotesk: SIL Open Font License 1.1
+- Lettertype Archivo: SIL Open Font License 1.1
 - Lucide-iconen: ISC-licentie
 - Astro: MIT-licentie
 

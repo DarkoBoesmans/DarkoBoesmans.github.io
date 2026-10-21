@@ -1,6 +1,9 @@
-// ELEMENTS — bare HTML elements, no classes.
+// ELEMENTS: bare HTML elements, no classes.
+@use '../settings/tokens' as *;
+
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: $nav-h + 16px;
 
   @media (prefers-reduced-motion: reduce) {
     scroll-behavior: auto;
@@ -9,19 +12,19 @@ html {
 
 body {
   overflow-x: clip;
-  background: var(--page);
-  color: var(--text);
-  font-family: var(--font-sans);
-  font-size: clamp(16px, 1.15vw, 19px);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 17px;
+  font-stretch: 100%;
 }
 
 h1,
 h2,
 h3 {
-  font-family: var(--font-display);
-  font-weight: 900;
-  line-height: 0.94;
-  letter-spacing: -0.025em;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
@@ -30,26 +33,16 @@ p {
 }
 
 a {
-  color: var(--ink-green);
-  text-decoration: none;
-  transition: color 150ms linear;
-
-  &:hover {
-    color: var(--ink-brown);
-  }
+  color: inherit;
 }
 
+// Focus ring in the text colour, so it shows on every plane colour.
 :focus-visible {
-  outline: 2px solid var(--ink-green);
-  outline-offset: 2px;
-}
-
-[data-dark] :focus-visible,
-[data-dark]:focus-visible {
-  outline-color: var(--gold);
+  outline: 3px solid currentcolor;
+  outline-offset: 3px;
 }
 
 ::selection {
-  background: var(--green);
-  color: var(--gold);
+  background: var(--yellow);
+  color: var(--black);
 }

@@ -17,7 +17,7 @@ Names, logos and screenshots of Bosfeesten and Chiro Popov belong to their owner
 
 Open-source parts:
 
-- Fraunces and Space Grotesk fonts: SIL Open Font License 1.1
+- Archivo font: SIL Open Font License 1.1
 - Lucide icons: ISC License
 - Astro: MIT License
 

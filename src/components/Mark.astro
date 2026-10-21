@@ -1,0 +1,17 @@
+---
+// The DB mark: a tiny Mondrian composition (same drawing as public/favicon.svg).
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<svg class={className} viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+  <rect width="32" height="32" fill="#121212"></rect>
+  <rect x="2" y="2" width="18" height="18" fill="#fbfaf7"></rect>
+  <rect x="22" y="2" width="8" height="10" fill="#d52b1e"></rect>
+  <rect x="22" y="14" width="8" height="6" fill="#fbfaf7"></rect>
+  <rect x="2" y="22" width="10" height="8" fill="#1d4e9e"></rect>
+  <rect x="14" y="22" width="8" height="8" fill="#f4c20d"></rect>
+  <rect x="24" y="22" width="6" height="8" fill="#fbfaf7"></rect>
+</svg>

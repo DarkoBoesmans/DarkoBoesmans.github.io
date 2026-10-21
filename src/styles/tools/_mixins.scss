@@ -1,4 +1,4 @@
-// TOOLS — mixins only, no CSS output.
+// TOOLS: mixins only, no CSS output.
 @use '../settings/tokens' as *;
 
 @mixin from($bp) {
@@ -13,10 +13,20 @@
   }
 }
 
+// Big, heavy and slightly wide: the poster voice.
 @mixin display($size) {
-  font-family: var(--font-display);
-  font-weight: 900;
   font-size: $size;
-  line-height: 0.94;
-  letter-spacing: -0.025em;
+  font-weight: 800;
+  font-stretch: 112%;
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+}
+
+// Small uppercase label, like the print on a Braun device.
+@mixin label {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }

@@ -1,50 +1,56 @@
-// Featured Work: screenshots left (1fr), sticky text right (1.618fr).
+// Work: a catalogue. Each project is a small board: a blue cover plane and a text plane, alternating sides.
 @use '../settings/tokens' as *;
 @use '../tools/mixins' as *;
 
 .c-work {
-  background: var(--green);
-  color: var(--cream);
-
   &__head {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
     justify-content: space-between;
-    gap: 16px 40px;
-    margin-bottom: clamp(32px, 7vh, 80px);
+    gap: 16px 48px;
+    margin-bottom: clamp(32px, 6vh, 64px);
   }
 
   &__title {
-    font-size: clamp(41px, 6vw, 103px);
-    letter-spacing: -0.03em;
+    @include display(clamp(48px, 7vw, 120px));
   }
 
   &__intro {
-    max-width: 34ch;
-    font-size: clamp(15px, 1.1vw, 18px);
+    max-width: 36ch;
+    color: var(--muted);
+    font-size: clamp(17px, 1.25vw, 20px);
   }
 
-  &__shots {
+  &__list {
     display: flex;
     flex-direction: column;
-    gap: clamp(40px, 16vh, 180px);
+    gap: clamp(24px, 4vh, 48px);
+  }
+}
+
+.c-project {
+  grid-template-columns: minmax(0, 1fr);
+
+  @include from($bp-md) {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+
+    &:nth-child(even) {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+
+      .c-project__cover {
+        order: 2;
+      }
+    }
   }
 
-  &__shot {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  &__image {
-    display: grid;
-    place-items: center;
-    aspect-ratio: 0.8;
+  // Until there is a screenshot: the project name as a typographic cover.
+  &__cover {
+    justify-content: space-between;
     overflow: hidden;
-    border-radius: $radius;
-    background: rgb(244 241 234 / 0.1);
-    font-size: 15px;
+    aspect-ratio: 16 / 10;
+    padding: 0;
+    container-type: inline-size;
 
     img {
       width: 100%;
@@ -53,121 +59,57 @@
     }
   }
 
-  &__caption {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-
-    @include from($bp-lg) {
-      display: none;
-    }
+  &__type {
+    padding: clamp(16px, 2vw, 28px) clamp(16px, 2vw, 28px) 0;
+    font-size: 12cqi;
+    font-weight: 800;
+    font-stretch: 125%;
+    line-height: 0.86;
+    letter-spacing: -0.05em;
   }
 
-  &__num {
-    color: var(--gold);
-    font-family: var(--font-display);
-    font-size: 41px;
-    font-style: italic;
-    font-weight: 900;
-    line-height: 0.85;
+  &__note {
+    padding: clamp(16px, 2vw, 28px);
 
-    &--large {
-      font-size: clamp(72px, 10vw, 160px);
-      letter-spacing: -0.04em;
-    }
+    @include label;
+  }
+
+  &__body {
+    justify-content: flex-end;
+    gap: 20px;
   }
 
   &__name {
-    font-size: clamp(29px, 7vw, 41px);
-
-    &--large {
-      font-size: clamp(35px, 4.6vw, 86px);
-      letter-spacing: -0.03em;
-    }
+    @include display(clamp(30px, 3vw, 48px));
   }
 
   &__desc {
     max-width: 52ch;
-    font-size: clamp(16px, 1.25vw, 21px);
   }
 
-  &__aside {
-    display: none;
-
-    @include from($bp-lg) {
-      position: sticky;
-      top: 104px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 40px;
-      min-height: calc(100vh - 150px);
-    }
-  }
-
-  &__panels {
-    display: grid;
-  }
-
-  &__panel {
-    grid-area: 1 / 1;
-    display: flex;
-    flex-direction: column;
-    gap: clamp(18px, 3vh, 32px);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(28px);
-    transition:
-      opacity 450ms $ease-out,
-      transform 700ms $ease-out,
-      visibility 0s linear 450ms;
-
-    &.is-active {
-      opacity: 1;
-      visibility: visible;
-      transform: none;
-      transition:
-        opacity 600ms $ease-out 120ms,
-        transform 800ms $ease-out 120ms,
-        visibility 0s;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      transform: none;
-    }
-  }
-
-  &__markers {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-  }
-
-  &__marker {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    min-height: 56px;
-    padding: 12px 0 0;
-    border: 0;
-    border-top: 3px solid rgb(244 241 234 / 0.3);
-    background: none;
-    color: rgb(244 241 234 / 0.78);
+  &__tags {
+    padding-top: 16px;
+    border-top: 1px solid var(--hairline);
     font-size: 15px;
-    line-height: 1.25;
-    text-align: left;
-    transition:
-      color 200ms linear,
-      border-color 300ms linear;
+    font-weight: 500;
 
-    &:hover,
-    &.is-active {
-      color: var(--cream);
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 0;
     }
 
-    &.is-active {
-      border-top-color: var(--gold);
+    li:not(:last-child)::after {
+      content: '·';
+      margin-inline: 0.5em;
+      color: var(--muted);
     }
+  }
+
+  &__tags-label {
+    margin-bottom: 6px;
+    color: var(--muted);
+
+    @include label;
   }
 }

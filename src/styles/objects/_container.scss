@@ -1,13 +1,19 @@
-// OBJECTS — layout without looks.
+// OBJECTS: layout without looks.
 @use '../settings/tokens' as *;
 
 .o-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: $max;
   margin-inline: auto;
 }
 
 .o-section {
   padding: $section-pad $page-pad;
-  scroll-margin-top: 96px;
+}
+
+// 12-column grid; children choose their span with `grid-column`.
+.o-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(24px, 3vw, 48px);
 }

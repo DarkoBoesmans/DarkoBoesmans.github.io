@@ -1,5 +1,5 @@
 ---
-// Featured Work: screenshots on the left, a sticky panel on the right that follows the closest screenshot.
+// Work: a catalogue of projects. Each one is a small board: blue cover (work colour) and a text plane.
 import { t, type Lang } from '../i18n';
 import { projects } from '../data/media';
 
@@ -8,64 +8,45 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-const w = t(lang).work;
-const items = projects.map((p, i) => ({
-  ...p,
-  ...w.projects[p.slug],
-  num: String(i + 1).padStart(2, '0'),
-}));
+const d = t(lang);
+const w = d.work;
+const items = projects.map((p) => ({ ...p, ...w.projects[p.slug] }));
 ---
 
-<section id="work" class="o-section c-work" data-dark>
+<section id="work" class="o-section c-work">
   <div class="o-container">
+    <p class="c-label"><span class="c-key c-key--blue" aria-hidden="true"></span>{d.nav.work}</p>
+
     <div class="c-work__head">
       <h2 class="c-work__title" data-reveal>{w.title}</h2>
       <p class="c-work__intro" data-reveal>{w.intro}</p>
     </div>
 
-    <div class="o-split o-split--narrow-first">
-      <ol class="c-work__shots">
-        {
-          items.map((p) => (
-            <li class="c-work__shot">
-              <div class="c-work__image">
-                {p.image ? <img src={p.image} alt={`${p.title} | ${w.screenshot}`} loading="lazy" /> : <span>{w.empty}</span>}
+    <ol class="c-work__list">
+      {
+        items.map((p) => (
+          <li class="c-board c-project" data-reveal>
+            <div class="c-plane c-plane--blue c-project__cover">
+              {p.image ? (
+                <img src={p.image} alt={`${p.title} | ${w.screenshot}`} loading="lazy" />
+              ) : (
+                <>
+                  <span class="c-project__type" aria-hidden="true">{p.title}</span>
+                  <span class="c-project__note">{w.empty}</span>
+                </>
+              )}
+            </div>
+            <div class="c-plane c-project__body">
+              <h3 class="c-project__name">{p.title}</h3>
+              <p class="c-project__desc">{p.desc}</p>
+              <div class="c-project__tags">
+                <p class="c-project__tags-label">{w.built}</p>
+                <ul>{p.tags.map((tag) => <li>{tag}</li>)}</ul>
               </div>
-              <div class="c-work__caption">
-                <span class="c-work__num">{p.num}</span>
-                <h3 class="c-work__name">{p.title}</h3>
-                <p>{p.desc}</p>
-                <ul class="c-chip-list">{p.tags.map((tag) => <li class="c-chip c-chip--gold">{tag}</li>)}</ul>
-              </div>
-            </li>
-          ))
-        }
-      </ol>
-
-      <div class="c-work__aside">
-        <div class="c-work__panels">
-          {
-            items.map((p, i) => (
-              <article class:list={['c-work__panel', { 'is-active': i === 0 }]} aria-hidden={i === 0 ? 'false' : 'true'}>
-                <span class="c-work__num c-work__num--large">{p.num}</span>
-                <h3 class="c-work__name c-work__name--large">{p.title}</h3>
-                <p class="c-work__desc">{p.desc}</p>
-                <ul class="c-chip-list">{p.tags.map((tag) => <li class="c-chip c-chip--gold">{tag}</li>)}</ul>
-              </article>
-            ))
-          }
-        </div>
-        <div class="c-work__markers">
-          {
-            items.map((p, i) => (
-              <button class:list={['c-work__marker', { 'is-active': i === 0 }]} type="button" aria-pressed={i === 0 ? 'true' : 'false'}>
-                <strong>{p.num}</strong>
-                <span>{p.title}</span>
-              </button>
-            ))
-          }
-        </div>
-      </div>
-    </div>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
   </div>
 </section>

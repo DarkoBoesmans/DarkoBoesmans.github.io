@@ -1,112 +1,107 @@
-// Nav: fixed bar that slides in after the hero; always visible on legal pages.
+// Nav: sticky bar under a Mondrian line. Each link carries the colour key of its section.
 @use '../settings/tokens' as *;
 @use '../tools/mixins' as *;
 
 .c-nav {
-  position: fixed;
-  inset: 0 0 auto;
+  position: sticky;
+  top: 0;
   z-index: 40;
-  padding: 12px clamp(12px, 2vw, 20px);
-  opacity: 0;
-  transform: translateY(-110%);
-  transition:
-    transform 420ms $ease-spring,
-    opacity 260ms linear;
-
-  &.is-visible,
-  &--always {
-    opacity: 1;
-    transform: none;
-  }
-
-  &--always {
-    position: sticky;
-    top: 0;
-  }
+  border-bottom: $line solid var(--line);
+  background: var(--paper);
 
   &__bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
-    max-width: 1200px;
+    gap: 12px;
+    max-width: $max;
+    height: $nav-h;
     margin-inline: auto;
-    padding: 8px clamp(12px, 1.6vw, 20px);
-    border: 2px solid var(--line-green);
-    border-radius: $radius;
-    background: var(--page);
+    padding-inline: $page-pad;
   }
 
   &__brand {
     display: flex;
     align-items: center;
-    gap: 10px;
-    color: var(--ink-green);
+    gap: 12px;
+    min-height: 44px;
     font-size: 15px;
-    font-weight: 500;
-    line-height: 1.1;
+    font-weight: 700;
+    line-height: 1.05;
+    text-decoration: none;
   }
 
-  &__logo {
+  &__mark {
     flex: none;
-    width: 40px;
-    height: 40px;
-    background: url('/favicon-light.svg') center / contain no-repeat;
+    width: 32px;
+    height: 32px;
+  }
 
-    [data-theme='dark'] & {
-      background-image: url('/favicon-dark.svg');
+  &__name {
+    @include below($bp-md) {
+      display: none;
     }
   }
 
   &__links {
     display: flex;
     align-items: center;
-    gap: clamp(12px, 1.6vw, 28px);
+    gap: clamp(2px, 1.2vw, 16px);
   }
 
+  // Hover: the key colour fills the link from the left, like a switch lighting up.
   &__link {
     position: relative;
+    isolation: isolate;
     display: inline-flex;
     align-items: center;
+    gap: 8px;
     min-height: 44px;
-    color: var(--text);
+    padding-inline: 8px;
     font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color $switch $ease;
 
-    &::after {
+    &::before {
       content: '';
       position: absolute;
-      right: 0;
-      bottom: 9px;
-      left: 0;
-      height: 2px;
-      background: var(--gold);
+      inset: 8px 0;
+      z-index: -1;
+      background: var(--key);
       transform: scaleX(0);
       transform-origin: left;
-      transition: transform 300ms $ease-spring;
+      transition: transform $switch $ease;
     }
 
-    &:hover::after,
-    &:focus-visible::after {
+    &:hover::before {
       transform: scaleX(1);
     }
 
-    @include below($bp-md) {
-      display: none;
+    &--blue {
+      --key: var(--blue);
+    }
+
+    &--red {
+      --key: var(--red);
+    }
+
+    &--yellow {
+      --key: var(--yellow);
+    }
+
+    &--blue:hover,
+    &--red:hover {
+      color: var(--white);
+    }
+
+    &--yellow:hover {
+      color: var(--black);
+    }
+
+    @include below($bp-sm) {
+      padding-inline: 6px;
+      font-size: 14px;
     }
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    transform: none;
-    transition: opacity 200ms linear;
-  }
-}
-
-.c-progress {
-  position: fixed;
-  inset: 0 0 auto;
-  z-index: 50;
-  height: 3px;
-  background: var(--gold);
-  transform: scaleX(0);
-  transform-origin: left;
 }

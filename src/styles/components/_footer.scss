@@ -1,8 +1,9 @@
-// Footer: one row of small print that wraps on narrow screens.
+// Footer: one row of small print under a Mondrian line; also holds the toggles on phones.
 @use '../settings/tokens' as *;
 
 .c-footer {
-  padding: clamp(32px, 5vh, 56px) $page-pad;
+  padding: 24px $page-pad;
+  border-top: $line solid var(--line);
 
   &__inner {
     display: flex;
@@ -13,7 +14,7 @@
   }
 
   &__copy {
-    color: var(--text-muted);
+    color: var(--muted);
     font-size: 14px;
   }
 
@@ -28,5 +29,10 @@
     align-items: center;
     min-height: 44px;
     font-size: 14px;
+    text-underline-offset: 3px;
+
+    &:not(:hover) {
+      text-decoration: none;
+    }
   }
 }

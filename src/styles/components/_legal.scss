@@ -1,4 +1,4 @@
-// Legal pages. `__body` styles rendered Markdown, so it targets plain elements inside it.
+// Legal pages: a plain reading column. `__body` styles rendered Markdown, so it targets plain elements inside it.
 @use '../tools/mixins' as *;
 
 .c-legal {
@@ -6,12 +6,12 @@
   margin-inline: auto;
 
   &__title {
-    @include display(clamp(41px, 6vw, 86px));
+    @include display(clamp(44px, 6vw, 96px));
   }
 
   &__updated {
     margin-top: 16px;
-    color: var(--text-muted);
+    color: var(--muted);
     font-size: 15px;
   }
 
@@ -51,7 +51,7 @@
     th,
     td {
       padding: 10px 12px 10px 0;
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid var(--hairline);
       text-align: left;
       vertical-align: top;
     }

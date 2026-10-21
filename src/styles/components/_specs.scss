@@ -1,0 +1,50 @@
+// Spec sheet: a Rams-style data table. Label left, values right, hairlines between rows.
+@use '../settings/tokens' as *;
+@use '../tools/mixins' as *;
+
+.c-specs {
+  &__title {
+    margin-bottom: 16px;
+    font-size: clamp(24px, 2.2vw, 34px);
+    font-stretch: 112%;
+  }
+
+  &__row {
+    display: grid;
+    gap: 8px 24px;
+    grid-template-columns: minmax(0, 1fr);
+    padding-block: 16px;
+    border-top: 1px solid var(--hairline);
+
+    &:first-of-type {
+      border-top: 2px solid var(--ink);
+    }
+
+    @include from($bp-md) {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+    }
+  }
+
+  &__name {
+    color: var(--muted);
+
+    @include label;
+
+    padding-top: 0.3em;
+  }
+
+  // Values separated by a middle dot, drawn by CSS so the list stays a list.
+  &__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 0;
+    font-size: clamp(17px, 1.3vw, 20px);
+    font-weight: 500;
+
+    li:not(:last-child)::after {
+      content: '·';
+      margin-inline: 0.6em;
+      color: var(--muted);
+    }
+  }
+}

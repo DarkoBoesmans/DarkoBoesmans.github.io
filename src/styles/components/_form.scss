@@ -1,17 +1,16 @@
-// Contact form on a dark block. Chips are real checkboxes (keyboard + screen reader friendly).
+// Form: square chips (real checkboxes, keyboard and screen reader friendly), a framed text field.
 @use '../settings/tokens' as *;
+@use '../tools/mixins' as *;
 
 .c-form {
   display: flex;
   flex-direction: column;
   gap: 18px;
-  padding: clamp(24px, 2.4vw, 36px);
-  border: 1px solid rgb(244 241 234 / 0.2);
-  border-radius: $radius-xl;
 
   &__legend {
-    margin-bottom: 10px;
-    font-size: 15px;
+    margin-bottom: 12px;
+
+    @include label;
   }
 
   &__chips {
@@ -37,57 +36,55 @@
     align-items: center;
     min-height: 44px;
     padding: 0 16px;
-    border: 1px solid rgb(244 241 234 / 0.35);
-    border-radius: 999px;
+    border: 2px solid var(--ink);
     font-size: 15px;
+    font-weight: 500;
     transition:
-      background-color 200ms linear,
-      border-color 200ms linear,
-      color 200ms linear;
+      background-color $switch $ease,
+      color $switch $ease;
   }
 
   &__chip:hover &__chip-label {
-    border-color: var(--gold);
+    background: var(--hairline);
   }
 
   &__check:checked + &__chip-label {
-    border-color: var(--gold);
-    background: var(--gold);
-    color: var(--ink);
+    background: var(--ink);
+    color: var(--paper);
   }
 
   &__check:focus-visible + &__chip-label {
-    outline: 2px solid var(--gold);
-    outline-offset: 2px;
+    outline: 3px solid var(--ink);
+    outline-offset: 3px;
   }
 
   &__label {
-    font-size: 15px;
+    @include label;
   }
 
   &__field {
     width: 100%;
-    margin-top: -12px;
-    padding: 13px 16px;
-    border: 1px solid rgb(244 241 234 / 0.35);
-    border-radius: 8px;
-    background: rgb(0 0 0 / 0.25);
-    color: var(--cream);
+    margin-top: -8px;
+    padding: 12px 14px;
+    border: 2px solid var(--ink);
+    border-radius: 0;
+    background: var(--paper);
+    color: var(--ink);
     font-size: 16px;
     line-height: 1.5;
     resize: vertical;
 
     &::placeholder {
-      color: rgb(244 241 234 / 0.6);
+      color: var(--muted);
     }
 
     &:focus-visible {
-      border-color: var(--gold);
-      outline: 2px solid var(--gold);
+      outline: 3px solid var(--blue);
+      outline-offset: 0;
     }
 
     &[aria-invalid='true'] {
-      border: 2px solid var(--gold);
+      border-color: var(--red);
     }
   }
 
@@ -95,18 +92,21 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--gold);
     font-size: 15px;
+    font-weight: 600;
+
+    svg {
+      color: var(--red);
+    }
   }
 
   &__note {
-    color: rgb(244 241 234 / 0.8);
+    color: var(--muted);
     font-size: 14px;
 
-    a,
-    a:hover {
-      color: var(--cream);
-      text-decoration: underline;
+    a {
+      color: var(--ink);
+      text-underline-offset: 3px;
     }
   }
 

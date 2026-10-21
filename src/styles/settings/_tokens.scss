@@ -1,56 +1,46 @@
-// SETTINGS — the whole design system: 5 colours, 2 fonts, golden-ratio layout.
+// SETTINGS: the whole design system. Mondrian primaries, Rams greys, one typeface, one line.
+// Colour is never decoration: blue = work, red = contact, yellow = about (see docs/DESIGN.md).
 
 // Sass-only values
-$phi: 1.618;
 $bp-sm: 540px;
 $bp-md: 900px;
-$bp-lg: 1024px;
-$ease-out: cubic-bezier(0.22, 1, 0.36, 1); // reveals
-$ease-spring: cubic-bezier(0.32, 0.72, 0, 1); // hovers, presses
-$gutter: clamp(12px, 1.4vw, 20px);
-$page-pad: clamp(20px, 5vw, 64px);
-$section-pad: clamp(56px, 12vh, 140px);
-$radius: 16px;
-$radius-xl: 32px;
+$bp-lg: 1100px;
+$ease: cubic-bezier(0.2, 0.8, 0.2, 1); // the one easing curve
+$switch: 160ms; // every hover: a quick switch, no bounce
+$line: clamp(5px, 0.55vw, 8px); // the black Mondrian line = the grid gap
+$page-pad: clamp(16px, 3vw, 40px);
+$section-pad: clamp(72px, 12vh, 160px);
+$max: 1440px;
+$nav-h: 64px;
 
 :root {
-  // Brand (the only five colours)
-  --green: #235347;
-  --brown: #7a4f2e;
-  --gold: #d99b43;
-  --cream: #f4f1ea;
-  --ink: #151311;
+  // Fixed colours (identical in both themes)
+  --red: #d52b1e;
+  --blue: #1d4e9e;
+  --yellow: #f4c20d;
+  --black: #121212;
+  --white: #fbfaf7;
 
-  // Roles (mixes of the five)
-  --green-dark: #183a31;
-  --page: var(--cream);
-  --card: #fbf9f4;
-  --line: #d8d2c5;
-  --text: var(--ink);
-  --text-muted: #4a453e;
-  --ink-green: var(--green); // green used as text/lines
-  --ink-brown: var(--brown);
-  --line-green: var(--green);
-  --block: var(--ink); // dark emphasis blocks
-  --tile-ink: var(--ink);
+  // Roles (these flip in dark mode)
+  --paper: #f2f0eb;
+  --plane: var(--white);
+  --ink: var(--black);
+  --muted: #5f5f5a;
+  --line: var(--black);
+  --hairline: #d4d1c9;
 
-  --font-display: 'Fraunces Variable', Georgia, serif;
-  --font-sans: 'Space Grotesk Variable', system-ui, sans-serif;
+  --font: 'Archivo Variable', 'Helvetica Neue', arial, sans-serif;
 
   color-scheme: light;
 }
 
 [data-theme='dark'] {
-  --page: var(--ink);
-  --card: #1f1c19;
-  --line: #3b352e;
-  --text: var(--cream);
-  --text-muted: #c8c0b2;
-  --ink-green: #9cc7b6;
-  --ink-brown: #d4a27a;
-  --line-green: #5e9483;
-  --block: #0c0b0a;
-  --tile-ink: var(--green); // ink tiles would vanish on an ink page
+  --paper: #0b0b0b;
+  --plane: #1a1a19;
+  --ink: #f2f0eb;
+  --muted: #a8a69f;
+  --line: #000;
+  --hairline: #2e2e2c;
 
   color-scheme: dark;
 }

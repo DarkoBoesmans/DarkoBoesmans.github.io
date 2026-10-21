@@ -1,4 +1,4 @@
-// UTILITIES — single-purpose helpers and the scroll-reveal state.
+// UTILITIES: single-purpose helpers and the scroll-reveal state.
 @use '../settings/tokens' as *;
 
 .u-visually-hidden {
@@ -21,13 +21,13 @@
 }
 
 .js [data-reveal].is-revealed {
-  animation: u-reveal 900ms $ease-out var(--reveal-delay, 0ms) both;
+  animation: u-reveal 700ms $ease var(--reveal-delay, 0ms) both;
 }
 
 @keyframes u-reveal {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(16px);
   }
 
   to {
