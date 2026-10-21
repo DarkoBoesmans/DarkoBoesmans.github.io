@@ -1,5 +1,5 @@
-// SETTINGS: the whole design system. Mondrian primaries, Rams greys, one typeface, one line.
-// Colour is never decoration: blue = work, red = contact, yellow = about (see docs/DESIGN.md).
+// SETTINGS: the whole design system. Darko's own five colours on a Rams × Mondriaan board.
+// Colour is never decoration: gold = work, green = contact, brown = about (see docs/DESIGN.md).
 
 // Sass-only values
 $bp-sm: 540px;
@@ -7,7 +7,8 @@ $bp-md: 900px;
 $bp-lg: 1100px;
 $ease: cubic-bezier(0.2, 0.8, 0.2, 1); // the one easing curve
 $switch: 160ms; // every hover: a quick switch, no bounce
-$line: clamp(5px, 0.55vw, 8px); // the black Mondrian line = the grid gap
+$line: clamp(5px, 0.55vw, 8px); // the Mondrian line = the grid gap
+$radius: 14px; // planes: soft corners, like a Braun device
 $page-pad: clamp(16px, 3vw, 40px);
 $section-pad: clamp(72px, 12vh, 160px);
 $max: 1440px;
@@ -15,32 +16,33 @@ $nav-h: 64px;
 
 :root {
   // Fixed colours (identical in both themes)
-  --red: #d52b1e;
-  --blue: #1d4e9e;
-  --yellow: #f4c20d;
-  --black: #121212;
-  --white: #fbfaf7;
+  --contact: #235347; // forest green, cream text
+  --work: #d99b43; // gold, ink text
+  --about: #7a4f2e; // walnut brown, cream text
+  --black: #151311;
+  --white: #f4f1ea;
 
   // Roles (these flip in dark mode)
-  --paper: #f2f0eb;
-  --plane: var(--white);
+  --paper: var(--white);
+  --plane: #fbf9f4;
   --ink: var(--black);
-  --muted: #5f5f5a;
+  --muted: #4a453e;
   --line: var(--black);
-  --hairline: #d4d1c9;
+  --hairline: #d8d2c5;
 
-  --font: 'Archivo Variable', 'Helvetica Neue', arial, sans-serif;
+  --font: 'Space Grotesk Variable', system-ui, sans-serif;
+  --font-display: 'Fraunces Variable', georgia, serif;
 
   color-scheme: light;
 }
 
 [data-theme='dark'] {
-  --paper: #0b0b0b;
-  --plane: #1a1a19;
-  --ink: #f2f0eb;
-  --muted: #a8a69f;
+  --paper: #0c0b0a;
+  --plane: #1f1c19;
+  --ink: var(--white);
+  --muted: #c8c0b2;
   --line: #000;
-  --hairline: #2e2e2c;
+  --hairline: #3b352e;
 
   color-scheme: dark;
 }

@@ -1,9 +1,9 @@
-// Hero: one full-screen Mondrian board. Phone: two columns. From $bp-md: 12 columns.
+// Hero: one full-screen Mondrian board, inset by one line so its rounded corners show. Phone: two columns. From $bp-md: 12 columns.
 @use '../settings/tokens' as *;
 @use '../tools/mixins' as *;
 
 .c-hero {
-  padding-top: 0; // the nav's bottom line already closes the board
+  margin: $line;
 
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-areas:
@@ -15,7 +15,7 @@
     'avail social';
 
   @include from($bp-md) {
-    min-height: calc(100svh - #{$nav-h} - #{$line});
+    min-height: calc(100svh - #{$nav-h} - #{$line} * 3);
     grid-template-columns: repeat(12, minmax(0, 1fr));
     grid-template-rows: minmax(0, 1fr) auto auto; // the name plane takes what is left
     grid-template-areas:
@@ -50,33 +50,32 @@
     @include display(16.5cqi);
   }
 
-  // Yellow plane with the cut-out portrait standing on its bottom edge.
+  // Brown plane with the round portrait from the original portfolio, framed by an ink ring.
   &__face {
     grid-area: face;
-    overflow: hidden;
-    aspect-ratio: 1;
+    align-items: center;
+  }
 
-    @include from($bp-md) {
-      aspect-ratio: auto;
-    }
+  &__portrait {
+    width: min(100%, 440px);
+    margin-block: auto;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: $line solid var(--line);
+    border-radius: 50%;
+    background: var(--plane);
 
     img {
-      position: absolute;
-      inset: auto 0 0;
       width: 100%;
-      height: 92%;
-      object-fit: contain;
-      object-position: bottom center;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      scale: 1.04;
     }
+  }
 
-    .c-plane__label,
-    .c-plane__arrow {
-      z-index: 1;
-    }
-
-    .c-plane__label {
-      position: relative;
-    }
+  .c-plane__label {
+    align-self: flex-start;
   }
 
   &__role {
@@ -84,17 +83,17 @@
   }
 
   &__spec {
+    font-family: var(--font-display);
+    font-weight: 900;
     font-size: clamp(20px, 1.7vw, 26px);
-    font-weight: 700;
-    font-stretch: 112%;
     line-height: 1.1;
     letter-spacing: -0.02em;
 
     span {
       display: block;
       color: var(--muted);
+      font-family: var(--font);
       font-weight: 400;
-      font-stretch: 100%;
       letter-spacing: 0;
     }
   }
@@ -111,7 +110,7 @@
     }
   }
 
-  // Availability: a red status light, the contact colour.
+  // Availability: a green status light, the contact colour.
   &__avail {
     grid-area: avail;
     justify-content: space-between;
@@ -124,14 +123,14 @@
     height: 12px;
     margin-right: 10px;
     border-radius: 50%;
-    background: var(--red);
-    box-shadow: 0 0 0 4px rgb(213 43 30 / 0.2);
+    background: var(--contact);
+    box-shadow: 0 0 0 4px rgb(35 83 71 / 0.2);
   }
 
   &__avail-text {
+    font-family: var(--font-display);
+    font-weight: 900;
     font-size: clamp(18px, 1.5vw, 24px);
-    font-weight: 700;
-    font-stretch: 112%;
     line-height: 1.1;
     letter-spacing: -0.02em;
   }
@@ -148,7 +147,11 @@
   &__contact {
     justify-content: space-between;
     min-height: 150px;
-    padding-right: 64px; // room for the arrow
+    padding-right: 48px; // room for the arrow
+
+    @include from($bp-md) {
+      padding-right: 64px;
+    }
   }
 
   // Two small ink keys, separated by the same black line.
@@ -167,8 +170,3 @@
   }
 }
 
-// The portrait fills the bottom edge, so its arrow sits top-right.
-.c-hero__face .c-plane__arrow {
-  top: clamp(16px, 2vw, 28px);
-  bottom: auto;
-}

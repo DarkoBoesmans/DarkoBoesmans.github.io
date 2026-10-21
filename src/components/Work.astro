@@ -15,7 +15,7 @@ const items = projects.map((p) => ({ ...p, ...w.projects[p.slug] }));
 
 <section id="work" class="o-section c-work">
   <div class="o-container">
-    <p class="c-label"><span class="c-key c-key--blue" aria-hidden="true"></span>{d.nav.work}</p>
+    <p class="c-label"><span class="c-key c-key--work" aria-hidden="true"></span>{d.nav.work}</p>
 
     <div class="c-work__head">
       <h2 class="c-work__title" data-reveal>{w.title}</h2>
@@ -26,7 +26,7 @@ const items = projects.map((p) => ({ ...p, ...w.projects[p.slug] }));
       {
         items.map((p) => (
           <li class="c-board c-project" data-reveal>
-            <div class="c-plane c-plane--blue c-project__cover">
+            <div class="c-plane c-plane--work c-project__cover">
               {p.image ? (
                 <img src={p.image} alt={`${p.title} | ${w.screenshot}`} loading="lazy" />
               ) : (

@@ -82,3 +82,17 @@ WORK (catalogue rows, alternating)         CONTACT (board, 7/5)
 ## Placeholders
 
 - Project screenshots: replaced by typographic covers (project name on a blue plane) until real screenshots exist in `public/images/work/`.
+
+## Hybrid (branch `redesign/hybrid`)
+
+The Rams × Mondriaan structure, dressed in the original portfolio's identity.
+
+| Kept from Rams × Mondriaan | Kept from the original portfolio |
+| --- | --- |
+| Board of planes on an ink line grid | Five colours: cream, ink, forest green, walnut brown, gold |
+| Colour as a function key, repeated in nav, labels and buttons | Fraunces 900 for display, Space Grotesk for text |
+| Spec sheet, project catalogue, still page | Soft corners (14 px planes) and the round portrait |
+
+**Function keys in this palette:** gold = work (ink text, 7.7:1), forest green = contact (cream text), walnut brown = about (cream text, 6.2:1). Brown also marks form errors, as in the original system, which has no red.
+
+**Board corners:** outer radius = plane radius + line width, so the ink line keeps one thickness around every corner.

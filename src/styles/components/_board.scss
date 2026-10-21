@@ -1,10 +1,11 @@
-// Board: a Mondrian composition. Black ground, planes on top; the gap between planes IS the line.
+// Board: a Mondrian composition. Ink ground, rounded planes on top; the gap between planes IS the line.
 @use '../settings/tokens' as *;
 
 .c-board {
   display: grid;
   gap: $line;
   padding: $line;
+  border-radius: calc(#{$radius} + #{$line}); // outer radius = inner radius + line
   background: var(--line);
 
   // Intro: the planes switch on one by one (each child sets --i in the markup).

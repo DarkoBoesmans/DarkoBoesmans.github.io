@@ -1,4 +1,4 @@
-// Nav: sticky bar under a Mondrian line. Each link carries the colour key of its section.
+// Nav: sticky bar under an ink line. Each link carries the colour key of its section.
 @use '../settings/tokens' as *;
 @use '../tools/mixins' as *;
 
@@ -78,24 +78,24 @@
       transform: scaleX(1);
     }
 
-    &--blue {
-      --key: var(--blue);
+    &--work {
+      --key: var(--work);
     }
 
-    &--red {
-      --key: var(--red);
+    &--contact {
+      --key: var(--contact);
     }
 
-    &--yellow {
-      --key: var(--yellow);
+    &--about {
+      --key: var(--about);
     }
 
-    &--blue:hover,
-    &--red:hover {
+    &--contact:hover,
+    &--about:hover {
       color: var(--white);
     }
 
-    &--yellow:hover {
+    &--work:hover {
       color: var(--black);
     }
 

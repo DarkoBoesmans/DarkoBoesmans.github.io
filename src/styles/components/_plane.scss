@@ -1,4 +1,4 @@
-// Plane: one coloured field of a board. Colour = function: blue work, red contact, yellow about.
+// Plane: one coloured field of a board. Colour = function: gold work, green contact, brown about.
 @use '../settings/tokens' as *;
 @use '../tools/mixins' as *;
 
@@ -9,22 +9,23 @@
   gap: 16px;
   min-width: 0;
   padding: clamp(16px, 2vw, 28px);
+  border-radius: $radius;
   background: var(--plane);
   color: var(--ink);
 
-  &--blue {
-    background: var(--blue);
-    color: var(--white);
-  }
-
-  &--red {
-    background: var(--red);
-    color: var(--white);
-  }
-
-  &--yellow {
-    background: var(--yellow);
+  &--work {
+    background: var(--work);
     color: var(--black);
+  }
+
+  &--contact {
+    background: var(--contact);
+    color: var(--white);
+  }
+
+  &--about {
+    background: var(--about);
+    color: var(--white);
   }
 
   // A plane that is a link ("key"): the whole plane is the target and it switches to ink.
@@ -57,7 +58,7 @@
   }
 
   &__title {
-    @include display(clamp(32px, 3.6vw, 60px));
+    @include display(clamp(26px, 3.6vw, 60px));
   }
 
   // Bottom-right corner of a key, out of the flow so it never adds height.

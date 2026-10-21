@@ -16,13 +16,13 @@ body {
   color: var(--ink);
   font-family: var(--font);
   font-size: 17px;
-  font-stretch: 100%;
 }
 
 h1,
 h2,
 h3 {
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-weight: 900;
   line-height: 1;
   letter-spacing: -0.02em;
   text-wrap: balance;
@@ -43,6 +43,6 @@ a {
 }
 
 ::selection {
-  background: var(--yellow);
-  color: var(--black);
+  background: var(--contact);
+  color: var(--work);
 }

@@ -9,16 +9,16 @@
   background: var(--key, var(--ink));
   box-shadow: 0 0 0 1px var(--black);
 
-  &--blue {
-    --key: var(--blue);
+  &--work {
+    --key: var(--work);
   }
 
-  &--red {
-    --key: var(--red);
+  &--contact {
+    --key: var(--contact);
   }
 
-  &--yellow {
-    --key: var(--yellow);
+  &--about {
+    --key: var(--about);
   }
 }
 

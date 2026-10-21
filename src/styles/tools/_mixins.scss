@@ -13,17 +13,18 @@
   }
 }
 
-// Big, heavy and slightly wide: the poster voice.
+// Fraunces at its heaviest: the poster voice from the original portfolio.
 @mixin display($size) {
+  font-family: var(--font-display);
   font-size: $size;
-  font-weight: 800;
-  font-stretch: 112%;
-  line-height: 0.88;
-  letter-spacing: -0.04em;
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.025em;
 }
 
 // Small uppercase label, like the print on a Braun device.
 @mixin label {
+  font-family: var(--font);
   font-size: 13px;
   font-weight: 600;
   line-height: 1.2;

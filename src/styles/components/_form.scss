@@ -79,12 +79,12 @@
     }
 
     &:focus-visible {
-      outline: 3px solid var(--blue);
+      outline: 3px solid var(--work);
       outline-offset: 0;
     }
 
     &[aria-invalid='true'] {
-      border-color: var(--red);
+      border-color: var(--about); // brown: the palette has no red
     }
   }
 
@@ -96,7 +96,7 @@
     font-weight: 600;
 
     svg {
-      color: var(--red);
+      color: var(--about);
     }
   }
 

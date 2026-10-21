@@ -1,6 +1,6 @@
 ---
 // Hero: one Mondrian board. Every coloured plane is a key with one job:
-// yellow = about me, blue = my work, red = contact. White planes only inform.
+// brown = about me, gold = my work, green = contact. Light planes only inform.
 import Icon from './Icon.astro';
 import { t, type Lang } from '../i18n';
 
@@ -19,9 +19,11 @@ const h = d.hero;
     <h1 class="c-hero__h1">Darko<br />Boesmans</h1>
   </div>
 
-  <a class="c-plane c-plane--yellow c-plane--key c-hero__face" href="#about" style="--i: 1">
+  <a class="c-plane c-plane--about c-plane--key c-hero__face" href="#about" style="--i: 1">
     <span class="c-plane__label">{h.tab}</span>
-    <img src="/images/profile.webp" alt={h.alt} width="960" height="900" fetchpriority="high" decoding="async" />
+    <span class="c-hero__portrait">
+      <img src="/images/profile.webp" alt={h.alt} width="960" height="900" fetchpriority="high" decoding="async" />
+    </span>
     <span class="c-plane__arrow"><Icon name="arrow-down" size={28} /></span>
   </a>
 
@@ -41,13 +43,13 @@ const h = d.hero;
     <p class="c-hero__avail-text"><span class="c-hero__dot" aria-hidden="true"></span>{h.avail}</p>
   </div>
 
-  <a class="c-plane c-plane--blue c-plane--key c-hero__work" href="#work" style="--i: 5">
+  <a class="c-plane c-plane--work c-plane--key c-hero__work" href="#work" style="--i: 5">
     <span class="c-plane__label">{d.nav.work}</span>
     <span class="c-plane__title">{h.myWork}</span>
     <span class="c-plane__arrow"><Icon name="arrow-right" size={28} /></span>
   </a>
 
-  <a class="c-plane c-plane--red c-plane--key c-hero__contact" href="#contact" style="--i: 6">
+  <a class="c-plane c-plane--contact c-plane--key c-hero__contact" href="#contact" style="--i: 6">
     <span class="c-plane__label">{d.nav.contact}</span>
     <span class="c-plane__title">{h.contactMe}</span>
     <span class="c-plane__arrow"><Icon name="arrow-right" size={28} /></span>
