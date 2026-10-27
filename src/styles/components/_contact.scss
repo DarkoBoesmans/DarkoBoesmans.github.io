@@ -3,6 +3,9 @@
 @use '../tools/mixins' as *;
 
 .c-contact {
+  background: var(--about); // brown section: the green contact plane stands out on it
+  color: var(--white);
+
   &__board {
     grid-template-columns: minmax(0, 1fr);
 
@@ -12,6 +15,8 @@
   }
 
   &__intro {
+    --outline-bg: var(--contact);
+
     justify-content: space-between;
     gap: clamp(24px, 4vh, 48px);
     padding: clamp(24px, 4vw, 56px);

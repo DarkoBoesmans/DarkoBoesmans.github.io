@@ -1,0 +1,97 @@
+// Booth: one hall on the floor plan. Info halls are drawn as walls (outline) with a door gap;
+// link halls are filled with their key colour and light up cream on hover.
+@use '../settings/tokens' as *;
+@use '../tools/mixins' as *;
+
+$wall: 3px;
+
+.c-booth {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 0;
+  min-height: 150px;
+  padding: 34px 18px 22px;
+  border: $wall solid var(--white);
+  color: var(--white);
+  text-align: center;
+  text-decoration: none;
+
+  // The door: a gap in the bottom wall, in the floor colour.
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -$wall;
+    left: 50%;
+    width: 44px;
+    height: $wall;
+    margin-left: -22px;
+    background: var(--contact);
+  }
+
+  &--top {
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  &__hall {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    opacity: 0.85;
+
+    @include mono(11px);
+
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  // Socials: the platform name under the icon, so they read as buttons.
+  &__tag {
+    @include mono(12px);
+
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  &--work {
+    border-color: var(--work);
+    background: var(--work);
+    color: var(--black);
+  }
+
+  &--about {
+    border-color: var(--about);
+    background: var(--about);
+    color: var(--white);
+  }
+
+  &--ink {
+    border-color: var(--black);
+    background: var(--black);
+    color: var(--white);
+  }
+
+  &--link {
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--white);
+      background: var(--white);
+      color: var(--contact);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    &:focus-visible {
+      outline-offset: -10px;
+    }
+  }
+}

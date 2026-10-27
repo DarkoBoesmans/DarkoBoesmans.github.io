@@ -1,8 +1,9 @@
 ---
 // About, in short: what drives me (three bold one-liners), the nagging idea, the spec sheet
-// ("Statistics for nerds", target of the hero tile) and life outside work. The path itself lives in Route.
+// ("Statistics for nerds": real numbers from the route and GitHub, then the toolkit; target of the hero tile) and life outside work. The path itself lives in Route.
 import { t, type Lang } from '../i18n';
 import { aboutPhoto } from '../data/media';
+import { getGithubStats } from '../data/github';
 
 interface Props {
   lang: Lang;
@@ -10,11 +11,18 @@ interface Props {
 
 const { lang } = Astro.props;
 const a = t(lang).about;
+const gh = await getGithubStats();
+const stats = [
+  ...a.stats,
+  { value: String(gh.repos), label: a.github.repos },
+  { value: gh.top, label: a.github.top },
+  { value: String(gh.since), label: a.github.since },
+];
 ---
 
 <section id="about" class="o-section c-about">
   <div class="o-container">
-    <h2 class="c-about__title" data-reveal data-parallax="-0.06">{a.title}</h2>
+    <h2 class="c-about__title" data-reveal data-parallax="-0.06">{a.title[0]} <span class="u-outline">{a.title[1]}</span></h2>
 
     <div class="c-board c-about__board" data-reveal>
       <blockquote class="c-plane c-plane--about c-about__quote">
@@ -32,6 +40,17 @@ const a = t(lang).about;
 
     <section id="toolkit" class="c-specs" aria-labelledby="specs-title" data-reveal>
       <h3 class="c-specs__title" id="specs-title">{a.skillsTitle}</h3>
+      <dl class="c-stats">
+        {
+          stats.map((s) => (
+            <div class="c-stats__item">
+              <dt class="c-stats__label">{s.label}</dt>
+              <dd class="c-stats__value">{s.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <h4 class="c-specs__sub">{a.toolkit}</h4>
       <dl>
         {
           a.skills.map((group) => (

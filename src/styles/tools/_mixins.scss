@@ -13,14 +13,16 @@
   }
 }
 
-// Bricolage Grotesque, heavy and slightly condensed: the poster voice.
+// Bricolage Grotesque, heavy, condensed and in ALL CAPS: the poster voice.
+// Pair a solid part with a .u-outline part for the second half of a title.
 @mixin display($size) {
   font-family: var(--font-display);
   font-size: $size;
   font-weight: 800;
-  font-stretch: 88%;
-  line-height: 0.9;
-  letter-spacing: -0.035em;
+  font-stretch: 78%;
+  line-height: 0.88;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
 }
 
 // Mono data, like the print on an event badge.

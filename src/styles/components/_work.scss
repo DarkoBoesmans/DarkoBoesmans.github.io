@@ -64,10 +64,12 @@
   &__type {
     padding: clamp(18px, 2vw, 28px) clamp(18px, 2vw, 28px) 0;
     font-family: var(--font-display);
-    font-size: 15cqi;
+    font-size: 17cqi;
     font-weight: 800;
-    line-height: 0.9;
-    letter-spacing: -0.03em;
+    font-stretch: 78%;
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
   }
 
   &__note {
@@ -152,17 +154,18 @@
     }
   }
 
+  // Index of all projects, one per line: five names never fit side by side.
   &__markers {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
 
   &__marker {
-    min-height: 56px;
-    padding: 12px 0 0;
+    min-height: 44px;
+    padding: 8px 0 8px 16px;
     border: 0;
-    border-top: 3px solid var(--hairline);
+    border-left: 3px solid var(--hairline);
     background: none;
     color: var(--muted);
     font-size: 15px;
@@ -178,7 +181,7 @@
     }
 
     &.is-active {
-      border-top-color: var(--work);
+      border-left-color: var(--work);
     }
   }
 }

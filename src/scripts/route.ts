@@ -1,11 +1,34 @@
-// Route timeline: while the visitor scrolls down through the (tall) section, the sticky track slides
-// sideways and the line draws. The section's height is set so the scroll distance matches the track.
-// Desktop only; phones and reduced motion keep the vertical list from the CSS.
+// Route timeline.
+// 1. Dots: click/tap toggles the extra line of a stop (hover and focus show it via CSS on desktop).
+// 2. Desktop: while the visitor scrolls down through the (tall) section, the sticky track slides sideways
+//    and the line draws. The section's height is set so the scroll distance matches the track, with at
+//    least 1.5 screens of scrolling so the ride never feels rushed on wide monitors.
+//    Phones and reduced motion keep the vertical list from the CSS.
 export function initRoute(reduceMotion: boolean): void {
   const section = document.querySelector<HTMLElement>('[data-route]');
   const track = section?.querySelector<HTMLElement>('[data-route-track]');
   const path = section?.querySelector<SVGPathElement>('[data-route-path]');
-  if (!section || !track || reduceMotion) return;
+  if (!section || !track) return;
+
+  section.querySelectorAll<HTMLButtonElement>('[data-route-dot]').forEach((dot) =>
+    dot.addEventListener('click', () => {
+      const open = dot.getAttribute('aria-expanded') !== 'true';
+      dot.setAttribute('aria-expanded', String(open));
+      dot.parentElement?.classList.toggle('is-open', open);
+    }),
+  );
+
+  if (reduceMotion) return;
+
+  // Keyboard: a dot that gets focus while the track is sideways scrolls into view first.
+  section.addEventListener('focusin', (event) => {
+    const stop = (event.target as HTMLElement).closest<HTMLElement>('li');
+    if (!stop || !section.classList.contains('is-horizontal')) return;
+    const distance = Math.max(1, track.scrollWidth - window.innerWidth);
+    const progress = Math.min(1, Math.max(0, (stop.offsetLeft - window.innerWidth / 3) / distance));
+    const top = section.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: top + progress * (section.offsetHeight - window.innerHeight), behavior: 'instant' });
+  });
 
   const wide = matchMedia('(min-width: 900px)');
   let queued = false;
@@ -15,7 +38,7 @@ export function initRoute(reduceMotion: boolean): void {
     if (!section.classList.contains('is-horizontal')) return;
     const scrollable = section.offsetHeight - window.innerHeight;
     const progress = Math.min(1, Math.max(0, -section.getBoundingClientRect().top / scrollable));
-    const distance = track.scrollWidth - window.innerWidth;
+    const distance = Math.max(0, track.scrollWidth - window.innerWidth);
     track.style.translate = `${(-progress * distance).toFixed(1)}px 0`;
     if (path) path.style.strokeDashoffset = String(1 - progress);
   };
@@ -27,8 +50,9 @@ export function initRoute(reduceMotion: boolean): void {
       track.style.translate = '';
       return;
     }
-    // Sideways distance + one screen of sticky time = the height the visitor scrolls through.
-    section.style.height = `${track.scrollWidth - window.innerWidth + window.innerHeight}px`;
+    // Sideways distance (at least 1.5 screens) + one screen of sticky time = the height to scroll through.
+    const distance = Math.max(track.scrollWidth - window.innerWidth, window.innerHeight * 1.5);
+    section.style.height = `${distance + window.innerHeight}px`;
     update();
   };
 

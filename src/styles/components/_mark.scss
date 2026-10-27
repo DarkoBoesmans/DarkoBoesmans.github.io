@@ -1,0 +1,8 @@
+// Mark: the DB monogram. The SVG is a mask, so the logo is always the current text colour.
+
+.c-mark {
+  display: inline-block;
+  flex: none;
+  background: currentcolor;
+  mask: url('/favicon.svg') center / contain no-repeat;
+}

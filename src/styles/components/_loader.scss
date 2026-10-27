@@ -1,5 +1,6 @@
-// Loader: a blank pass is "printed" top to bottom while the page loads, then the screen lifts away.
-// Only shown while <html> has .is-loading. A CSS failsafe hides it after 3.2 s if the script never runs.
+// Loader: a pass is printed top to bottom (--p, 0 to 1) while the page loads; a print head runs over it.
+// Then the stamp lands (.is-granted) and the screen lifts away (.is-loaded).
+// Only shown while <html> has .is-loading; a CSS failsafe hides it after 4.5 s if the script never runs.
 @use '../settings/tokens' as *;
 @use '../tools/mixins' as *;
 
@@ -11,47 +12,147 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 18px;
   background: var(--stage);
   color: var(--white);
 
   .is-loading & {
     display: flex;
-    animation: c-loader-failsafe 0s 3.2s forwards;
+    animation: c-loader-failsafe 0s 4.5s forwards;
   }
 
   .is-loaded & {
     clip-path: inset(0 0 100% 0);
-    transition: clip-path 700ms $ease;
+    transition: clip-path 750ms $ease;
   }
 
   &__pass {
     position: relative;
-    width: 120px;
-    aspect-ratio: 0.63;
-    overflow: hidden;
-    border-radius: 12px;
-    background: rgb(244 241 234 / 0.08);
-    outline: 2px dashed rgb(244 241 234 / 0.3);
-    outline-offset: 4px;
+    width: 220px;
+    aspect-ratio: 0.64;
+    border-radius: 14px;
+    background: rgb(244 241 234 / 0.06);
+    outline: 2px dashed rgb(244 241 234 / 0.28);
+    outline-offset: 5px;
   }
 
-  // The printed part grows down with the progress (--p, 0 to 1).
+  // Everything printed so far: revealed from the top down.
   &__print {
     position: absolute;
     inset: 0;
-    background: linear-gradient(var(--contact) 0 26%, var(--white) 26%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--white);
+    color: var(--black);
     clip-path: inset(0 0 calc((1 - var(--p, 0)) * 100%) 0);
   }
 
-  &__mark {
+  &__band {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 12px 14px 8px;
+    background: var(--contact);
+    color: var(--white);
+
+    @include mono(10px);
+
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  &__photo {
+    width: 46%;
+    margin-top: 16px;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 3px solid var(--black);
+    border-radius: 50%;
+    background: var(--about);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__name {
+    margin-top: 12px;
+    font-size: 30px;
+    font-weight: 800;
+    font-stretch: 78%;
+    line-height: 0.88;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &__role {
+    margin-top: 8px;
+    padding-inline: 12px;
+    text-align: center;
+
+    @include mono(9px);
+  }
+
+  &__bars {
+    width: 70%;
+    height: 22px;
+    margin-top: auto;
+    margin-bottom: 14px;
+    background: repeating-linear-gradient(90deg, var(--black) 0 2px, transparent 2px 4px, var(--black) 4px 7px, transparent 7px 9px);
+  }
+
+  // The print head: a gold line riding on the edge of what is printed.
+  &__head {
     position: absolute;
-    top: 14%;
+    right: -10px;
+    left: -10px;
+    top: calc(var(--p, 0) * 100%);
+    height: 4px;
+    border-radius: 2px;
+    background: var(--work);
+    box-shadow: 0 0 12px var(--work);
+    translate: 0 -2px;
+
+    .is-granted & {
+      opacity: 0;
+      transition: opacity 200ms linear;
+    }
+  }
+
+  &__stamp {
+    position: absolute;
+    top: 50%;
     left: 50%;
-    z-index: 1;
-    width: 36px;
-    height: 36px;
-    margin-left: -18px;
+    padding: 8px 14px;
+    border: 3px solid var(--contact);
+    border-radius: 6px;
+    color: var(--contact);
+    background: rgb(244 241 234 / 0.9);
+    opacity: 0;
+    translate: -50% -50%;
+    rotate: -12deg;
+    scale: 1.8;
+    white-space: nowrap;
+
+    @include mono(16px);
+
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    .is-granted & {
+      opacity: 1;
+      scale: 1;
+      transition:
+        opacity 120ms linear,
+        scale 260ms cubic-bezier(0.3, 1.6, 0.5, 1);
+    }
   }
 
   &__label {
@@ -62,7 +163,7 @@
   }
 
   &__count {
-    @include mono(56px);
+    @include mono(48px);
 
     font-weight: 700;
     line-height: 1;

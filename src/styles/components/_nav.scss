@@ -54,9 +54,13 @@
   }
 
   &__mark {
-    flex: none;
-    width: 32px;
-    height: 32px;
+    width: 38px;
+    height: 38px;
+    color: var(--contact);
+
+    [data-theme='dark'] & {
+      color: var(--ink);
+    }
   }
 
   &__name {

@@ -1,10 +1,14 @@
-// Badge: a physical access pass. Gold lanyard, metal clip, punched slot, green band, photo with
-// rotating rings, barcode. The wrapper sways (rotate), the card tilts (transform, set by badge.ts),
-// parallax moves the wrapper (translate): three separate properties, so they never fight.
+// Badge: a physical access pass. V-shaped gold lanyard, metal ring and clip, punched slot, green band,
+// photo with two rotating rings, barcode. Real depth: four edge layers behind the face (translateZ),
+// and a floor shadow that slides the other way when the card tilts.
+// Three motions, three properties, so they never fight: sway = rotate (wrapper), parallax = translate
+// (wrapper), tilt = transform (card, set by scripts/badge.ts).
 @use '../settings/tokens' as *;
 @use '../tools/mixins' as *;
 
 .c-badge {
+  position: relative;
+  width: 100%; // without it the wrapper shrinks to the lanyard's width and squeezes the card
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,99 +27,133 @@
     animation: none !important;
   }
 
-  // Starts far above the screen, so parallax never shows its top end.
+  // 560 tall, mostly above the screen: only the bottom (the V and the ring) shows.
   &__lanyard {
-    overflow: hidden;
-    width: 46px;
-    height: calc(clamp(56px, 14vh, 150px) + 400px);
-    margin-top: -400px;
-    background: var(--work);
-    box-shadow: inset 6px 0 0 rgb(0 0 0 / 0.12), inset -6px 0 0 rgb(0 0 0 / 0.12);
-    color: var(--black);
+    flex: none;
+    width: 220px;
+    height: 560px;
+    margin-top: calc(-560px + clamp(110px, 18vh, 190px));
+    overflow: visible;
+  }
 
-    span {
-      display: block;
-      padding-top: 8px;
-      text-align: center;
-      white-space: nowrap;
-      writing-mode: vertical-rl;
+  &__strap {
+    stroke: var(--work);
+    stroke-width: 26;
+    filter: drop-shadow(0 2px 2px rgb(0 0 0 / 0.25));
+  }
 
-      @include mono(12px);
+  &__strap-text {
+    fill: var(--black);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    dominant-baseline: central;
+  }
 
-      font-weight: 700;
-      text-transform: uppercase;
-    }
+  &__ring-metal {
+    fill: none;
+    stroke: #b9b6ad;
+    stroke-width: 5;
   }
 
   &__clip {
-    width: 34px;
-    height: 26px;
-    margin-bottom: -10px;
-    border-radius: 4px 4px 8px 8px;
-    background: linear-gradient(90deg, #8b8a86, #d9d8d3 45%, #8b8a86);
-    box-shadow: 0 2px 4px rgb(0 0 0 / 0.4);
+    width: 30px;
+    height: 34px;
+    margin: -8px 0 -14px;
+    border-radius: 6px 6px 10px 10px;
+    background: linear-gradient(90deg, #7d7b76, #e4e2dc 45%, #8e8c86);
+    box-shadow: 0 3px 6px rgb(0 0 0 / 0.35);
+    z-index: 2;
   }
 
   &__card {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    width: min(100%, 400px);
-    overflow: hidden;
-    border-radius: 20px;
-    background: var(--white);
-    color: var(--black);
-    box-shadow:
-      0 40px 80px -20px rgb(0 0 0 / 0.7),
-      0 18px 30px -12px rgb(0 0 0 / 0.5),
-      inset 0 0 0 1px rgb(255 255 255 / 0.6);
-    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-    transition: transform 500ms $ease;
-    container-type: inline-size;
+    width: min(100%, 440px, calc((100svh - 240px) * 0.6)); // big, but the whole pass fits on screen
+    transform-style: preserve-3d;
+    transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform 600ms $ease;
 
     &.is-tilting {
-      transition: transform 80ms linear;
+      transition: transform 90ms linear;
     }
+  }
+
+  // The card's thickness: darker copies stacked behind the face.
+  &__edge {
+    position: absolute;
+    inset: 0;
+    border-radius: 22px;
+    background: #cfc7b6;
+    transform: translateZ(calc(var(--z) * -1.5px));
+  }
+
+  &__face {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 22px;
+    background: var(--white);
+    color: var(--black);
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.7);
+    container-type: inline-size;
+  }
+
+  &__shadow {
+    position: absolute;
+    bottom: -36px;
+    left: 50%;
+    width: 70%;
+    height: 40px;
+    margin-left: -35%;
+    border-radius: 50%;
+    background: rgb(0 0 0 / 0.45);
+    filter: blur(18px);
+    translate: var(--shx, 0) 0;
+    z-index: -1;
+    pointer-events: none;
   }
 
   &__band {
     display: flex;
     justify-content: space-between;
-    padding: 34px 22px 14px;
+    padding: 40px 28px 16px;
     background: var(--contact);
     color: var(--white);
 
-    @include mono(13px);
+    @include mono(14px);
 
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
   }
 
   // The punched hole the clip goes through.
   &__slot {
     position: absolute;
-    top: 12px;
+    top: 14px;
     left: 50%;
-    width: 64px;
-    height: 12px;
-    margin-left: -32px;
-    border-radius: 6px;
-    background: var(--stage);
+    width: 70px;
+    height: 13px;
+    margin-left: -35px;
+    border-radius: 7px;
+    background: rgb(0 0 0 / 0.55);
     box-shadow: inset 0 2px 3px rgb(0 0 0 / 0.6);
   }
 
   &__photo {
     position: relative;
-    width: 72%;
-    margin: 24px auto 0;
+    width: 76%;
+    margin: 26px auto 0;
     aspect-ratio: 1;
 
     img {
       position: absolute;
-      inset: 13%;
-      width: 74%;
-      height: 74%;
+      inset: 19%;
+      width: 62%;
+      height: 62%;
       border: 4px solid var(--black);
       border-radius: 50%;
       background: var(--about);
@@ -137,18 +175,18 @@
     &--dash {
       fill: none;
       stroke: var(--about);
-      stroke-dasharray: 2 6;
-      stroke-width: 2;
-      animation-duration: 60s;
+      stroke-dasharray: 2 7;
+      stroke-linecap: round;
+      stroke-width: 2.5;
+      animation-duration: 70s;
       animation-direction: reverse;
     }
 
     &--text {
       fill: var(--black);
       font-family: var(--font-mono);
-      font-size: 8.5px;
+      font-size: 9px;
       font-weight: 600;
-      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
@@ -158,23 +196,20 @@
   }
 
   &__name {
-    margin: 4px 22px 0;
-    font-size: 18cqi;
-    font-weight: 800;
-    font-stretch: 80%;
-    line-height: 0.86;
-    letter-spacing: -0.035em;
+    margin: 10px 28px 0;
+    font-size: 19cqi;
+    line-height: 0.84;
   }
 
   &__role {
-    margin: 12px 22px 0;
+    margin: 14px 28px 0;
 
-    @include mono(13px);
+    @include mono(14px);
   }
 
   &__mail {
     align-self: flex-start;
-    margin: 6px 22px 0;
+    margin: 8px 28px 0;
     color: var(--contact);
     font-weight: 600;
     text-underline-offset: 3px;
@@ -184,10 +219,10 @@
   &__foot {
     display: flex;
     align-items: center;
-    gap: 16px;
-    margin-top: 18px;
-    padding: 14px 22px 18px;
-    border-top: 2px dashed rgb(21 19 17 / 0.2);
+    gap: 18px;
+    margin-top: 22px;
+    padding: 16px 28px 22px;
+    border-top: 2px dashed rgb(21 19 17 / 0.22);
 
     @include mono(12px);
 
@@ -196,7 +231,7 @@
 
   &__barcode {
     flex: 1;
-    height: 34px;
+    height: 38px;
     fill: var(--black);
   }
 
@@ -205,7 +240,7 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: radial-gradient(circle at var(--sx, 30%) var(--sy, 0%), rgb(255 255 255 / 0.55), transparent 45%);
+    background: radial-gradient(circle at var(--sx, 30%) var(--sy, 0%), rgb(255 255 255 / 0.6), transparent 45%);
     mix-blend-mode: soft-light;
   }
 }

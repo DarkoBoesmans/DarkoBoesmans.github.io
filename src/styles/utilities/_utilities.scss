@@ -20,6 +20,16 @@
   }
 }
 
+// Outline type: the second half of a title, drawn as a line in the current text colour.
+// Outline type. A variable font's glyphs overlap inside, so a stroke over a transparent fill shows
+// those seams. Instead: double-width stroke painted first, then a fill in the section's background
+// colour on top, which hides the inner half and every seam. Sections set --outline-bg.
+.u-outline {
+  -webkit-text-fill-color: var(--outline-bg, var(--paper));
+  -webkit-text-stroke: max(3px, 0.056em) currentcolor;
+  paint-order: stroke fill;
+}
+
 .u-visually-hidden {
   position: absolute;
   width: 1px;

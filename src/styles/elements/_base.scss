@@ -23,9 +23,10 @@ h2,
 h3 {
   font-family: var(--font-display);
   font-weight: 800;
-  font-stretch: 92%;
-  line-height: 1;
-  letter-spacing: -0.025em;
+  font-stretch: 82%;
+  line-height: 0.95;
+  letter-spacing: -0.005em;
+  text-transform: uppercase; // headings in caps, running text never (easier to read)
   text-wrap: balance;
 }
 

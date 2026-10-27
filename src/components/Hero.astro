@@ -1,6 +1,6 @@
 ---
-// Hero: a dark venue with a spotlight that follows the cursor. Left (38.2%, golden ratio): the access pass.
-// Right (61.8%): a board of tiles. Coloured tiles are keys: gold = work, brown = about, green = contact.
+// Hero: the fair's floor plan on green. Left (38.2%, golden ratio): your access pass and the "you are here" pin.
+// Right (61.8%): the halls. Filled halls are links: gold = work, brown = stats, ink = contact and socials.
 import Badge from './Badge.astro';
 import Icon from './Icon.astro';
 import Toggles from './Toggles.astro';
@@ -12,47 +12,69 @@ interface Props {
 
 const { lang } = Astro.props;
 const h = t(lang).hero;
+const hall = (n: number): string => `${h.hall} ${String(n).padStart(2, '0')}`;
 ---
 
 <section id="top" class="c-hero" data-dark data-hero>
   <Toggles lang={lang} variant="hero" />
 
   <div class="c-hero__stage">
-    <Badge lang={lang} />
+    <div class="c-hero__pass">
+      <Badge lang={lang} />
+      <p class="c-hero__here"><span class="c-hero__pin" aria-hidden="true"></span>{h.here}</p>
+    </div>
 
-    <div class="c-board c-hero__grid" data-parallax="0.05">
-      <div class="c-plane c-hero__tile c-hero__front">
-        <span class="c-hero__big">{h.front}</span>
-        <span>{h.dev}</span>
-      </div>
-      <div class="c-plane c-hero__tile c-hero__avail">
-        <span class="c-hero__big">{h.avail}</span>
-      </div>
-      <div class="c-plane c-hero__obs">
-        <h2 class="c-hero__big">{h.obs}</h2>
-        {h.obsItems.map((item) => <p>{item}</p>)}
-      </div>
-      <div class="c-plane c-hero__tile c-hero__creative">
-        <span class="c-hero__big">{h.creative}</span>
-        <span>{h.digital}</span>
-      </div>
-      <a class="c-plane c-plane--work c-plane--key c-hero__tile c-hero__work" href="#work">
-        <span class="c-hero__big">{h.myWork}</span>
-      </a>
-      <a class="c-plane c-plane--about c-plane--key c-hero__tile c-hero__stats" href="#toolkit">
-        <span class="c-hero__big">{h.stats}</span>
-      </a>
-      <div class="c-hero__social">
-        <a class="c-plane c-plane--key c-hero__tile" href="https://github.com/DarkoBoesmans" target="_blank" rel="noopener noreferrer" aria-label={`GitHub (${h.newTab})`}>
-          <Icon name="github" size={30} />
+    <div class="c-hero__plan" data-parallax="0.05">
+      <p class="c-hero__plan-head" aria-hidden="true">
+        <span>{h.plan}</span>
+        <span class="c-hero__measure"><span>61.8%</span></span>
+      </p>
+
+      <div class="c-hero__grid">
+        <div class="c-booth c-hero__front">
+          <span class="c-booth__hall">{hall(1)}</span>
+          <span class="c-hero__big">{h.front}</span>
+          <span>{h.dev}</span>
+        </div>
+        <div class="c-booth c-hero__avail">
+          <span class="c-booth__hall">{hall(2)}</span>
+          <span class="c-hero__big">{h.avail}</span>
+        </div>
+        <div class="c-booth c-booth--top c-hero__obs">
+          <span class="c-booth__hall">{hall(3)}</span>
+          <h2 class="c-hero__big">{h.obs}</h2>
+          {h.obsItems.map((item) => <p>{item}</p>)}
+        </div>
+        <div class="c-booth c-hero__creative">
+          <span class="c-booth__hall">{hall(4)}</span>
+          <span class="c-hero__big">{h.creative}</span>
+          <span>{h.digital}</span>
+        </div>
+        <a class="c-booth c-booth--work c-booth--link c-hero__work" href="#work">
+          <span class="c-booth__hall">{hall(5)}</span>
+          <span class="c-hero__big">{h.myWork} →</span>
         </a>
-        <a class="c-plane c-plane--key c-hero__tile" href="https://www.linkedin.com/in/darkoboesmans" target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn (${h.newTab})`}>
-          <Icon name="linkedin" size={30} />
+        <a class="c-booth c-booth--about c-booth--link c-hero__stats" href="#toolkit">
+          <span class="c-booth__hall">{hall(6)}</span>
+          <span class="c-hero__big">{h.stats} →</span>
+        </a>
+        <div class="c-hero__social">
+          <a class="c-booth c-booth--ink c-booth--link" href="https://github.com/DarkoBoesmans" target="_blank" rel="noopener noreferrer" aria-label={`GitHub (${h.newTab})`}>
+            <Icon name="github" size={28} />
+            <span class="c-booth__tag" aria-hidden="true">GitHub ↗</span>
+          </a>
+          <a class="c-booth c-booth--ink c-booth--link" href="https://www.linkedin.com/in/darkoboesmans" target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn (${h.newTab})`}>
+            <Icon name="linkedin" size={28} />
+            <span class="c-booth__tag" aria-hidden="true">LinkedIn ↗</span>
+          </a>
+        </div>
+        <a class="c-booth c-booth--ink c-booth--link c-hero__contact" href="#contact">
+          <span class="c-booth__hall">{hall(7)}</span>
+          <span class="c-hero__big">{h.contactMe} →</span>
         </a>
       </div>
-      <a class="c-plane c-plane--contact c-plane--key c-hero__tile c-hero__contact" href="#contact">
-        <span class="c-hero__big">{h.contactMe}</span>
-      </a>
+
+      <p class="c-hero__entrance" aria-hidden="true">{h.entrance}</p>
     </div>
   </div>
 </section>

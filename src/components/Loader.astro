@@ -1,7 +1,7 @@
 ---
-// Loader: "printing" the access pass while fonts and the portrait load. First visit per session only,
-// never under reduced motion (the head script in Base.astro decides). Logic: scripts/loader.ts.
-import Mark from './Mark.astro';
+// Loader: your access pass is printed line by line while the page loads, then stamped "Access granted".
+// First visit per session only, never under reduced motion (the head script in Base.astro decides).
+// Logic: scripts/loader.ts.
 import { t, type Lang } from '../i18n';
 
 interface Props {
@@ -9,14 +9,21 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-const l = t(lang).loader;
+const d = t(lang);
 ---
 
 <div class="c-loader" aria-hidden="true" data-loader>
   <div class="c-loader__pass">
-    <Mark class="c-loader__mark" />
-    <span class="c-loader__print" data-loader-print></span>
+    <div class="c-loader__print">
+      <span class="c-loader__band"><span>{d.hero.pass}</span><span>2026</span></span>
+      <span class="c-loader__photo"><img src="/images/profile.webp" alt="" width="960" height="900" /></span>
+      <span class="c-loader__name">Darko<br />Boesmans</span>
+      <span class="c-loader__role">{d.hero.title}</span>
+      <span class="c-loader__bars"></span>
+    </div>
+    <span class="c-loader__head"></span>
+    <span class="c-loader__stamp">{d.loader.granted}</span>
   </div>
-  <p class="c-loader__label">{l.label}</p>
+  <p class="c-loader__label">{d.loader.label}</p>
   <p class="c-loader__count"><span data-loader-count>0</span>%</p>
 </div>

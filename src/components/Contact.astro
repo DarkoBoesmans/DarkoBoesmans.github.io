@@ -18,7 +18,7 @@ const c = d.contact;
 
     <div class="c-board c-contact__board" data-reveal>
       <div class="c-plane c-plane--contact c-contact__intro">
-        <h2 class="c-contact__title">{c.title}</h2>
+        <h2 class="c-contact__title">{c.title[0]} <span class="u-outline">{c.title[1]}</span></h2>
         <p class="c-contact__text">{c.text}</p>
         <div class="c-contact__actions">
           <button class="c-button c-button--on-contact" type="button" data-copy-email data-ok={c.copied} data-fail={c.copyFail} aria-live="polite">

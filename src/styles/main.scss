@@ -10,6 +10,7 @@
 @use 'objects/container';
 
 @use 'components/skip';
+@use 'components/mark';
 @use 'components/loader';
 @use 'components/cursor';
 @use 'components/board';
@@ -17,6 +18,7 @@
 @use 'components/button';
 @use 'components/nav';
 @use 'components/toggles';
+@use 'components/booth';
 @use 'components/hero';
 @use 'components/badge';
 @use 'components/about';

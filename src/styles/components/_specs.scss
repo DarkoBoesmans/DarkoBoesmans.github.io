@@ -3,6 +3,11 @@
 @use '../tools/mixins' as *;
 
 .c-specs {
+  &__sub {
+    margin-bottom: 12px;
+    font-size: clamp(20px, 1.8vw, 28px);
+  }
+
   &__title {
     margin-bottom: 16px;
     font-size: clamp(24px, 2.2vw, 34px);
@@ -44,5 +49,45 @@
       content: ',';
       margin-right: 0.4em;
     }
+  }
+}
+
+// Stats: big real numbers, label underneath. Every second value is drawn as an outline.
+.c-stats {
+  display: grid;
+  gap: 2px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: clamp(40px, 6vh, 64px);
+  border: 2px solid var(--ink);
+  background: var(--ink);
+
+  @include from($bp-md) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column-reverse; // value on top, label under it; the <dt> still comes first for screen readers
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 20px;
+    background: var(--paper);
+  }
+
+  &__value {
+    margin: 0;
+
+    @include display(clamp(36px, 4.4vw, 72px));
+
+    overflow-wrap: anywhere;
+  }
+
+  &__item:nth-child(even) &__value {
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: max(1.5px, 0.028em) currentcolor;
+  }
+
+  &__label {
+    @include mono(13px);
   }
 }

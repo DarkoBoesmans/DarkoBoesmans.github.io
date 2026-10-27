@@ -1,7 +1,9 @@
-// Loader: counts to 100 % as fonts, the portrait and the page really finish loading.
-// Never shorter than 900 ms (so it doesn't flash) and never longer than 2.4 s.
-const MIN_MS = 900;
-const MAX_MS = 2400;
+// Loader: prints the pass while fonts, the portrait and the page really load, then stamps it and lifts away.
+// Printing takes at least 2 s (so you can read the pass) and at most 3 s, whatever the network does.
+const PRINT_MIN = 2000;
+const PRINT_MAX = 3000;
+const STAMP_HOLD = 700;
+const EXIT = 750;
 const KEY = 'db-loaded';
 
 export function initLoader(): void {
@@ -22,29 +24,29 @@ export function initLoader(): void {
   const start = performance.now();
   let shown = 0;
 
-  const tick = (now: number): void => {
-    const elapsed = now - start;
-    const real = done / tasks.length;
-    const time = Math.min(1, elapsed / MIN_MS);
-    // Shown progress never runs ahead of real loading, nor of the minimum time.
-    const target = elapsed >= MAX_MS ? 1 : Math.min(real, time);
-    shown += (target - shown) * 0.18;
-    if (target === 1 && shown > 0.995) shown = 1;
-
-    count.textContent = String(Math.round(shown * 100));
-    loader.style.setProperty('--p', shown.toFixed(3));
-
-    if (shown < 1) {
-      requestAnimationFrame(tick);
-      return;
-    }
-    root.classList.add('is-loaded');
+  const finish = (): void => {
+    root.classList.add('is-granted');
     try {
       sessionStorage.setItem(KEY, '1');
     } catch {
       // Storage blocked: the loader simply shows again next time.
     }
-    window.setTimeout(() => root.classList.remove('is-loading'), 750);
+    window.setTimeout(() => root.classList.add('is-loaded'), STAMP_HOLD);
+    window.setTimeout(() => root.classList.remove('is-loading', 'is-granted'), STAMP_HOLD + EXIT);
+  };
+
+  const tick = (now: number): void => {
+    const elapsed = now - start;
+    // Shown progress never runs ahead of real loading, nor of the minimum print time.
+    const target = elapsed >= PRINT_MAX ? 1 : Math.min(done / tasks.length, elapsed / PRINT_MIN);
+    shown += (target - shown) * 0.12;
+    if (target === 1 && shown > 0.995) shown = 1;
+
+    count.textContent = String(Math.round(shown * 100));
+    loader.style.setProperty('--p', shown.toFixed(3));
+
+    if (shown < 1) requestAnimationFrame(tick);
+    else finish();
   };
 
   requestAnimationFrame(tick);

@@ -1,5 +1,5 @@
-// Hero: the dark venue. A spotlight follows the cursor (--spot-x/y set by scripts/badge.ts) over a
-// dotted floor plan. Badge left at the golden ratio (38.2%), tiles right (61.8%).
+// Hero: the floor plan of the fair, on green. A soft spotlight follows the cursor (--spot-x/y, scripts/badge.ts).
+// Pass left at the golden ratio (38.2%), the halls right (61.8%).
 @use '../settings/tokens' as *;
 @use '../tools/mixins' as *;
 
@@ -7,16 +7,15 @@
   position: relative;
   overflow: hidden; // the lanyard starts above the screen
   min-height: 100svh;
-  padding: 0 $page-pad clamp(32px, 6vh, 64px);
+  padding: 0 $page-pad clamp(40px, 6vh, 72px);
   background:
-    radial-gradient(circle 560px at var(--spot-x, 25%) var(--spot-y, 35%), rgb(217 155 67 / 0.2), transparent 70%),
-    radial-gradient(rgb(244 241 234 / 0.08) 1px, transparent 1.5px) 0 0 / 28px 28px,
-    var(--stage);
+    radial-gradient(circle 620px at var(--spot-x, 25%) var(--spot-y, 35%), rgb(217 155 67 / 0.22), transparent 70%),
+    var(--contact);
   color: var(--white);
 
   &__stage {
     display: grid;
-    gap: clamp(32px, 4vw, 64px);
+    gap: clamp(40px, 5vw, 80px);
     grid-template-columns: minmax(0, 1fr);
     max-width: $max;
     margin-inline: auto;
@@ -28,8 +27,91 @@
     }
   }
 
-  // Right side: 3 × 3 tiles on one board.
+  &__pass {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: start;
+    gap: 48px;
+  }
+
+  // "You are here": a pin on the floor, the way a venue map marks your spot.
+  &__here {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    @include mono(13px);
+
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  &__pin {
+    width: 16px;
+    height: 16px;
+    border: 3px solid var(--white);
+    border-radius: 50% 50% 50% 0;
+    background: var(--work);
+    rotate: -45deg;
+  }
+
+  // The plan: an outer wall with an entrance gap, a title row with a dimension line.
+  &__plan {
+    position: relative;
+    padding: 18px;
+    border: 3px solid rgb(244 241 234 / 0.55);
+
+    @include from($bp-md) {
+      margin-block: clamp(48px, 10vh, 120px);
+    }
+  }
+
+  &__plan-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+
+    @include mono(12px);
+
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  // Dimension line: |—— 61.8% ——|, like on an architect's drawing.
+  &__measure {
+    flex: 1;
+    text-align: center;
+    background:
+      linear-gradient(currentcolor, currentcolor) center / 100% 1px no-repeat,
+      linear-gradient(currentcolor, currentcolor) left center / 1px 12px no-repeat,
+      linear-gradient(currentcolor, currentcolor) right center / 1px 12px no-repeat;
+
+    span {
+      padding: 0 10px;
+      background: var(--contact);
+    }
+  }
+
+  &__entrance {
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    padding: 0 14px;
+    background: var(--contact);
+    translate: -50% 0;
+
+    @include mono(12px);
+
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
   &__grid {
+    display: grid;
+    gap: 18px; // the corridors
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-areas: 'front avail' 'obs obs' 'creative work' 'stats stats' 'social contact';
 
@@ -40,7 +122,6 @@
         'front avail obs'
         'creative work obs'
         'stats social contact';
-      margin-block: clamp(48px, 10vh, 120px);
     }
 
     @include below($bp-sm) {
@@ -49,21 +130,13 @@
     }
   }
 
-  &__tile {
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    min-height: 140px;
-    text-align: center;
-  }
-
   &__big {
     font-family: var(--font-display);
-    font-size: clamp(22px, 2.3vw, 38px);
+    font-size: clamp(22px, 2.4vw, 40px);
     font-weight: 800;
-    font-stretch: 90%;
-    line-height: 1;
-    letter-spacing: -0.02em;
+    font-stretch: 80%;
+    line-height: 0.95;
+    text-transform: uppercase;
     text-wrap: balance;
   }
 
@@ -74,7 +147,7 @@
   }
 
   &__obs {
-    gap: 14px;
+    gap: 12px;
 
     p {
       font-size: clamp(15px, 1.15vw, 18px);
@@ -86,6 +159,10 @@
     grid-area: social;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: $line;
+    gap: 18px;
+
+    .c-booth {
+      padding-top: 22px;
+    }
   }
 }

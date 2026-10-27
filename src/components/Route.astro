@@ -1,7 +1,7 @@
 ---
-// Route: the non-linear path from 1999 to now. On desktop the track scrolls sideways while the visitor
-// simply scrolls down, and the line draws itself, loop and all (scripts/route.ts).
-// Phones and reduced motion: a plain vertical list.
+// Route: the non-linear path from 1999 to now, on gold. Desktop: the track slides sideways while the
+// visitor simply scrolls down, and the line draws itself, two loops and all (scripts/route.ts).
+// Each dot is a button: hover, focus or tap shows a little more. Phones and reduced motion: a vertical list.
 import { t, type Lang } from '../i18n';
 
 interface Props {
@@ -11,34 +11,59 @@ interface Props {
 const { lang } = Astro.props;
 const r = t(lang).route;
 
-// One gentle wave per stop, plus a loop between the detours and "back to Howest".
-// viewBox units: each stop is 200 wide; the line runs at y = 60.
-const line =
-  'M10 60 C80 20 140 100 210 60 C280 20 340 100 410 60 C480 110 540 110 610 60 C680 10 740 110 810 60 ' +
-  'C900 0 990 0 965 50 C940 105 860 95 900 42 C930 8 990 30 1010 60 C1080 100 1140 20 1210 60 L1400 60';
+// The line, drawn at real size (1 unit = 1 px), so nothing gets stretched.
+const STOP_W = 300; // must match $stop-w in _route.scss
+const Y = 70;
+const LOOPS = new Set([4, 9]); // after the re-exams, and after the knee: back to school
+const x = (i: number): number => i * STOP_W + 24;
+let line = `M${x(0)} ${Y}`;
+for (let i = 0; i < r.stops.length - 1; i++) {
+  const a = x(i);
+  const b = x(i + 1);
+  const w = STOP_W;
+  if (LOOPS.has(i)) {
+    line +=
+      ` C${a + w * 0.5} ${Y - 70} ${a + w * 0.95} ${Y - 30} ${a + w * 0.7} ${Y + 15}` +
+      ` C${a + w * 0.45} ${Y + 60} ${a + w * 0.15} ${Y + 20} ${a + w * 0.45} ${Y - 25}` +
+      ` C${a + w * 0.65} ${Y - 55} ${b - w * 0.1} ${Y - 10} ${b} ${Y}`;
+  } else {
+    const d = i % 2 ? 34 : -34;
+    line += ` C${a + w * 0.35} ${Y + d} ${b - w * 0.35} ${Y - d} ${b} ${Y}`;
+  }
+}
+const width = r.stops.length * STOP_W;
+line += ` L${width} ${Y}`;
 ---
 
 <section id="route" class="c-route" aria-labelledby="route-title" data-route>
   <div class="c-route__sticky">
     <div class="o-container c-route__head">
-      <h2 class="c-route__title" id="route-title" data-reveal>{r.titleA} <span>{r.titleB}</span></h2>
+      <h2 class="c-route__title" id="route-title" data-reveal>{r.titleA} <span class="u-outline">{r.titleB}</span></h2>
       <p class="c-route__intro" data-reveal>{r.intro}</p>
     </div>
 
     <div class="c-route__track" data-route-track>
-      <svg class="c-route__line" viewBox="0 0 1400 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <svg class="c-route__line" width={width} height="140" viewBox={`0 0 ${width} 140`} aria-hidden="true" focusable="false">
         <path class="c-route__path c-route__path--ghost" d={line}></path>
         <path class="c-route__path c-route__path--drawn" d={line} pathLength="1" data-route-path></path>
       </svg>
 
       <ol class="c-route__stops">
         {
-          r.stops.map((stop) => (
+          r.stops.map((stop, i) => (
             <li class="c-route__stop">
-              <span class="c-route__dot" aria-hidden="true" />
+              <button
+                class="c-route__dot"
+                type="button"
+                aria-expanded="false"
+                aria-controls={`route-more-${i}`}
+                aria-label={`${r.more} ${stop.title}`}
+                data-route-dot
+              />
               <span class="c-route__when">{stop.when}</span>
               <h3 class="c-route__name">{stop.title}</h3>
               <p>{stop.text}</p>
+              <p class="c-route__more" id={`route-more-${i}`}>{stop.more}</p>
             </li>
           ))
         }
