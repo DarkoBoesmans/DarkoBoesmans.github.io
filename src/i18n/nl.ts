@@ -43,7 +43,7 @@ export const nl: Dict = {
     drives: 'Wat drijft mij?',
     drivesItems: [
       'Ik geloof in creatieve digitale oplossingen in een wereld die nooit stilstaat. Overal waar je kijkt, duiken dezelfde templates op: websites, affiches, flyers die allemaal op elkaar lijken.',
-      'AI maakt het alleen maar makkelijker om meer van hetzelfde te maken. Daarom doe ik het omgekeerde: ontwerpen en bouwen met een menselijke toets. Vakmanschap waaraan je voelt dat er tijd en zorg in zit.',
+      'AI maakt het makkelijk om meer van hetzelfde te maken. Ik gebruik het anders: Claude is voor mij een collega die meedenkt, mijn code nakijkt en het saaie werk versnelt. De keuzes in design en code blijven van mij. Zo bouw ik nog altijd met een menselijke toets, met vakmanschap waaraan je voelt dat er tijd en zorg in zit.',
       'Mijn filosofie is simpel: "Design moet functioneel zijn, niet alleen mooi." Een website moet niet alleen indruk maken, hij moet werken voor de mensen die hem gebruiken.',
     ],
     beyond: 'Naast het werk',
