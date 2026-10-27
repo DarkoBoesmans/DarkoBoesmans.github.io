@@ -41,7 +41,7 @@ export const en = {
     drives: 'What drives me?',
     drivesItems: [
       'I believe in creative digital solutions in a world that never stands still. Everywhere you look, the same templates pop up: websites, posters, flyers that all look alike.',
-      "AI only makes it easier to produce more of the same. That's why I do the opposite: design and build with a human touch. Craftsmanship that feels like time and care were invested.",
+      "AI makes it easy to produce more of the same. I use it differently: Claude is a colleague who helps me think things through, reviews my code and speeds up the boring parts. The design and code decisions stay mine. That way I still build with a human touch, with craftsmanship that feels like time and care went into it.",
       'My philosophy is simple: "Design should be functional, not just beautiful." A website shouldn\'t just impress, it should work for the people who use it.',
     ],
     beyond: 'Beyond work',
