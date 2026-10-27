@@ -8,22 +8,4 @@
   border-radius: calc(#{$radius} + #{$line}); // outer radius = inner radius + line
   background: var(--line);
 
-  // Intro: the planes switch on one by one (each child sets --i in the markup).
-  &--intro > * {
-    animation: c-board-on 600ms $ease calc(var(--i, 0) * 70ms) both;
-
-    @media (prefers-reduced-motion: reduce) {
-      animation: none;
-    }
-  }
-}
-
-@keyframes c-board-on {
-  from {
-    clip-path: inset(0 0 100% 0);
-  }
-
-  to {
-    clip-path: inset(0);
-  }
 }

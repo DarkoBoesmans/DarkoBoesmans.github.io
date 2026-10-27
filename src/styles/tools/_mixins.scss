@@ -22,12 +22,10 @@
   letter-spacing: -0.025em;
 }
 
-// Small uppercase label, like the print on a Braun device.
+// Small text for field names and captions. Sentence case, no tracking.
 @mixin label {
   font-family: var(--font);
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.3;
 }

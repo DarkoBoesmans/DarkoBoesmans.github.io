@@ -1,6 +1,5 @@
 ---
-// Site footer: copyright, legal links, back to top and the toggles (the only place for the theme switch on phones).
-import Toggles from './Toggles.astro';
+// Site footer: copyright, legal links and a back-to-top link.
 import { t, legalPages, type Lang } from '../i18n';
 
 interface Props {
@@ -21,6 +20,5 @@ const year = new Date().getFullYear();
       </ul>
     </nav>
     <a class="c-footer__link" href={`/${lang}/#top`}>{d.footer.top}</a>
-    <Toggles lang={lang} variant="footer" />
   </div>
 </footer>

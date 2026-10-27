@@ -1,4 +1,5 @@
-// Work: a catalogue. Each project is a small board: a blue cover plane and a text plane, alternating sides.
+// Featured Work: covers on the left (1fr), sticky text panel on the right (1.618fr, golden ratio).
+// The panel follows the cover closest to the middle of the screen (scripts/work.ts).
 @use '../settings/tokens' as *;
 @use '../tools/mixins' as *;
 
@@ -22,33 +23,33 @@
     font-size: clamp(17px, 1.25vw, 20px);
   }
 
-  &__list {
-    display: flex;
-    flex-direction: column;
-    gap: clamp(24px, 4vh, 48px);
-  }
-}
+  &__layout {
+    display: grid;
+    gap: clamp(28px, 4vw, 64px);
+    grid-template-columns: minmax(0, 1fr);
 
-.c-project {
-  grid-template-columns: minmax(0, 1fr);
-
-  @include from($bp-md) {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-
-    &:nth-child(even) {
-      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-
-      .c-project__cover {
-        order: 2;
-      }
+    @include from($bp-lg) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.618fr);
     }
   }
 
-  // Until there is a screenshot: the project name as a typographic cover.
+  &__shots {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(40px, 16vh, 180px);
+  }
+
+  &__shot {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  // Until there is a screenshot: the project name set large on a gold plane.
   &__cover {
     justify-content: space-between;
     overflow: hidden;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 0.8;
     padding: 0;
     container-type: inline-size;
 
@@ -60,56 +61,122 @@
   }
 
   &__type {
-    padding: clamp(16px, 2vw, 28px) clamp(16px, 2vw, 28px) 0;
+    padding: clamp(18px, 2vw, 28px) clamp(18px, 2vw, 28px) 0;
     font-family: var(--font-display);
-    font-size: 13cqi;
+    font-size: 15cqi;
     font-weight: 900;
-    line-height: 0.86;
-    letter-spacing: -0.05em;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
   }
 
   &__note {
-    padding: clamp(16px, 2vw, 28px);
-
-    @include label;
+    padding: clamp(18px, 2vw, 28px);
+    font-size: 15px;
   }
 
-  &__body {
-    justify-content: flex-end;
-    gap: 20px;
+  // Phones and tablets: text under each cover. From $bp-lg the sticky panel takes over.
+  &__caption {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    @include from($bp-lg) {
+      display: none;
+    }
   }
 
   &__name {
-    @include display(clamp(30px, 3vw, 48px));
+    font-size: clamp(29px, 7vw, 41px);
+
+    &--large {
+      @include display(clamp(40px, 5vw, 88px));
+    }
   }
 
   &__desc {
     max-width: 52ch;
+    font-size: clamp(17px, 1.3vw, 21px);
   }
 
   &__tags {
-    padding-top: 16px;
-    border-top: 1px solid var(--hairline);
+    color: var(--muted);
     font-size: 15px;
-    font-weight: 500;
+  }
 
-    ul {
+  &__aside {
+    display: none;
+
+    @include from($bp-lg) {
+      position: sticky;
+      top: $nav-h + 40px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 6px 0;
-    }
-
-    li:not(:last-child)::after {
-      content: '·';
-      margin-inline: 0.5em;
-      color: var(--muted);
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 40px;
+      min-height: calc(100vh - #{$nav-h} - 80px);
     }
   }
 
-  &__tags-label {
-    margin-bottom: 6px;
-    color: var(--muted);
+  &__panels {
+    display: grid;
+  }
 
-    @include label;
+  // All panels share one grid cell; only the active one is visible.
+  &__panel {
+    grid-area: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(18px, 3vh, 32px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(28px);
+    transition:
+      opacity 450ms $ease,
+      transform 700ms $ease,
+      visibility 0s linear 450ms;
+
+    &.is-active {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      transition:
+        opacity 600ms $ease 120ms,
+        transform 800ms $ease 120ms,
+        visibility 0s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transform: none;
+    }
+  }
+
+  &__markers {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  &__marker {
+    min-height: 56px;
+    padding: 12px 0 0;
+    border: 0;
+    border-top: 3px solid var(--hairline);
+    background: none;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.25;
+    text-align: left;
+    transition:
+      color $switch $ease,
+      border-color $switch $ease;
+
+    &:hover,
+    &.is-active {
+      color: var(--ink);
+    }
+
+    &.is-active {
+      border-top-color: var(--work);
+    }
   }
 }

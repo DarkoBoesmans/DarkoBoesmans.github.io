@@ -62,6 +62,10 @@ const rest = Astro.url.pathname.replace(/^\/(en|nl)/, '') || '/';
   </head>
   <body>
     <a class="c-skip" href="#main">{d.skip}</a>
+    <div class="c-cursor" aria-hidden="true">
+      <span class="c-cursor__ring"></span>
+      <span class="c-cursor__dot"></span>
+    </div>
     <slot />
     <script>
       import '../scripts/main';

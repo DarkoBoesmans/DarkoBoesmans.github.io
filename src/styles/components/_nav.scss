@@ -1,13 +1,35 @@
-// Nav: sticky bar under an ink line. Each link carries the colour key of its section.
+// Nav: slides in from the top once the hero is out of view (scroll.ts adds .is-visible).
+// Legal pages use --always. Each link lights up in the colour of its section.
 @use '../settings/tokens' as *;
 @use '../tools/mixins' as *;
 
 .c-nav {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  inset: 0 0 auto;
   z-index: 40;
   border-bottom: $line solid var(--line);
   background: var(--paper);
+  opacity: 0;
+  transform: translateY(-110%);
+  transition:
+    transform 420ms $ease,
+    opacity 260ms linear;
+
+  &.is-visible,
+  &--always {
+    opacity: 1;
+    transform: none;
+  }
+
+  &--always {
+    position: sticky;
+    top: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transform: none;
+    transition: opacity 200ms linear;
+  }
 
   &__bar {
     display: flex;

@@ -96,3 +96,13 @@ The Rams × Mondriaan structure, dressed in the original portfolio's identity.
 **Function keys in this palette:** gold = work (ink text, 7.7:1), forest green = contact (cream text), walnut brown = about (cream text, 6.2:1). Brown also marks form errors, as in the original system, which has no red.
 
 **Board corners:** outer radius = plane radius + line width, so the ink line keeps one thickness around every corner.
+
+### Round two: back to the ID card
+
+Restored from the original portfolio, on request:
+
+- **ID card hero:** the left plane is an event badge (lanyard slot, tab, round portrait, name, title, email) at the golden-ratio width, 38.2 %.
+- **Nav slides in** only after the hero has scrolled out of view.
+- **Parallax** on the portrait, **custom cursor** (green dot, gold ring on links) and the **sticky Featured work panel** that follows the cover in the middle of the screen.
+
+Removed because they read as generated: uppercase micro-labels above every block, section eyebrows with colour squares, the pulsing status dot, corner arrows on every tile, middle-dot separators and the staggered plane intro.

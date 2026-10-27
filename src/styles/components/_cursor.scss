@@ -1,0 +1,88 @@
+// Custom cursor (desktop only), from the first portfolio: green dot, ring that turns gold on links. State classes are set on <html> by pointer.ts.
+@use '../settings/tokens' as *;
+
+.has-cursor,
+.has-cursor * {
+  cursor: none !important;
+}
+
+.has-cursor input,
+.has-cursor textarea {
+  cursor: text !important;
+}
+
+.c-cursor {
+  display: none;
+
+  @media (pointer: fine) {
+    display: block;
+  }
+
+  &__dot,
+  &__ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    margin: -4px 0 0 -4px;
+    background: var(--contact);
+    transition: opacity 200ms linear;
+  }
+
+  &__ring {
+    width: 36px;
+    height: 36px;
+    margin: -18px 0 0 -18px;
+    border: 2px solid var(--contact);
+    transition:
+      opacity 200ms linear,
+      width 300ms $ease,
+      height 300ms $ease,
+      margin 300ms $ease,
+      background-color 200ms linear,
+      border-color 200ms linear;
+  }
+
+  .cursor-on &__dot,
+  .cursor-on &__ring {
+    opacity: 1;
+  }
+
+  .cursor-text &__dot,
+  .cursor-text &__ring {
+    opacity: 0;
+  }
+
+  .cursor-link &__ring {
+    width: 64px;
+    height: 64px;
+    margin: -32px 0 0 -32px;
+    border-color: var(--work);
+    background: rgb(217 155 67 / 0.22);
+  }
+
+  .cursor-down &__ring {
+    width: 28px;
+    height: 28px;
+    margin: -14px 0 0 -14px;
+  }
+
+  .cursor-link &__dot,
+  .cursor-dark &__dot,
+  [data-theme='dark'] &__dot {
+    background: var(--work);
+  }
+
+  .cursor-dark &__ring,
+  [data-theme='dark'] &__ring {
+    border-color: var(--work);
+  }
+}

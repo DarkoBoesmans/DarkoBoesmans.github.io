@@ -1,11 +1,11 @@
 ---
-// Language (EN/NL) and light/dark theme switches, used in the nav and in the footer.
+// Language (EN/NL) and light/dark theme switches, used on the ID card and in the nav.
 import Icon from './Icon.astro';
 import { t, langs, type Lang } from '../i18n';
 
 interface Props {
   lang: Lang;
-  variant: 'nav' | 'footer';
+  variant: 'hero' | 'nav';
 }
 
 const { lang, variant } = Astro.props;

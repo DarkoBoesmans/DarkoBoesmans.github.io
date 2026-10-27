@@ -1,172 +1,166 @@
-// Hero: one full-screen Mondrian board, inset by one line so its rounded corners show. Phone: two columns. From $bp-md: 12 columns.
+// Hero: ID card on the left at the golden ratio (38.2%), a board of tiles on the right (61.8%).
+// Everything sits on one ink board; the gaps are the Mondrian lines.
 @use '../settings/tokens' as *;
 @use '../tools/mixins' as *;
 
 .c-hero {
   margin: $line;
-
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-areas:
-    'name name'
-    'face face'
-    'work contact'
-    'role role'
-    'obs obs'
-    'avail social';
+  grid-template-columns: minmax(0, 1fr);
 
   @include from($bp-md) {
-    min-height: calc(100svh - #{$nav-h} - #{$line} * 3);
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-template-rows: minmax(0, 1fr) auto auto; // the name plane takes what is left
-    grid-template-areas:
-      'name name name name name name name name face face face face'
-      'role role role obs obs obs avail avail face face face face'
-      'work work work work contact contact contact contact social social social social';
+    min-height: calc(100svh - #{$line} * 2);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.618fr); // 38.2% / 61.8%
   }
 
-  // Name plane: the poster. Type is sized to the plane, not the window.
-  &__name {
-    grid-area: name;
-    justify-content: space-between;
-    min-height: 62vw;
+  // ID card: lanyard slot, tab, round portrait, name, title, email. Like an event badge.
+  &__id {
+    gap: 0;
+    overflow: hidden;
+    padding: clamp(20px, 2vw, 32px);
     container-type: inline-size;
+  }
 
-    @include from($bp-md) {
-      min-height: 0;
+  &__tab {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    padding: 12px 24px 14px 20px;
+    border-bottom-right-radius: $radius;
+    background: var(--line);
+    color: var(--white);
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    transition: background-color $switch $ease;
+
+    &:hover {
+      background: var(--contact);
     }
   }
 
-  &__title {
-    max-width: 24ch;
-    text-wrap: balance;
-    font-size: clamp(18px, 1.7vw, 26px);
-    font-weight: 500;
-    line-height: 1.2;
-  }
+  // The punched hole a lanyard clip goes through.
+  &__slot {
+    align-self: center;
+    width: 64px;
+    height: 12px;
+    margin-top: 2px;
+    border-radius: 6px;
+    background: var(--line);
 
-  &__h1 {
-    margin-left: -0.05em; // optical alignment of the big D
-
-    @include display(16.5cqi);
-  }
-
-  // Brown plane with the round portrait from the original portfolio, framed by an ink ring.
-  &__face {
-    grid-area: face;
-    align-items: center;
+    @include below($bp-sm) {
+      display: none; // the toggles need the room on a phone
+    }
   }
 
   &__portrait {
-    width: min(100%, 440px);
-    margin-block: auto;
+    width: 100%;
+    margin-top: clamp(28px, 4vw, 52px);
     aspect-ratio: 1;
     overflow: hidden;
-    border: $line solid var(--line);
+    border: 6px solid var(--white);
     border-radius: 50%;
-    background: var(--plane);
+    background: var(--contact);
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 20%;
-      scale: 1.04;
+      scale: 1.08; // room for the parallax drift
     }
   }
 
-  .c-plane__label {
-    align-self: flex-start;
+  // Name overlaps the portrait, outlined in the card colour so it stays readable.
+  &__name {
+    position: relative;
+    margin-top: -0.55em;
+    color: var(--white);
+    font-size: 17cqi;
+    line-height: 0.88;
+    letter-spacing: -0.03em;
+    -webkit-text-stroke: 4px var(--about);
+    paint-order: stroke fill;
   }
 
-  &__role {
-    grid-area: role;
+  &__title {
+    margin-top: 16px;
+    font-size: clamp(17px, 1.4vw, 21px);
+    font-weight: 500;
+    line-height: 1.25;
+    text-wrap: balance;
   }
 
-  &__spec {
+  &__email {
+    margin-top: auto;
+    padding-top: 24px;
+    font-size: clamp(15px, 1.3vw, 19px);
+    text-underline-offset: 4px;
+    overflow-wrap: anywhere;
+    transition: text-underline-offset $switch $ease;
+
+    &:hover {
+      text-underline-offset: 7px;
+    }
+  }
+
+  // Right side: 3 × 3 tiles on the same ink ground.
+  &__grid {
+    display: grid;
+    gap: $line;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas: 'front avail' 'obs obs' 'creative work' 'social contact';
+
+    @include from($bp-md) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-rows: repeat(3, minmax(0, 1fr));
+      grid-template-areas:
+        'front avail obs'
+        'creative work obs'
+        'social contact contact';
+    }
+
+    @include below($bp-sm) {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: 'front' 'avail' 'obs' 'creative' 'work' 'social' 'contact';
+    }
+  }
+
+  &__tile {
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 140px;
+    text-align: center;
+  }
+
+  &__big {
     font-family: var(--font-display);
+    font-size: clamp(22px, 2.2vw, 36px);
     font-weight: 900;
-    font-size: clamp(20px, 1.7vw, 26px);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    line-height: 1;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
 
-    span {
-      display: block;
-      color: var(--muted);
-      font-family: var(--font);
-      font-weight: 400;
-      letter-spacing: 0;
+  @each $area in front, avail, obs, creative, work, contact {
+    &__#{$area} {
+      grid-area: $area;
     }
   }
 
   &__obs {
-    grid-area: obs;
+    gap: 14px;
 
-    ul {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      font-size: 16px;
+    p {
+      font-size: clamp(15px, 1.15vw, 18px);
       line-height: 1.45;
     }
   }
 
-  // Availability: a green status light, the contact colour.
-  &__avail {
-    grid-area: avail;
-    justify-content: space-between;
-  }
-
-  &__dot {
-    display: inline-block;
-    vertical-align: 0.05em;
-    width: 12px;
-    height: 12px;
-    margin-right: 10px;
-    border-radius: 50%;
-    background: var(--contact);
-    box-shadow: 0 0 0 4px rgb(35 83 71 / 0.2);
-  }
-
-  &__avail-text {
-    font-family: var(--font-display);
-    font-weight: 900;
-    font-size: clamp(18px, 1.5vw, 24px);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-  }
-
-  &__work {
-    grid-area: work;
-  }
-
-  &__contact {
-    grid-area: contact;
-  }
-
-  &__work,
-  &__contact {
-    justify-content: space-between;
-    min-height: 150px;
-    padding-right: 48px; // room for the arrow
-
-    @include from($bp-md) {
-      padding-right: 64px;
-    }
-  }
-
-  // Two small ink keys, separated by the same black line.
   &__social {
     grid-area: social;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: $line;
-    background: var(--line);
-
-    .c-plane {
-      align-items: center;
-      justify-content: center;
-      min-height: 96px;
-    }
   }
 }
-

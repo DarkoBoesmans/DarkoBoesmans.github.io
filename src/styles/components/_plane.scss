@@ -57,20 +57,4 @@
     @include label;
   }
 
-  &__title {
-    @include display(clamp(26px, 3.6vw, 60px));
-  }
-
-  // Bottom-right corner of a key, out of the flow so it never adds height.
-  &__arrow {
-    position: absolute;
-    right: clamp(16px, 2vw, 28px);
-    bottom: clamp(16px, 2vw, 28px);
-    display: flex;
-    transition: translate $switch $ease;
-  }
-
-  &--key:hover &__arrow {
-    translate: 6px 0;
-  }
 }

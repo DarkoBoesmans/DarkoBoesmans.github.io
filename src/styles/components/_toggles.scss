@@ -57,7 +57,19 @@
     }
   }
 
-  // No room on a phone: the theme switch lives in the footer there.
+  // On the ID card: top-right, on a paper chip so it reads on brown.
+  &--hero {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    padding: 4px;
+    border-radius: 10px;
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  // No room on a phone: the nav keeps only the language switch (the theme switch is on the ID card).
   &--nav &__theme {
     @include below($bp-sm) {
       display: none;

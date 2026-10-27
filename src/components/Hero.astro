@@ -1,7 +1,8 @@
 ---
-// Hero: one Mondrian board. Every coloured plane is a key with one job:
-// brown = about me, gold = my work, green = contact. Light planes only inform.
+// Hero: left, an ID card like an event badge (golden-ratio width); right, a board of tiles.
+// Coloured tiles are keys: gold = my work, green = contact. The brown card is the "about" colour.
 import Icon from './Icon.astro';
+import Toggles from './Toggles.astro';
 import { t, type Lang } from '../i18n';
 
 interface Props {
@@ -9,58 +10,52 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-const d = t(lang);
-const h = d.hero;
+const h = t(lang).hero;
+const mailto = `mailto:darkoboesmans@gmail.com?subject=${encodeURIComponent(h.mailSubject)}&body=${encodeURIComponent(h.mailBody)}`;
 ---
 
-<section id="top" class="c-board c-board--intro c-hero">
-  <div class="c-plane c-hero__name" style="--i: 0">
+<section id="top" class="c-board c-hero">
+  <div class="c-plane c-plane--about c-hero__id" data-dark>
+    <a class="c-hero__tab" href="#about">{h.tab}</a>
+    <span class="c-hero__slot" aria-hidden="true"></span>
+    <Toggles lang={lang} variant="hero" />
+    <div class="c-hero__portrait">
+      <img src="/images/profile.webp" alt={h.alt} width="960" height="900" fetchpriority="high" decoding="async" data-parallax />
+    </div>
+    <h1 class="c-hero__name">Darko<br />Boesmans</h1>
     <p class="c-hero__title">{h.title}</p>
-    <h1 class="c-hero__h1">Darko<br />Boesmans</h1>
+    <a class="c-hero__email" href={mailto}>darkoboesmans@gmail.com</a>
   </div>
 
-  <a class="c-plane c-plane--about c-plane--key c-hero__face" href="#about" style="--i: 1">
-    <span class="c-plane__label">{h.tab}</span>
-    <span class="c-hero__portrait">
-      <img src="/images/profile.webp" alt={h.alt} width="960" height="900" fetchpriority="high" decoding="async" />
-    </span>
-    <span class="c-plane__arrow"><Icon name="arrow-down" size={28} /></span>
-  </a>
-
-  <div class="c-plane c-hero__role" style="--i: 2">
-    <span class="c-plane__label">{h.role}</span>
-    <p class="c-hero__spec">{h.front}<span>{h.dev}</span></p>
-    <p class="c-hero__spec">{h.creative}<span>{h.digital}</span></p>
-  </div>
-
-  <div class="c-plane c-hero__obs" style="--i: 3">
-    <h2 class="c-plane__label">{h.obs}</h2>
-    <ul>{h.obsItems.map((item) => <li>{item}</li>)}</ul>
-  </div>
-
-  <div class="c-plane c-hero__avail" style="--i: 4">
-    <span class="c-plane__label">{h.status}</span>
-    <p class="c-hero__avail-text"><span class="c-hero__dot" aria-hidden="true"></span>{h.avail}</p>
-  </div>
-
-  <a class="c-plane c-plane--work c-plane--key c-hero__work" href="#work" style="--i: 5">
-    <span class="c-plane__label">{d.nav.work}</span>
-    <span class="c-plane__title">{h.myWork}</span>
-    <span class="c-plane__arrow"><Icon name="arrow-right" size={28} /></span>
-  </a>
-
-  <a class="c-plane c-plane--contact c-plane--key c-hero__contact" href="#contact" style="--i: 6">
-    <span class="c-plane__label">{d.nav.contact}</span>
-    <span class="c-plane__title">{h.contactMe}</span>
-    <span class="c-plane__arrow"><Icon name="arrow-right" size={28} /></span>
-  </a>
-
-  <div class="c-hero__social" style="--i: 7">
-    <a class="c-plane c-plane--key" href="https://github.com/DarkoBoesmans" target="_blank" rel="noopener noreferrer" aria-label={`GitHub (${h.newTab})`}>
-      <Icon name="github" size={30} />
+  <div class="c-hero__grid">
+    <div class="c-plane c-hero__tile c-hero__front">
+      <span class="c-hero__big">{h.front}</span>
+      <span>{h.dev}</span>
+    </div>
+    <div class="c-plane c-hero__tile c-hero__avail">
+      <span class="c-hero__big">{h.avail}</span>
+    </div>
+    <div class="c-plane c-hero__obs">
+      <h2 class="c-hero__big">{h.obs}</h2>
+      {h.obsItems.map((item) => <p>{item}</p>)}
+    </div>
+    <div class="c-plane c-hero__tile c-hero__creative">
+      <span class="c-hero__big">{h.creative}</span>
+      <span>{h.digital}</span>
+    </div>
+    <a class="c-plane c-plane--work c-plane--key c-hero__tile c-hero__work" href="#work">
+      <span class="c-hero__big">{h.myWork}</span>
     </a>
-    <a class="c-plane c-plane--key" href="https://www.linkedin.com/in/darkoboesmans" target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn (${h.newTab})`}>
-      <Icon name="linkedin" size={30} />
+    <div class="c-hero__social">
+      <a class="c-plane c-plane--key c-hero__tile" href="https://github.com/DarkoBoesmans" target="_blank" rel="noopener noreferrer" aria-label={`GitHub (${h.newTab})`}>
+        <Icon name="github" size={30} />
+      </a>
+      <a class="c-plane c-plane--key c-hero__tile" href="https://www.linkedin.com/in/darkoboesmans" target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn (${h.newTab})`}>
+        <Icon name="linkedin" size={30} />
+      </a>
+    </div>
+    <a class="c-plane c-plane--contact c-plane--key c-hero__tile c-hero__contact" href="#contact" data-dark>
+      <span class="c-hero__big">{h.contactMe}</span>
     </a>
   </div>
 </section>

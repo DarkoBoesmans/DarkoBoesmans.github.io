@@ -1,14 +1,17 @@
 ---
-// Top navigation, always visible. Each link carries the colour key of its section.
+// Top navigation. On the home page it slides in once the visitor scrolls past the hero (scripts/scroll.ts);
+// on legal pages it is always there. Each link lights up in the colour of its section.
 import Mark from './Mark.astro';
 import Toggles from './Toggles.astro';
 import { t, type Lang } from '../i18n';
 
 interface Props {
   lang: Lang;
+  /** Always visible (legal pages). On the home page it appears after the hero. */
+  always?: boolean;
 }
 
-const { lang } = Astro.props;
+const { lang, always = false } = Astro.props;
 const d = t(lang);
 const home = `/${lang}/`;
 const links = [
@@ -18,7 +21,7 @@ const links = [
 ];
 ---
 
-<header class="c-nav">
+<header class:list={['c-nav', { 'c-nav--always': always }]} inert={!always}>
   <nav class="c-nav__bar" aria-label={d.nav.label}>
     <a class="c-nav__brand" href={`${home}#top`}>
       <Mark class="c-nav__mark" />
@@ -28,7 +31,6 @@ const links = [
       {
         links.map((l) => (
           <a class={`c-nav__link c-nav__link--${l.key}`} href={`${home}${l.href}`}>
-            <span class="c-key" aria-hidden="true" />
             {l.label}
           </a>
         ))

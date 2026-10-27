@@ -32,7 +32,7 @@
     padding-top: 0.3em;
   }
 
-  // Values separated by a middle dot, drawn by CSS so the list stays a list.
+  // Values separated by commas, drawn by CSS so the list stays a list.
   &__items {
     display: flex;
     flex-wrap: wrap;
@@ -41,9 +41,8 @@
     font-weight: 500;
 
     li:not(:last-child)::after {
-      content: '·';
-      margin-inline: 0.6em;
-      color: var(--muted);
+      content: ',';
+      margin-right: 0.4em;
     }
   }
 }
