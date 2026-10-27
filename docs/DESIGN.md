@@ -106,3 +106,14 @@ Restored from the original portfolio, on request:
 - **Parallax** on the portrait, **custom cursor** (green dot, gold ring on links) and the **sticky Featured work panel** that follows the cover in the middle of the screen.
 
 Removed because they read as generated: uppercase micro-labels above every block, section eyebrows with colour squares, the pulsing status dot, corner arrows on every tile, middle-dot separators and the staggered plane intro.
+
+## Access pass (branch `redesign/access-pass`)
+
+**Idea:** the portfolio is a big design fair or hackathon, and the hero badge is the visitor's access pass.
+
+- **Hero:** always a dark venue (`--stage`) with a spotlight that follows the cursor over a dotted floor plan. Left 38.2 %: a physical badge on a gold lanyard with a metal clip, punched slot, green "All access" band, portrait with two rotating rings, name, role, mail and a barcode generated from the e-mail address. It sways at rest and tilts up to 9° towards the cursor with a plastic sheen. Right 61.8 %: the tiles, including "Statistics for nerds" (links to the toolkit).
+- **Loader:** prints the pass while fonts, portrait and page load (0.9 to 2.4 s, first visit per session, never with reduced motion), then the pass drops in on its lanyard.
+- **Route:** the path from 29 Nov 1999 to now. Desktop: the section pins and slides sideways as you scroll down; the line draws itself and loops back to Howest. Phone and reduced motion: a vertical list.
+- **Motion:** gold progress bar, `data-parallax` layers on one rAF loop, magnetic lean and cursor glow on every link and button.
+- **Type:** Bricolage Grotesque (display and text), JetBrains Mono (badge data, dates, counters). Fraunces and Space Grotesk are gone.
+- **Copy:** short on purpose, with a footnote on the About title: Darko has ADHD himself and writes to the point.

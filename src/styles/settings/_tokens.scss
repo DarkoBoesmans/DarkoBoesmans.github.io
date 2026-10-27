@@ -1,5 +1,5 @@
-// SETTINGS: the whole design system. Darko's own five colours on a Rams × Mondriaan board.
-// Colour is never decoration: gold = work, green = contact, brown = about (see docs/DESIGN.md).
+// SETTINGS: the whole design system. Concept: the portfolio is a design fair, the hero badge is your access pass.
+// Darko's five colours. Colour is a function: gold = work, green = contact, brown = about (docs/DESIGN.md).
 
 // Sass-only values
 $bp-sm: 540px;
@@ -21,6 +21,7 @@ $nav-h: 64px;
   --about: #7a4f2e; // walnut brown, cream text
   --black: #151311;
   --white: #f4f1ea;
+  --stage: #0d0c0b; // the dark venue behind the badge, in both themes
 
   // Roles (these flip in dark mode)
   --paper: var(--white);
@@ -30,8 +31,9 @@ $nav-h: 64px;
   --line: var(--black);
   --hairline: #d8d2c5;
 
-  --font: 'Space Grotesk Variable', system-ui, sans-serif;
-  --font-display: 'Fraunces Variable', georgia, serif;
+  --font: 'Bricolage Grotesque Variable', system-ui, sans-serif;
+  --font-display: var(--font);
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace; // badge data, counters, dates
 
   color-scheme: light;
 }

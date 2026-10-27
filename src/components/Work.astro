@@ -16,7 +16,7 @@ const items = projects.map((p) => ({ ...p, ...w.projects[p.slug] }));
 <section id="work" class="o-section c-work">
   <div class="o-container">
     <div class="c-work__head">
-      <h2 class="c-work__title" data-reveal>{w.title}</h2>
+      <h2 class="c-work__title" data-reveal data-parallax="-0.06">{w.title}</h2>
       <p class="c-work__intro" data-reveal>{w.intro}</p>
     </div>
 
@@ -28,10 +28,10 @@ const items = projects.map((p) => ({ ...p, ...w.projects[p.slug] }));
               <div class="c-board c-work__frame">
                 <div class="c-plane c-plane--work c-work__cover">
                   {p.image ? (
-                    <img src={p.image} alt={`${p.title} | ${w.screenshot}`} loading="lazy" />
+                    <img src={p.image} alt={`${p.title} | ${w.screenshot}`} loading="lazy" data-parallax="0.08" />
                   ) : (
                     <>
-                      <span class="c-work__type" aria-hidden="true">{p.title}</span>
+                      <span class="c-work__type" aria-hidden="true" data-parallax="0.05">{p.title}</span>
                       <span class="c-work__note">{w.empty}</span>
                     </>
                   )}

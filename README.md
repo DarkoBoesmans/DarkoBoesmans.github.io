@@ -8,7 +8,7 @@ A static site built with **Astro**, **TypeScript** and **SCSS**. No UI framework
 
 ## Highlights
 
-- **Design system.** Dieter Rams meets Piet Mondriaan: one board of planes and black lines where colour is a function key (gold work, green contact, brown about), on top of the original ID-card hero. See [docs/DESIGN.md](docs/DESIGN.md).
+- **Concept.** The portfolio is a design fair and the hero is your access pass: a 3D badge on a lanyard, a route timeline that scrolls sideways, colour as a function key (gold work, green contact, brown about). See [docs/DESIGN.md](docs/DESIGN.md).
 - **Two languages.** English and Belgian Dutch, with a language gate on `/` that respects a saved choice.
 - **Light and dark theme.** Follows the system setting, remembers a manual pick, no flash on load.
 - **Accessible by default.** Skip link, one `h1` per page, visible focus, 44 px tap targets, `prefers-reduced-motion` respected.
@@ -70,4 +70,4 @@ Every push to `main` builds and deploys through GitHub Actions. In the repositor
 
 ## License
 
-© Darko Boesmans. All rights reserved. The Archivo font (SIL OFL 1.1) and Lucide icons (ISC) keep their own licenses.
+© Darko Boesmans. All rights reserved. Bricolage Grotesque and JetBrains Mono (SIL OFL 1.1) and Lucide icons (ISC) keep their own licenses.

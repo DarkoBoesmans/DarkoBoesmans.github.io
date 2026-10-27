@@ -1,6 +1,25 @@
 // UTILITIES: single-purpose helpers and the scroll-reveal state.
 @use '../settings/tokens' as *;
 
+// Pointer effects for every link and button (desktop, set up by scripts/pointer.ts):
+// a glow in the element's own text colour follows the cursor, and the magnetic lean eases in and out.
+.has-cursor :is(a, button, .c-form__chip-label) {
+  transition:
+    translate 300ms $ease,
+    background-color $switch $ease,
+    border-color $switch $ease,
+    color $switch $ease,
+    transform 100ms $ease !important;
+
+  &:hover {
+    background-image: radial-gradient(
+      circle 120px at var(--glow-x, 50%) var(--glow-y, 50%),
+      color-mix(in srgb, currentcolor 24%, transparent),
+      transparent 70%
+    ) !important;
+  }
+}
+
 .u-visually-hidden {
   position: absolute;
   width: 1px;

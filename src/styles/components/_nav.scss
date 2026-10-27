@@ -127,3 +127,15 @@
     }
   }
 }
+
+// Reading progress: a gold line along the top of the screen (scaled by scripts/scroll.ts).
+.c-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  height: 3px;
+  background: var(--work);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+}

@@ -1,8 +1,9 @@
 ---
 // HTML shell for every page: meta tags, fonts, global styles, theme bootstrap and the shared scripts.
-import '@fontsource-variable/fraunces';
-import '@fontsource-variable/space-grotesk';
+import '@fontsource-variable/bricolage-grotesque/standard.css';
+import '@fontsource-variable/jetbrains-mono';
 import '../styles/main.scss';
+import Loader from '../components/Loader.astro';
 import { t, type Lang } from '../i18n';
 
 interface Props {
@@ -50,6 +51,12 @@ const rest = Astro.url.pathname.replace(/^\/(en|nl)/, '') || '/';
     <link rel="alternate" hreflang="x-default" href={new URL('/', site).href} />
     <script is:inline>
       document.documentElement.classList.add('js');
+      // Loader: first visit in this session only, and never when the visitor asked for less motion.
+      try {
+        if (!sessionStorage.getItem('db-loaded') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.documentElement.classList.add('is-loading');
+        }
+      } catch (e) {}
       (function () {
         var theme;
         try { theme = localStorage.getItem('db-theme'); } catch (e) {}
@@ -62,6 +69,8 @@ const rest = Astro.url.pathname.replace(/^\/(en|nl)/, '') || '/';
   </head>
   <body>
     <a class="c-skip" href="#main">{d.skip}</a>
+    <Loader lang={lang} />
+    <div class="c-progress" aria-hidden="true"></div>
     <div class="c-cursor" aria-hidden="true">
       <span class="c-cursor__ring"></span>
       <span class="c-cursor__dot"></span>

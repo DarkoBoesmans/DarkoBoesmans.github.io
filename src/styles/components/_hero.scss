@@ -1,127 +1,51 @@
-// Hero: ID card on the left at the golden ratio (38.2%), a board of tiles on the right (61.8%).
-// Everything sits on one ink board; the gaps are the Mondrian lines.
+// Hero: the dark venue. A spotlight follows the cursor (--spot-x/y set by scripts/badge.ts) over a
+// dotted floor plan. Badge left at the golden ratio (38.2%), tiles right (61.8%).
 @use '../settings/tokens' as *;
 @use '../tools/mixins' as *;
 
 .c-hero {
-  margin: $line;
-  grid-template-columns: minmax(0, 1fr);
+  position: relative;
+  overflow: hidden; // the lanyard starts above the screen
+  min-height: 100svh;
+  padding: 0 $page-pad clamp(32px, 6vh, 64px);
+  background:
+    radial-gradient(circle 560px at var(--spot-x, 25%) var(--spot-y, 35%), rgb(217 155 67 / 0.2), transparent 70%),
+    radial-gradient(rgb(244 241 234 / 0.08) 1px, transparent 1.5px) 0 0 / 28px 28px,
+    var(--stage);
+  color: var(--white);
 
-  @include from($bp-md) {
-    min-height: calc(100svh - #{$line} * 2);
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.618fr); // 38.2% / 61.8%
-  }
-
-  // ID card: lanyard slot, tab, round portrait, name, title, email. Like an event badge.
-  &__id {
-    gap: 0;
-    overflow: hidden;
-    padding: clamp(20px, 2vw, 32px);
-    container-type: inline-size;
-  }
-
-  &__tab {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    padding: 12px 24px 14px 20px;
-    border-bottom-right-radius: $radius;
-    background: var(--line);
-    color: var(--white);
-    font-weight: 700;
-    line-height: 1;
-    text-decoration: none;
-    transition: background-color $switch $ease;
-
-    &:hover {
-      background: var(--contact);
-    }
-  }
-
-  // The punched hole a lanyard clip goes through.
-  &__slot {
-    align-self: center;
-    width: 64px;
-    height: 12px;
-    margin-top: 2px;
-    border-radius: 6px;
-    background: var(--line);
-
-    @include below($bp-sm) {
-      display: none; // the toggles need the room on a phone
-    }
-  }
-
-  &__portrait {
-    width: 100%;
-    margin-top: clamp(28px, 4vw, 52px);
-    aspect-ratio: 1;
-    overflow: hidden;
-    border: 6px solid var(--white);
-    border-radius: 50%;
-    background: var(--contact);
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      scale: 1.08; // room for the parallax drift
-    }
-  }
-
-  // Name overlaps the portrait, outlined in the card colour so it stays readable.
-  &__name {
-    position: relative;
-    margin-top: -0.55em;
-    color: var(--white);
-    font-size: 17cqi;
-    line-height: 0.88;
-    letter-spacing: -0.03em;
-    -webkit-text-stroke: 4px var(--about);
-    paint-order: stroke fill;
-  }
-
-  &__title {
-    margin-top: 16px;
-    font-size: clamp(17px, 1.4vw, 21px);
-    font-weight: 500;
-    line-height: 1.25;
-    text-wrap: balance;
-  }
-
-  &__email {
-    margin-top: auto;
-    padding-top: 24px;
-    font-size: clamp(15px, 1.3vw, 19px);
-    text-underline-offset: 4px;
-    overflow-wrap: anywhere;
-    transition: text-underline-offset $switch $ease;
-
-    &:hover {
-      text-underline-offset: 7px;
-    }
-  }
-
-  // Right side: 3 × 3 tiles on the same ink ground.
-  &__grid {
+  &__stage {
     display: grid;
-    gap: $line;
+    gap: clamp(32px, 4vw, 64px);
+    grid-template-columns: minmax(0, 1fr);
+    max-width: $max;
+    margin-inline: auto;
+
+    @include from($bp-md) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.618fr); // 38.2% / 61.8%
+      align-items: center;
+      min-height: 100svh;
+    }
+  }
+
+  // Right side: 3 × 3 tiles on one board.
+  &__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-areas: 'front avail' 'obs obs' 'creative work' 'social contact';
+    grid-template-areas: 'front avail' 'obs obs' 'creative work' 'stats stats' 'social contact';
 
     @include from($bp-md) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      grid-template-rows: repeat(3, minmax(0, 1fr));
+      grid-template-rows: repeat(3, minmax(170px, 1fr));
       grid-template-areas:
         'front avail obs'
         'creative work obs'
-        'social contact contact';
+        'stats social contact';
+      margin-block: clamp(48px, 10vh, 120px);
     }
 
     @include below($bp-sm) {
       grid-template-columns: minmax(0, 1fr);
-      grid-template-areas: 'front' 'avail' 'obs' 'creative' 'work' 'social' 'contact';
+      grid-template-areas: 'front' 'avail' 'obs' 'creative' 'work' 'stats' 'social' 'contact';
     }
   }
 
@@ -135,14 +59,15 @@
 
   &__big {
     font-family: var(--font-display);
-    font-size: clamp(22px, 2.2vw, 36px);
-    font-weight: 900;
+    font-size: clamp(22px, 2.3vw, 38px);
+    font-weight: 800;
+    font-stretch: 90%;
     line-height: 1;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
     text-wrap: balance;
   }
 
-  @each $area in front, avail, obs, creative, work, contact {
+  @each $area in front, avail, obs, creative, work, stats, contact {
     &__#{$area} {
       grid-area: $area;
     }

@@ -1,0 +1,233 @@
+// Badge: a physical access pass. Gold lanyard, metal clip, punched slot, green band, photo with
+// rotating rings, barcode. The wrapper sways (rotate), the card tilts (transform, set by badge.ts),
+// parallax moves the wrapper (translate): three separate properties, so they never fight.
+@use '../settings/tokens' as *;
+@use '../tools/mixins' as *;
+
+.c-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: start;
+  transform-origin: 50% 0;
+  animation: c-badge-sway 7s ease-in-out infinite alternate;
+
+  // After the loader: the pass drops in on its lanyard, then starts swaying.
+  .is-loaded & {
+    animation:
+      c-badge-drop 1100ms $ease both,
+      c-badge-sway 7s 1100ms ease-in-out infinite alternate;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none !important;
+  }
+
+  // Starts far above the screen, so parallax never shows its top end.
+  &__lanyard {
+    overflow: hidden;
+    width: 46px;
+    height: calc(clamp(56px, 14vh, 150px) + 400px);
+    margin-top: -400px;
+    background: var(--work);
+    box-shadow: inset 6px 0 0 rgb(0 0 0 / 0.12), inset -6px 0 0 rgb(0 0 0 / 0.12);
+    color: var(--black);
+
+    span {
+      display: block;
+      padding-top: 8px;
+      text-align: center;
+      white-space: nowrap;
+      writing-mode: vertical-rl;
+
+      @include mono(12px);
+
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+
+  &__clip {
+    width: 34px;
+    height: 26px;
+    margin-bottom: -10px;
+    border-radius: 4px 4px 8px 8px;
+    background: linear-gradient(90deg, #8b8a86, #d9d8d3 45%, #8b8a86);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 0.4);
+  }
+
+  &__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(100%, 400px);
+    overflow: hidden;
+    border-radius: 20px;
+    background: var(--white);
+    color: var(--black);
+    box-shadow:
+      0 40px 80px -20px rgb(0 0 0 / 0.7),
+      0 18px 30px -12px rgb(0 0 0 / 0.5),
+      inset 0 0 0 1px rgb(255 255 255 / 0.6);
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform 500ms $ease;
+    container-type: inline-size;
+
+    &.is-tilting {
+      transition: transform 80ms linear;
+    }
+  }
+
+  &__band {
+    display: flex;
+    justify-content: space-between;
+    padding: 34px 22px 14px;
+    background: var(--contact);
+    color: var(--white);
+
+    @include mono(13px);
+
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  // The punched hole the clip goes through.
+  &__slot {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    width: 64px;
+    height: 12px;
+    margin-left: -32px;
+    border-radius: 6px;
+    background: var(--stage);
+    box-shadow: inset 0 2px 3px rgb(0 0 0 / 0.6);
+  }
+
+  &__photo {
+    position: relative;
+    width: 72%;
+    margin: 24px auto 0;
+    aspect-ratio: 1;
+
+    img {
+      position: absolute;
+      inset: 13%;
+      width: 74%;
+      height: 74%;
+      border: 4px solid var(--black);
+      border-radius: 50%;
+      background: var(--about);
+      object-fit: cover;
+    }
+  }
+
+  &__rings {
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+  }
+
+  &__ring {
+    transform-box: view-box;
+    transform-origin: 50% 50%;
+    animation: c-badge-spin 40s linear infinite;
+
+    &--dash {
+      fill: none;
+      stroke: var(--about);
+      stroke-dasharray: 2 6;
+      stroke-width: 2;
+      animation-duration: 60s;
+      animation-direction: reverse;
+    }
+
+    &--text {
+      fill: var(--black);
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &__name {
+    margin: 4px 22px 0;
+    font-size: 18cqi;
+    font-weight: 800;
+    font-stretch: 80%;
+    line-height: 0.86;
+    letter-spacing: -0.035em;
+  }
+
+  &__role {
+    margin: 12px 22px 0;
+
+    @include mono(13px);
+  }
+
+  &__mail {
+    align-self: flex-start;
+    margin: 6px 22px 0;
+    color: var(--contact);
+    font-weight: 600;
+    text-underline-offset: 3px;
+    overflow-wrap: anywhere;
+  }
+
+  &__foot {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 18px;
+    padding: 14px 22px 18px;
+    border-top: 2px dashed rgb(21 19 17 / 0.2);
+
+    @include mono(12px);
+
+    text-transform: uppercase;
+  }
+
+  &__barcode {
+    flex: 1;
+    height: 34px;
+    fill: var(--black);
+  }
+
+  // Plastic sheen: a soft highlight that follows the cursor over the card.
+  &__sheen {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at var(--sx, 30%) var(--sy, 0%), rgb(255 255 255 / 0.55), transparent 45%);
+    mix-blend-mode: soft-light;
+  }
+}
+
+@keyframes c-badge-sway {
+  from {
+    rotate: -1.2deg;
+  }
+
+  to {
+    rotate: 1.2deg;
+  }
+}
+
+@keyframes c-badge-drop {
+  from {
+    transform: translateY(-110%);
+  }
+}
+
+@keyframes c-badge-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

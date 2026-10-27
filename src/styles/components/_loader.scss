@@ -1,0 +1,77 @@
+// Loader: a blank pass is "printed" top to bottom while the page loads, then the screen lifts away.
+// Only shown while <html> has .is-loading. A CSS failsafe hides it after 3.2 s if the script never runs.
+@use '../settings/tokens' as *;
+@use '../tools/mixins' as *;
+
+.c-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background: var(--stage);
+  color: var(--white);
+
+  .is-loading & {
+    display: flex;
+    animation: c-loader-failsafe 0s 3.2s forwards;
+  }
+
+  .is-loaded & {
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 700ms $ease;
+  }
+
+  &__pass {
+    position: relative;
+    width: 120px;
+    aspect-ratio: 0.63;
+    overflow: hidden;
+    border-radius: 12px;
+    background: rgb(244 241 234 / 0.08);
+    outline: 2px dashed rgb(244 241 234 / 0.3);
+    outline-offset: 4px;
+  }
+
+  // The printed part grows down with the progress (--p, 0 to 1).
+  &__print {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(var(--contact) 0 26%, var(--white) 26%);
+    clip-path: inset(0 0 calc((1 - var(--p, 0)) * 100%) 0);
+  }
+
+  &__mark {
+    position: absolute;
+    top: 14%;
+    left: 50%;
+    z-index: 1;
+    width: 36px;
+    height: 36px;
+    margin-left: -18px;
+  }
+
+  &__label {
+    @include mono(13px);
+
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  &__count {
+    @include mono(56px);
+
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@keyframes c-loader-failsafe {
+  to {
+    visibility: hidden;
+  }
+}

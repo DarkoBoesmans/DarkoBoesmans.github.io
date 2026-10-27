@@ -10,6 +10,7 @@
 @use 'objects/container';
 
 @use 'components/skip';
+@use 'components/loader';
 @use 'components/cursor';
 @use 'components/board';
 @use 'components/plane';
@@ -17,7 +18,9 @@
 @use 'components/nav';
 @use 'components/toggles';
 @use 'components/hero';
+@use 'components/badge';
 @use 'components/about';
+@use 'components/route';
 @use 'components/specs';
 @use 'components/work';
 @use 'components/form';

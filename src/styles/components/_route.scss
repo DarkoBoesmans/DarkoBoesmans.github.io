@@ -1,0 +1,180 @@
+// Route: the path from 1999 to now.
+// Default (phones, reduced motion, no JS): a vertical list along a gold line.
+// .is-horizontal (desktop, set by scripts/route.ts): a sticky screen whose track slides sideways.
+@use '../settings/tokens' as *;
+@use '../tools/mixins' as *;
+
+$stop-w: 340px; // one stop on the horizontal track = 200 viewBox units of the line
+
+.c-route {
+  position: relative;
+  padding-block: $section-pad;
+  background: var(--stage);
+  color: var(--white);
+
+  &__head {
+    padding-inline: $page-pad;
+  }
+
+  &__title {
+    max-width: 18ch;
+
+    @include display(clamp(40px, 5.6vw, 96px));
+
+    span {
+      color: var(--work);
+    }
+  }
+
+  &__intro {
+    margin-top: 16px;
+    color: rgb(244 241 234 / 0.75);
+
+    @include mono(14px);
+  }
+
+  &__track {
+    padding: clamp(32px, 6vh, 64px) $page-pad 0;
+  }
+
+  &__line {
+    display: none;
+  }
+
+  &__stops {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    max-width: 560px;
+    padding-left: 28px;
+    border-left: 3px solid var(--work);
+  }
+
+  &__stop {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    p {
+      max-width: 30ch;
+      color: rgb(244 241 234 / 0.8);
+    }
+  }
+
+  &__dot {
+    position: absolute;
+    top: 4px;
+    left: -37px;
+    width: 15px;
+    height: 15px;
+    border: 3px solid var(--stage);
+    border-radius: 50%;
+    background: var(--work);
+  }
+
+  &__when {
+    color: var(--work);
+
+    @include mono(13px);
+
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  &__name {
+    font-size: clamp(24px, 2.2vw, 34px);
+    font-stretch: 90%;
+  }
+
+  &__alongside {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 560px;
+    margin-top: 40px;
+    padding: 18px 22px;
+    border-radius: $radius;
+    background: var(--contact);
+
+    .c-route__when {
+      color: var(--white); // gold on green fails contrast
+    }
+  }
+
+  // ----- Desktop: sticky, sideways -----
+  &.is-horizontal {
+    padding-block: 0;
+  }
+
+  &.is-horizontal &__sticky {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  &.is-horizontal &__track {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(7, $stop-w);
+    width: max-content;
+    padding-top: 24px;
+  }
+
+  &.is-horizontal &__line {
+    position: absolute;
+    top: 24px;
+    left: $page-pad;
+    display: block;
+    width: calc(#{$stop-w} * 7);
+    height: 120px;
+    overflow: visible;
+  }
+
+  &__path {
+    fill: none;
+    stroke-width: 4;
+    vector-effect: non-scaling-stroke;
+
+    &--ghost {
+      stroke: rgb(244 241 234 / 0.18);
+      stroke-dasharray: 4 8;
+    }
+
+    &--drawn {
+      stroke: var(--work);
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+  }
+
+  &.is-horizontal &__stops {
+    display: contents; // each stop becomes a column of the track grid
+  }
+
+  &.is-horizontal &__stop {
+    padding: 140px 40px 0 0;
+  }
+
+  // Dot sits on the line: x = 10/200 of a stop, y = 60 of 120.
+  &.is-horizontal &__dot {
+    top: 52px;
+    left: calc(#{$stop-w} * 0.05 - 8px);
+    width: 16px;
+    height: 16px;
+  }
+
+  &.is-horizontal &__alongside {
+    grid-column: 2 / -1;
+    max-width: none;
+    margin: 40px 0 0;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 16px;
+  }
+}

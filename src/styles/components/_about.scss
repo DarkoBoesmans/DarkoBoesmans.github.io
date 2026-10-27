@@ -1,34 +1,10 @@
-// About: an editorial split (lead left, story right), one board strip, the spec sheet, life outside work.
+// About, in short: big title, one board strip (quote + drives), the spec sheet, life outside work, footnote.
 @use '../settings/tokens' as *;
 @use '../tools/mixins' as *;
 
 .c-about {
-  &__lead {
-    grid-column: 1 / -1;
-
-    @include display(clamp(40px, 5.4vw, 88px));
-
-    span {
-      color: var(--muted);
-    }
-
-    @include from($bp-lg) {
-      grid-column: 1 / 7;
-    }
-  }
-
-  &__story {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    grid-column: 1 / -1;
-    max-width: 60ch;
-    font-size: clamp(17px, 1.25vw, 20px);
-
-    @include from($bp-lg) {
-      grid-column: 8 / -1;
-      padding-top: 0.6em;
-    }
+  &__title {
+    @include display(clamp(44px, 6.4vw, 110px));
   }
 
   &__board {
@@ -57,8 +33,17 @@
       font-size: clamp(24px, 2.2vw, 34px);
     }
 
-    p {
-      max-width: 62ch;
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      font-size: clamp(17px, 1.3vw, 20px);
+      line-height: 1.45;
+    }
+
+    strong {
+      display: block;
+      font-weight: 700;
     }
   }
 
@@ -77,5 +62,12 @@
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
     padding-top: 24px;
     border-top: 2px solid var(--ink);
+  }
+
+  &__note {
+    margin-top: clamp(40px, 6vh, 64px);
+    color: var(--muted);
+
+    @include mono(14px);
   }
 }

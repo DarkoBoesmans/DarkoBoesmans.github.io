@@ -1,4 +1,8 @@
-// Desktop-only pointer effects: custom cursor + magnetic buttons with a cursor-following glow.
+// Desktop-only pointer effects, from the first portfolio:
+// a custom cursor (dot + trailing ring), and on EVERY link and button a magnetic lean plus a glow
+// that follows the cursor (--glow-x/--glow-y, drawn in utilities/_utilities.scss).
+const MAGNET = 'a, button, .c-form__chip';
+
 export function initPointer(reduceMotion: boolean): void {
   if (!matchMedia('(pointer: fine)').matches) return;
 
@@ -27,17 +31,21 @@ export function initPointer(reduceMotion: boolean): void {
       root.classList.toggle('cursor-text', Boolean(target.closest('input, textarea')));
       root.classList.toggle('cursor-dark', Boolean(target.closest('[data-dark]')));
 
-      const button = reduceMotion ? null : target.closest<HTMLElement>('.c-button');
-      if (magnet && magnet !== button) magnet.style.translate = '';
-      magnet = button;
-      if (!button) return;
+      const el = target.closest<HTMLElement>(MAGNET);
+      if (magnet && magnet !== el) magnet.style.translate = '';
+      magnet = el;
+      if (!el) return;
 
-      const rect = button.getBoundingClientRect();
+      const rect = el.getBoundingClientRect();
       const x = mouseX - rect.left;
       const y = mouseY - rect.top;
-      button.style.setProperty('--glow-x', `${x}px`);
-      button.style.setProperty('--glow-y', `${y}px`);
-      button.style.translate = `${((x / rect.width - 0.5) * 8).toFixed(1)}px ${((y / rect.height - 0.5) * 6).toFixed(1)}px`;
+      el.style.setProperty('--glow-x', `${x}px`);
+      el.style.setProperty('--glow-y', `${y}px`);
+      if (reduceMotion) return;
+
+      // Small things lean further than big tiles, so a tile never jumps over its grid line.
+      const pull = rect.width > 240 ? 4 : 8;
+      el.style.translate = `${((x / rect.width - 0.5) * pull).toFixed(1)}px ${((y / rect.height - 0.5) * pull * 0.75).toFixed(1)}px`;
     },
     { passive: true },
   );

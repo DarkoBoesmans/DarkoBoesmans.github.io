@@ -1,0 +1,22 @@
+---
+// Loader: "printing" the access pass while fonts and the portrait load. First visit per session only,
+// never under reduced motion (the head script in Base.astro decides). Logic: scripts/loader.ts.
+import Mark from './Mark.astro';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const l = t(lang).loader;
+---
+
+<div class="c-loader" aria-hidden="true" data-loader>
+  <div class="c-loader__pass">
+    <Mark class="c-loader__mark" />
+    <span class="c-loader__print" data-loader-print></span>
+  </div>
+  <p class="c-loader__label">{l.label}</p>
+  <p class="c-loader__count"><span data-loader-count>0</span>%</p>
+</div>

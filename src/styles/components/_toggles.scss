@@ -57,16 +57,17 @@
     }
   }
 
-  // On the ID card: top-right, on a paper chip so it reads on brown.
+  // On the dark stage, top-right. Swaps the role colours locally so the same rules read on dark.
   &--hero {
+    --ink: var(--white);
+    --paper: var(--stage);
+    --hairline: rgb(244 241 234 / 0.18);
+
     position: absolute;
-    top: 12px;
-    right: 12px;
-    z-index: 2;
-    padding: 4px;
-    border-radius: 10px;
-    background: var(--paper);
-    color: var(--ink);
+    top: 16px;
+    right: $page-pad;
+    z-index: 3;
+    color: var(--white);
   }
 
   // No room on a phone: the nav keeps only the language switch (the theme switch is on the ID card).

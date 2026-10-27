@@ -1,0 +1,53 @@
+---
+// Route: the non-linear path from 1999 to now. On desktop the track scrolls sideways while the visitor
+// simply scrolls down, and the line draws itself, loop and all (scripts/route.ts).
+// Phones and reduced motion: a plain vertical list.
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const r = t(lang).route;
+
+// One gentle wave per stop, plus a loop between the detours and "back to Howest".
+// viewBox units: each stop is 200 wide; the line runs at y = 60.
+const line =
+  'M10 60 C80 20 140 100 210 60 C280 20 340 100 410 60 C480 110 540 110 610 60 C680 10 740 110 810 60 ' +
+  'C900 0 990 0 965 50 C940 105 860 95 900 42 C930 8 990 30 1010 60 C1080 100 1140 20 1210 60 L1400 60';
+---
+
+<section id="route" class="c-route" aria-labelledby="route-title" data-route>
+  <div class="c-route__sticky">
+    <div class="o-container c-route__head">
+      <h2 class="c-route__title" id="route-title" data-reveal>{r.titleA} <span>{r.titleB}</span></h2>
+      <p class="c-route__intro" data-reveal>{r.intro}</p>
+    </div>
+
+    <div class="c-route__track" data-route-track>
+      <svg class="c-route__line" viewBox="0 0 1400 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path class="c-route__path c-route__path--ghost" d={line}></path>
+        <path class="c-route__path c-route__path--drawn" d={line} pathLength="1" data-route-path></path>
+      </svg>
+
+      <ol class="c-route__stops">
+        {
+          r.stops.map((stop) => (
+            <li class="c-route__stop">
+              <span class="c-route__dot" aria-hidden="true" />
+              <span class="c-route__when">{stop.when}</span>
+              <h3 class="c-route__name">{stop.title}</h3>
+              <p>{stop.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+
+      <p class="c-route__alongside">
+        <span class="c-route__when">{r.alongsideWhen}</span>
+        {r.alongside}
+      </p>
+    </div>
+  </div>
+</section>
