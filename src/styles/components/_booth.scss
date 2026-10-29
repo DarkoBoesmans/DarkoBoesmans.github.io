@@ -1,5 +1,6 @@
-// Booth: one hall on the floor plan. Info halls are drawn as walls (outline) with a door gap;
-// link halls are filled with their key colour and light up cream on hover.
+// Booth: one hall on the paper floor plan. Info halls are walls (ink outline) with a door gap;
+// link halls are filled with their key colour. Hover lifts a link hall off the paper like a sticker:
+// it shifts up-left, casts a hard ink shadow and its arrow steps forward.
 @use '../settings/tokens' as *;
 @use '../tools/mixins' as *;
 
@@ -15,12 +16,12 @@ $wall: 3px;
   min-width: 0;
   min-height: 150px;
   padding: 34px 18px 22px;
-  border: $wall solid var(--white);
-  color: var(--white);
+  border: $wall solid var(--black);
+  color: var(--black);
   text-align: center;
   text-decoration: none;
 
-  // The door: a gap in the bottom wall, in the floor colour.
+  // The door: a gap in the bottom wall, in the paper colour.
   &::after {
     content: '';
     position: absolute;
@@ -29,7 +30,7 @@ $wall: 3px;
     width: 44px;
     height: $wall;
     margin-left: -22px;
-    background: var(--contact);
+    background: var(--white);
   }
 
   &--top {
@@ -42,7 +43,6 @@ $wall: 3px;
     position: absolute;
     top: 10px;
     left: 12px;
-    opacity: 0.85;
 
     @include mono(11px);
 
@@ -59,39 +59,62 @@ $wall: 3px;
     letter-spacing: 0.06em;
   }
 
+  &__arrow {
+    display: inline-block;
+    transition: translate 300ms $ease;
+  }
+
   &--work {
-    border-color: var(--work);
     background: var(--work);
-    color: var(--black);
   }
 
   &--about {
-    border-color: var(--about);
     background: var(--about);
     color: var(--white);
   }
 
   &--ink {
-    border-color: var(--black);
     background: var(--black);
     color: var(--white);
   }
 
+  // Filled halls have no door gap: you walk in through the colour.
+  &--work,
+  &--about,
+  &--ink {
+    &::after {
+      display: none;
+    }
+  }
+
   &--link {
     cursor: pointer;
+    transition:
+      transform 300ms $ease,
+      box-shadow 300ms $ease;
 
     &:hover {
-      border-color: var(--white);
-      background: var(--white);
-      color: var(--contact);
+      transform: translate(-4px, -4px);
+      box-shadow: 6px 6px 0 var(--black);
+    }
+
+    &:hover .c-booth__arrow {
+      translate: 6px 0;
     }
 
     &:active {
-      transform: scale(0.98);
+      transform: translate(0, 0);
+      box-shadow: 0 0 0 var(--black);
+      transition-duration: 80ms;
     }
 
     &:focus-visible {
       outline-offset: -10px;
     }
+  }
+
+  // An ink hall needs a gold shadow to show it lifted.
+  &--ink.c-booth--link:hover {
+    box-shadow: 6px 6px 0 var(--work);
   }
 }

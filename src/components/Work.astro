@@ -1,7 +1,7 @@
 ---
-// Featured Work: covers scroll by on the left; the sticky panel on the right shows the project
-// whose cover is closest to the middle of the screen (scripts/work.ts). A numbered index jumps to any project.
-// Phones get a caption under each cover instead of the panel.
+// Featured Work: 16:9 covers scroll by on the left (wide, golden ratio); the sticky panel on the right shows
+// the project whose cover has crossed the middle of the screen (scripts/work.ts). A numbered index jumps to
+// any project. Covers with a live site are links. Phones get a caption under each cover instead of the panel.
 import { t, type Lang } from '../i18n';
 import { projects } from '../data/media';
 
@@ -28,16 +28,23 @@ const items = projects.map((p) => ({ ...p, ...w.projects[p.slug] }));
           items.map((p) => (
             <li class="c-work__shot">
               <div class="c-board c-work__frame">
-                <div class="c-plane c-plane--work c-work__cover">
-                  {p.image ? (
-                    <img src={p.image} alt={`${p.title} | ${w.screenshot}`} loading="lazy" data-parallax="0.06" />
-                  ) : (
-                    <>
-                      <span class="c-work__type" aria-hidden="true">{p.title}</span>
-                      <span class="c-work__note">{w.empty}</span>
-                    </>
-                  )}
-                </div>
+                {p.url ? (
+                  <a class="c-plane c-plane--work c-work__cover c-work__cover--link" href={p.url} target="_blank" rel="noopener noreferrer" data-cursor="ink" aria-label={`${w.visit} ${p.title} (${d.hero.newTab})`}>
+                    {p.image ? <img src={p.image} alt="" loading="lazy" /> : <span class="c-work__type" aria-hidden="true">{p.title}</span>}
+                    <span class="c-work__visit" aria-hidden="true">{w.visit} ↗</span>
+                  </a>
+                ) : (
+                  <div class="c-plane c-plane--work c-work__cover" data-cursor="ink">
+                    {p.image ? (
+                      <img src={p.image} alt={`${p.title} | ${w.screenshot}`} loading="lazy" />
+                    ) : (
+                      <>
+                        <span class="c-work__type" aria-hidden="true">{p.title}</span>
+                        <span class="c-work__note">{w.empty}</span>
+                      </>
+                    )}
+                  </div>
+                )}
               </div>
               <div class="c-work__caption">
                 <h3 class="c-work__name">{p.title}</h3>
@@ -55,9 +62,14 @@ const items = projects.map((p) => ({ ...p, ...w.projects[p.slug] }));
           {
             items.map((p, i) => (
               <article class:list={['c-work__panel', { 'is-active': i === 0 }]} aria-hidden={i === 0 ? 'false' : 'true'}>
+                <p class="c-work__count" aria-hidden="true">{String(i + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}</p>
                 <h3 class="c-work__name c-work__name--large">{p.title}</h3>
+                <dl class="c-work__meta">
+                  <div><dt>{w.kindLabel}</dt><dd>{p.kind}</dd></div>
+                  <div><dt>{w.roleLabel}</dt><dd>{w.role}</dd></div>
+                </dl>
                 <p class="c-work__desc">{p.desc}</p>
-                <p class="c-work__tags">{w.built}: {p.tags.join(', ')}</p>
+                <ul class="c-work__chips">{p.tags.map((tag) => <li>{tag}</li>)}</ul>
                 {p.url && (
                   <a class="c-button c-button--ink" href={p.url} target="_blank" rel="noopener noreferrer" tabindex={i === 0 ? undefined : -1}>
                     {w.visit} {p.title} ↗

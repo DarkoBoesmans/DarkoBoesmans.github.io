@@ -1,9 +1,9 @@
 ---
-// About, in short: what drives me (three bold one-liners), the nagging idea, the spec sheet
-// ("Statistics for nerds": real numbers from the route and GitHub, then the toolkit; target of the hero tile) and life outside work. The path itself lives in Route.
+// About, in short: what drives me (three bold one-liners), the nagging idea, my skills as a stamp card
+// ("Statistics for nerds", target of the hero hall) and life outside work as two stickers. The path lives in Route.
+import Icon from './Icon.astro';
 import { t, type Lang } from '../i18n';
 import { aboutPhoto } from '../data/media';
-import { getGithubStats } from '../data/github';
 
 interface Props {
   lang: Lang;
@@ -11,13 +11,15 @@ interface Props {
 
 const { lang } = Astro.props;
 const a = t(lang).about;
-const gh = await getGithubStats();
-const stats = [
-  ...a.stats,
-  { value: String(gh.repos), label: a.github.repos },
-  { value: gh.top, label: a.github.top },
-  { value: String(gh.since), label: a.github.since },
-];
+
+// Each skill group gets its own ink colour, like a different stamp at every booth.
+const inks = ['contact', 'about', 'ink', 'work'] as const;
+// A small, fixed tilt per stamp (-5° to 5°), so the card looks stamped by hand but never changes.
+const tilt = (group: number, item: number): number => ((group * 7 + item * 13) % 11) - 5;
+const stickers = [
+  { icon: 'tent', tone: 'contact' },
+  { icon: 'mountain', tone: 'work' },
+] as const;
 ---
 
 <section id="about" class="o-section c-about">
@@ -38,37 +40,41 @@ const stats = [
       {aboutPhoto && <img class="c-plane" src={aboutPhoto} alt={a.photoAlt} loading="lazy" />}
     </div>
 
-    <section id="toolkit" class="c-specs" aria-labelledby="specs-title" data-reveal>
-      <h3 class="c-specs__title" id="specs-title">{a.skillsTitle}</h3>
-      <dl class="c-stats">
+    <section id="toolkit" class="c-stamps" aria-labelledby="stamps-title" data-reveal>
+      <div class="c-stamps__head">
+        <h3 class="c-stamps__title" id="stamps-title">{a.skillsTitle}</h3>
+        <p class="c-stamps__intro">{a.skillsIntro}</p>
+      </div>
+      <div class="c-stamps__card">
         {
-          stats.map((s) => (
-            <div class="c-stats__item">
-              <dt class="c-stats__label">{s.label}</dt>
-              <dd class="c-stats__value">{s.value}</dd>
+          a.skills.map((group, g) => (
+            <div class="c-stamps__row">
+              <h4 class="c-stamps__group">{group.name}</h4>
+              <ul class="c-stamps__list">
+                {group.items.map((item, i) => (
+                  <li class={`c-stamp c-stamp--${inks[g]}`} style={`--tilt: ${tilt(g, i)}deg`}>
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))
         }
-      </dl>
-      <h4 class="c-specs__sub">{a.toolkit}</h4>
-      <dl>
-        {
-          a.skills.map((group) => (
-            <div class="c-specs__row">
-              <dt class="c-specs__name">{group.name}</dt>
-              <dd>
-                <ul class="c-specs__items">{group.items.map((item) => <li>{item}</li>)}</ul>
-              </dd>
-            </div>
-          ))
-        }
-      </dl>
+      </div>
     </section>
 
     <div class="c-about__beyond" data-reveal>
       <h3>{a.beyond}</h3>
-      <div class="c-about__columns">
-        {a.beyondItems.map((p) => <p>{p}</p>)}
+      <div class="c-about__stickers">
+        {
+          a.beyondItems.map((item, i) => (
+            <article class={`c-sticker c-sticker--${stickers[i].tone}`}>
+              <span class="c-sticker__icon"><Icon name={stickers[i].icon} size={40} /></span>
+              <h4 class="c-sticker__title">{item.title}</h4>
+              <p>{item.text}</p>
+            </article>
+          ))
+        }
       </div>
     </div>
 

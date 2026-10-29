@@ -1,0 +1,132 @@
+// Stamps: the skills as a fair's stamp card. One ink colour per group, each stamp tilted a little
+// (--tilt, fixed per skill in About.astro). Hover: the stamp straightens and thumps down once.
+@use '../settings/tokens' as *;
+@use '../tools/mixins' as *;
+
+.c-stamps {
+  margin-top: clamp(56px, 10vh, 120px);
+
+  &__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px 32px;
+    margin-bottom: 24px;
+  }
+
+  &__title {
+    @include display(clamp(36px, 4.4vw, 72px));
+  }
+
+  &__intro {
+    color: var(--muted);
+
+    @include mono(14px);
+  }
+
+  // The card itself: punched holes down the left edge, like a real stamp card.
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: clamp(20px, 3vw, 40px) clamp(20px, 3vw, 40px) clamp(20px, 3vw, 40px) clamp(40px, 5vw, 64px);
+    border: 2px solid var(--ink);
+    border-radius: 16px;
+    background:
+      radial-gradient(circle at 18px 50%, var(--paper) 7px, transparent 8px) 0 0 / 36px 44px repeat-y,
+      var(--plane);
+  }
+
+  &__row {
+    display: grid;
+    gap: 12px 24px;
+    grid-template-columns: minmax(0, 1fr);
+    padding-block: 16px;
+
+    & + & {
+      border-top: 2px dashed var(--hairline);
+    }
+
+    @include from($bp-md) {
+      grid-template-columns: 160px minmax(0, 1fr);
+      align-items: center;
+    }
+  }
+
+  &__group {
+    @include mono(13px);
+
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 14px;
+  }
+}
+
+.c-stamp {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 6px 14px;
+  border: 4px double currentcolor;
+  border-radius: 8px;
+  rotate: var(--tilt, 0deg);
+  transition: rotate 300ms $ease;
+
+  @include mono(14px);
+
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+
+  &--contact {
+    color: var(--contact);
+  }
+
+  &--about {
+    color: var(--about);
+  }
+
+  &--ink {
+    color: var(--ink);
+  }
+
+  &--work {
+    border-color: var(--black);
+    background: var(--work);
+    color: var(--black);
+  }
+
+  [data-theme='dark'] &--contact {
+    color: #9cc7b6;
+  }
+
+  [data-theme='dark'] &--about {
+    color: #d4a27a;
+  }
+
+  &:hover {
+    rotate: 0deg;
+    animation: c-stamp-press 380ms $ease;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+}
+
+@keyframes c-stamp-press {
+  40% {
+    transform: scale(1.18);
+  }
+
+  70% {
+    transform: scale(0.94);
+  }
+}

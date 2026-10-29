@@ -1,4 +1,6 @@
-// Featured Work: the screenshot closest to the viewport centre picks the text panel.
+// Featured Work: the panel shows the last project whose cover has crossed the middle of the screen,
+// so it only switches once the next cover is really in view (not while the current one is still half on screen).
+// The index buttons scroll to their cover.
 export function initWork(reduceMotion: boolean): void {
   const section = document.querySelector<HTMLElement>('.c-work');
   if (!section) return;
@@ -14,6 +16,7 @@ export function initWork(reduceMotion: boolean): void {
     panels.forEach((panel, i) => {
       panel.classList.toggle('is-active', i === index);
       panel.setAttribute('aria-hidden', String(i !== index));
+      panel.querySelector('a')?.setAttribute('tabindex', i === index ? '0' : '-1');
     });
     markers.forEach((marker, i) => {
       marker.classList.toggle('is-active', i === index);
@@ -22,27 +25,21 @@ export function initWork(reduceMotion: boolean): void {
   };
 
   const pick = (): void => {
-    const middle = window.innerHeight / 2;
-    let best = 0;
-    let bestDistance = Infinity;
+    const line = window.innerHeight * 0.5;
+    let current = 0;
     shots.forEach((shot, i) => {
-      const rect = shot.getBoundingClientRect();
-      const distance = Math.abs(rect.top + rect.height / 2 - middle);
-      if (distance < bestDistance) {
-        bestDistance = distance;
-        best = i;
-      }
+      if (shot.getBoundingClientRect().top <= line) current = i;
     });
-    setActive(best);
+    setActive(current);
   };
 
   markers.forEach((marker, i) =>
     marker.addEventListener('click', () => {
       const shot = shots[i];
       if (!shot) return;
-      const rect = shot.getBoundingClientRect();
+      // Land with the cover's top just above the switch line, so its own panel shows.
       window.scrollTo({
-        top: window.scrollY + rect.top + rect.height / 2 - window.innerHeight / 2,
+        top: window.scrollY + shot.getBoundingClientRect().top - window.innerHeight * 0.3,
         behavior: reduceMotion ? 'auto' : 'smooth',
       });
     }),

@@ -1,6 +1,7 @@
-// Badge: a physical access pass. V-shaped gold lanyard, metal ring and clip, punched slot, green band,
-// photo with two rotating rings, barcode. Real depth: four edge layers behind the face (translateZ),
-// and a floor shadow that slides the other way when the card tilts.
+// Badge: a physical access pass. V-shaped gold lanyard, metal ring and clip, a clear plastic sleeve with a
+// zip seal and punched slot, and inside it the printed card: green band, photo with two rotating rings, barcode.
+// Real depth: four edge layers behind the sleeve (translateZ), and a floor shadow that slides the other way
+// when the card tilts.
 // Three motions, three properties, so they never fight: sway = rotate (wrapper), parallax = translate
 // (wrapper), tilt = transform (card, set by scripts/badge.ts).
 @use '../settings/tokens' as *;
@@ -16,11 +17,12 @@
   transform-origin: 50% 0;
   animation: c-badge-sway 7s ease-in-out infinite alternate;
 
-  // After the loader: the pass drops in on its lanyard, then starts swaying.
+  // On load (right after the loader): the pass blows in from the left on its lanyard, swings past
+  // the middle a few times, settles, then keeps a gentle sway.
   .is-loaded & {
     animation:
-      c-badge-drop 1100ms $ease both,
-      c-badge-sway 7s 1100ms ease-in-out infinite alternate;
+      c-badge-blow 2200ms both,
+      c-badge-sway 7s 2200ms ease-in-out infinite alternate;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -70,7 +72,7 @@
 
   &__card {
     position: relative;
-    width: min(100%, 440px, calc((100svh - 240px) * 0.6)); // big, but the whole pass fits on screen
+    width: min(100%, 440px, calc((100svh - 290px) * 0.62)); // big, but the whole pass fits on screen
     transform-style: preserve-3d;
     transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
     transition: transform 600ms $ease;
@@ -80,25 +82,60 @@
     }
   }
 
-  // The card's thickness: darker copies stacked behind the face.
+  // The sleeve's thickness: pale, see-through copies stacked behind it.
   &__edge {
     position: absolute;
     inset: 0;
-    border-radius: 22px;
-    background: #cfc7b6;
+    border-radius: 26px;
+    background: rgb(220 228 224 / 0.55);
     transform: translateZ(calc(var(--z) * -1.5px));
   }
 
+  // Clear plastic holder: slightly milky, a bright rim, a zip seal across the top.
+  &__sleeve {
+    position: relative;
+    padding: 44px 12px 12px;
+    overflow: hidden;
+    border: 1.5px solid rgb(255 255 255 / 0.7);
+    border-radius: 26px;
+    background: linear-gradient(160deg, rgb(255 255 255 / 0.42), rgb(255 255 255 / 0.16) 40%, rgb(255 255 255 / 0.3));
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.9),
+      inset 0 -3px 8px rgb(0 0 0 / 0.08);
+
+    // The zip seal.
+    &::before {
+      content: '';
+      position: absolute;
+      top: 34px;
+      right: 12px;
+      left: 12px;
+      height: 4px;
+      border-radius: 2px;
+      background: rgb(255 255 255 / 0.6);
+      box-shadow: 0 1px 0 rgb(0 0 0 / 0.12);
+    }
+  }
+
+  // The printed card inside the sleeve.
   &__face {
     position: relative;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    border-radius: 22px;
+    border-radius: 14px;
     background: var(--white);
     color: var(--black);
-    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.7);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.18);
     container-type: inline-size;
+  }
+
+  // A long diagonal reflection on the plastic; it slides as the card tilts (--sx from badge.ts).
+  &__glare {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(115deg, transparent 38%, rgb(255 255 255 / 0.32) 46%, rgb(255 255 255 / 0.08) 52%, transparent 58%) var(--sx, 30%) 0 / 260% 100%;
   }
 
   &__shadow {
@@ -119,7 +156,7 @@
   &__band {
     display: flex;
     justify-content: space-between;
-    padding: 40px 28px 16px;
+    padding: 18px 24px 16px;
     background: var(--contact);
     color: var(--white);
 
@@ -130,17 +167,17 @@
     text-transform: uppercase;
   }
 
-  // The punched hole the clip goes through.
+  // The punched hole in the sleeve, where the clip goes through.
   &__slot {
     position: absolute;
-    top: 14px;
+    top: 12px;
     left: 50%;
     width: 70px;
     height: 13px;
     margin-left: -35px;
     border-radius: 7px;
-    background: rgb(0 0 0 / 0.55);
-    box-shadow: inset 0 2px 3px rgb(0 0 0 / 0.6);
+    background: var(--contact);
+    box-shadow: inset 0 2px 3px rgb(0 0 0 / 0.5);
   }
 
   &__photo {
@@ -196,20 +233,20 @@
   }
 
   &__name {
-    margin: 10px 28px 0;
+    margin: 10px 24px 0;
     font-size: 19cqi;
     line-height: 0.84;
   }
 
   &__role {
-    margin: 14px 28px 0;
+    margin: 14px 24px 0;
 
     @include mono(14px);
   }
 
   &__mail {
     align-self: flex-start;
-    margin: 8px 28px 0;
+    margin: 8px 24px 0;
     color: var(--contact);
     font-weight: 600;
     text-underline-offset: 3px;
@@ -221,7 +258,7 @@
     align-items: center;
     gap: 18px;
     margin-top: 22px;
-    padding: 16px 28px 22px;
+    padding: 16px 24px 20px;
     border-top: 2px dashed rgb(21 19 17 / 0.22);
 
     @include mono(12px);
@@ -255,9 +292,35 @@
   }
 }
 
-@keyframes c-badge-drop {
-  from {
-    transform: translateY(-110%);
+// A damped swing: in from far left, past the middle, back, smaller each time.
+@keyframes c-badge-blow {
+  0% {
+    transform: translate(-80vw, -6vh) rotate(-42deg);
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+
+  42% {
+    transform: translate(2vw, 0) rotate(15deg);
+    animation-timing-function: ease-in-out;
+  }
+
+  60% {
+    transform: translate(-0.6vw, 0) rotate(-8deg);
+    animation-timing-function: ease-in-out;
+  }
+
+  75% {
+    transform: rotate(4.5deg);
+    animation-timing-function: ease-in-out;
+  }
+
+  88% {
+    transform: rotate(-2deg);
+    animation-timing-function: ease-in-out;
+  }
+
+  100% {
+    transform: none;
   }
 }
 

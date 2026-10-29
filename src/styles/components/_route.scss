@@ -79,6 +79,27 @@ $line-y: 70px;
       scale: 1.25;
       background-color: var(--white);
     }
+
+    // A ping ring while hovered: "there is more here".
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border: 2px solid var(--black);
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &:hover::after {
+      animation: c-route-ping 1s $ease infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      &:hover::after {
+        animation: none;
+      }
+    }
   }
 
   &__when {
@@ -202,13 +223,36 @@ $line-y: 70px;
     translate: 0 0;
   }
 
+  // The Chiro lane runs under the stops from 2017 (stop 6) to now. Its label slides along inside the
+  // lane (scripts/route.ts), so it stays in view while the stops pass above it.
   &.is-horizontal &__alongside {
     grid-row: 2;
-    grid-column: 3 / -1;
-    flex-direction: row;
-    align-items: baseline;
-    gap: 16px;
+    grid-column: 6 / -1;
+    display: block;
     max-width: none;
     margin: 24px 0 0;
+    padding: 16px 0;
+    overflow: hidden;
+  }
+
+  &.is-horizontal &__lane-label {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    width: max-content;
+    max-width: 640px;
+    padding-inline: 22px;
+  }
+}
+
+@keyframes c-route-ping {
+  from {
+    opacity: 0.9;
+    scale: 0.8;
+  }
+
+  to {
+    opacity: 0;
+    scale: 1.7;
   }
 }

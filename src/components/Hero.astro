@@ -1,6 +1,6 @@
 ---
-// Hero: the fair's floor plan on green. Left (38.2%, golden ratio): your access pass and the "you are here" pin.
-// Right (61.8%): the halls. Filled halls are links: gold = work, brown = stats, ink = contact and socials.
+// Hero: green venue. Left (38.2%, golden ratio): your access pass. Right (61.8%): the fair's floor plan,
+// printed on paper. Filled halls are links: gold = work, brown = skills, ink = contact and socials.
 import Badge from './Badge.astro';
 import Icon from './Icon.astro';
 import Toggles from './Toggles.astro';
@@ -21,13 +21,12 @@ const hall = (n: number): string => `${h.hall} ${String(n).padStart(2, '0')}`;
   <div class="c-hero__stage">
     <div class="c-hero__pass">
       <Badge lang={lang} />
-      <p class="c-hero__here"><span class="c-hero__pin" aria-hidden="true"></span>{h.here}</p>
     </div>
 
     <div class="c-hero__plan" data-parallax="0.05">
       <p class="c-hero__plan-head" aria-hidden="true">
         <span>{h.plan}</span>
-        <span class="c-hero__measure"><span>61.8%</span></span>
+        <span>{h.fair}</span>
       </p>
 
       <div class="c-hero__grid">
@@ -50,13 +49,13 @@ const hall = (n: number): string => `${h.hall} ${String(n).padStart(2, '0')}`;
           <span class="c-hero__big">{h.creative}</span>
           <span>{h.digital}</span>
         </div>
-        <a class="c-booth c-booth--work c-booth--link c-hero__work" href="#work">
+        <a class="c-booth c-booth--work c-booth--link c-hero__work" href="#work" data-cursor="ink">
           <span class="c-booth__hall">{hall(5)}</span>
-          <span class="c-hero__big">{h.myWork} →</span>
+          <span class="c-hero__big">{h.myWork} <span class="c-booth__arrow" aria-hidden="true">→</span></span>
         </a>
         <a class="c-booth c-booth--about c-booth--link c-hero__stats" href="#toolkit">
           <span class="c-booth__hall">{hall(6)}</span>
-          <span class="c-hero__big">{h.stats} →</span>
+          <span class="c-hero__big">{h.stats} <span class="c-booth__arrow" aria-hidden="true">→</span></span>
         </a>
         <div class="c-hero__social">
           <a class="c-booth c-booth--ink c-booth--link" href="https://github.com/DarkoBoesmans" target="_blank" rel="noopener noreferrer" aria-label={`GitHub (${h.newTab})`}>
@@ -70,11 +69,16 @@ const hall = (n: number): string => `${h.hall} ${String(n).padStart(2, '0')}`;
         </div>
         <a class="c-booth c-booth--ink c-booth--link c-hero__contact" href="#contact">
           <span class="c-booth__hall">{hall(7)}</span>
-          <span class="c-hero__big">{h.contactMe} →</span>
+          <span class="c-hero__big">{h.contactMe} <span class="c-booth__arrow" aria-hidden="true">→</span></span>
         </a>
       </div>
 
-      <p class="c-hero__entrance" aria-hidden="true">{h.entrance}</p>
+      <ul class="c-hero__legend" aria-hidden="true">
+        <li><span class="c-hero__swatch c-hero__swatch--work"></span>{h.legend.work}</li>
+        <li><span class="c-hero__swatch c-hero__swatch--about"></span>{h.legend.about}</li>
+        <li><span class="c-hero__swatch c-hero__swatch--ink"></span>{h.legend.contact}</li>
+        <li><span class="c-hero__swatch"></span>{h.legend.info}</li>
+      </ul>
     </div>
   </div>
 </section>

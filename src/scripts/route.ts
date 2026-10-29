@@ -8,6 +8,7 @@ export function initRoute(reduceMotion: boolean): void {
   const section = document.querySelector<HTMLElement>('[data-route]');
   const track = section?.querySelector<HTMLElement>('[data-route-track]');
   const path = section?.querySelector<SVGPathElement>('[data-route-path]');
+  const lane = section?.querySelector<HTMLElement>('[data-route-lane]');
   if (!section || !track) return;
 
   section.querySelectorAll<HTMLButtonElement>('[data-route-dot]').forEach((dot) =>
@@ -39,8 +40,17 @@ export function initRoute(reduceMotion: boolean): void {
     const scrollable = section.offsetHeight - window.innerHeight;
     const progress = Math.min(1, Math.max(0, -section.getBoundingClientRect().top / scrollable));
     const distance = Math.max(0, track.scrollWidth - window.innerWidth);
-    track.style.translate = `${(-progress * distance).toFixed(1)}px 0`;
+    const shift = -progress * distance;
+    track.style.translate = `${shift.toFixed(1)}px 0`;
     if (path) path.style.strokeDashoffset = String(1 - progress);
+
+    // Chiro lane: once its start scrolls off the left edge, its label follows along inside it.
+    if (lane?.parentElement) {
+      const box = lane.parentElement;
+      const behind = -(box.offsetLeft + shift) + 40;
+      const room = box.clientWidth - lane.offsetWidth;
+      lane.style.translate = `${Math.max(0, Math.min(room, behind)).toFixed(1)}px 0`;
+    }
   };
 
   const setup = (): void => {

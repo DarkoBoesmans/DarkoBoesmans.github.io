@@ -1,6 +1,7 @@
 ---
-// Badge: the access pass to Darko's "design fair". Hangs on a V-shaped gold lanyard and sways at rest (CSS);
-// tilts in 3D towards the cursor, with a visible edge, a moving shadow and a sheen (scripts/badge.ts).
+// Badge: the access pass to Darko's "design fair": a printed card in a clear plastic sleeve, on a V-shaped
+// gold lanyard. Blows into view on load, sways at rest (CSS), tilts in 3D towards the cursor with a
+// visible edge, a moving shadow and a glare across the plastic (scripts/badge.ts).
 import { t, type Lang } from '../i18n';
 
 interface Props {
@@ -41,37 +42,39 @@ const strapText = 'Darko Boesmans · All access · '.repeat(6);
   <div class="c-badge__card" data-badge>
     {[1, 2, 3, 4].map((z) => <span class="c-badge__edge" style={`--z: ${z}`} aria-hidden="true" />)}
 
-    <div class="c-badge__face">
-      <div class="c-badge__band">
-        <span>{h.pass}</span>
-        <span>2026</span>
-      </div>
+    <div class="c-badge__sleeve">
       <span class="c-badge__slot" aria-hidden="true"></span>
+      <div class="c-badge__face">
+        <div class="c-badge__band">
+          <span>{h.pass}</span>
+          <span>2026</span>
+        </div>
 
-      <div class="c-badge__photo">
-        <svg class="c-badge__rings" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
-          <defs>
-            <path id="badge-ring" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"></path>
-          </defs>
-          <circle class="c-badge__ring c-badge__ring--dash" cx="100" cy="100" r="95"></circle>
-          <text class="c-badge__ring c-badge__ring--text">
-            <textPath href="#badge-ring" textLength="486" lengthAdjust="spacing">{h.rings.repeat(2)}</textPath>
-          </text>
-        </svg>
-        <img src="/images/profile.webp" alt={h.alt} width="960" height="900" fetchpriority="high" decoding="async" />
+        <div class="c-badge__photo">
+          <svg class="c-badge__rings" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+            <defs>
+              <path id="badge-ring" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"></path>
+            </defs>
+            <circle class="c-badge__ring c-badge__ring--dash" cx="100" cy="100" r="95"></circle>
+            <text class="c-badge__ring c-badge__ring--text">
+              <textPath href="#badge-ring" textLength="486" lengthAdjust="spacing">{h.rings.repeat(2)}</textPath>
+            </text>
+          </svg>
+          <img src="/images/profile.webp" alt={h.alt} width="960" height="900" fetchpriority="high" decoding="async" />
+        </div>
+
+        <h1 class="c-badge__name">Darko<br />Boesmans</h1>
+        <p class="c-badge__role">{h.title}</p>
+        <a class="c-badge__mail" href={mailto}>{email}</a>
+
+        <div class="c-badge__foot" aria-hidden="true">
+          <svg class="c-badge__barcode" viewBox={`0 0 ${x} 20`} preserveAspectRatio="none" focusable="false">
+            {bars.map((b) => <rect x={b.x} width={b.w} height="20" />)}
+          </svg>
+          <span>{h.country}</span>
+        </div>
       </div>
-
-      <h1 class="c-badge__name">Darko<br />Boesmans</h1>
-      <p class="c-badge__role">{h.title}</p>
-      <a class="c-badge__mail" href={mailto}>{email}</a>
-
-      <div class="c-badge__foot" aria-hidden="true">
-        <svg class="c-badge__barcode" viewBox={`0 0 ${x} 20`} preserveAspectRatio="none" focusable="false">
-          {bars.map((b) => <rect x={b.x} width={b.w} height="20" />)}
-        </svg>
-        <span>{h.country}</span>
-      </div>
-
+      <span class="c-badge__glare" aria-hidden="true"></span>
       <span class="c-badge__sheen" aria-hidden="true"></span>
     </div>
   </div>

@@ -1,5 +1,5 @@
-// Featured Work: covers on the left (1fr), sticky text panel on the right (1.618fr, golden ratio).
-// The panel follows the cover closest to the middle of the screen (scripts/work.ts).
+// Featured Work: 16:9 covers on the left (1.618fr, golden ratio), sticky text panel on the right (1fr).
+// The panel follows the cover that has crossed the middle of the screen (scripts/work.ts).
 @use '../settings/tokens' as *;
 @use '../tools/mixins' as *;
 
@@ -29,14 +29,14 @@
     grid-template-columns: minmax(0, 1fr);
 
     @include from($bp-lg) {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.618fr);
+      grid-template-columns: minmax(0, 1.618fr) minmax(0, 1fr);
     }
   }
 
   &__shots {
     display: flex;
     flex-direction: column;
-    gap: clamp(40px, 16vh, 180px);
+    gap: clamp(40px, 12vh, 140px);
   }
 
   &__shot {
@@ -49,7 +49,7 @@
   &__cover {
     justify-content: space-between;
     overflow: hidden;
-    aspect-ratio: 0.8;
+    aspect-ratio: 16 / 9;
     padding: 0;
     container-type: inline-size;
 
@@ -57,14 +57,55 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      scale: 1.15; // room for the parallax drift
+      object-position: top;
+      transition: scale 700ms $ease;
     }
+  }
+
+  // A cover with a live site: hover zooms the screenshot a touch and slides up a "Visit" tag.
+  &__cover--link {
+    text-decoration: none;
+
+    &:hover img {
+      scale: 1.04;
+    }
+
+    &:focus-visible {
+      outline-offset: -10px;
+    }
+  }
+
+  &__visit {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: var(--black);
+    color: var(--white);
+    opacity: 0;
+    translate: 0 12px;
+    transition:
+      opacity 300ms $ease,
+      translate 300ms $ease;
+
+    @include mono(13px);
+
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  &__cover--link:hover &__visit,
+  &__cover--link:focus-visible &__visit {
+    opacity: 1;
+    translate: 0 0;
   }
 
   &__type {
     padding: clamp(18px, 2vw, 28px) clamp(18px, 2vw, 28px) 0;
     font-family: var(--font-display);
-    font-size: 17cqi;
+    font-size: 11cqi;
     font-weight: 800;
     font-stretch: 78%;
     line-height: 0.88;
@@ -104,6 +145,59 @@
   &__tags {
     color: var(--muted);
     font-size: 15px;
+  }
+
+  // Panel details: position in the list, what it is and what I did, the stack as chips.
+  &__count {
+    color: var(--muted);
+
+    @include mono(14px);
+
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 32px;
+    padding-block: 12px;
+    border-block: 2px solid var(--ink);
+
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    dt {
+      color: var(--muted);
+
+      @include mono(12px);
+
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    dd {
+      font-weight: 600;
+    }
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    li {
+      padding: 5px 12px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+
+      @include mono(13px);
+
+      font-weight: 600;
+    }
   }
 
   &__aside {

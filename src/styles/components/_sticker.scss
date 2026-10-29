@@ -1,0 +1,78 @@
+// Sticker: life outside work, as two die-cut stickers with a white border, stuck on slightly crooked.
+// Hover: the sticker straightens and lifts, and its icon gives a little wiggle.
+@use '../settings/tokens' as *;
+@use '../tools/mixins' as *;
+
+.c-sticker {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: clamp(24px, 3vw, 36px);
+  border: 5px solid var(--white);
+  border-radius: 22px;
+  box-shadow: 0 16px 34px -16px rgb(0 0 0 / 0.45);
+  rotate: -2deg;
+  transition:
+    rotate 400ms $ease,
+    transform 400ms $ease,
+    box-shadow 400ms $ease;
+
+  &:nth-child(even) {
+    rotate: 1.6deg;
+  }
+
+  &--contact {
+    background: var(--contact);
+    color: var(--white);
+  }
+
+  &--work {
+    background: var(--work);
+    color: var(--black);
+  }
+
+  &__title {
+    @include display(clamp(28px, 2.6vw, 40px));
+  }
+
+  p {
+    max-width: 40ch;
+    font-size: clamp(17px, 1.2vw, 19px);
+    line-height: 1.45;
+  }
+
+  &__icon {
+    display: flex;
+    transform-origin: 50% 90%;
+  }
+
+  &:hover {
+    rotate: 0deg;
+    transform: translateY(-6px);
+    box-shadow: 0 26px 44px -18px rgb(0 0 0 / 0.5);
+  }
+
+  &:hover &__icon {
+    animation: c-sticker-wiggle 600ms $ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:hover &__icon {
+      animation: none;
+    }
+  }
+}
+
+@keyframes c-sticker-wiggle {
+  25% {
+    rotate: -12deg;
+  }
+
+  55% {
+    rotate: 9deg;
+  }
+
+  80% {
+    rotate: -4deg;
+  }
+}

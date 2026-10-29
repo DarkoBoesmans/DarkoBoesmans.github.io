@@ -35,7 +35,7 @@ const width = r.stops.length * STOP_W;
 line += ` L${width} ${Y}`;
 ---
 
-<section id="route" class="c-route" aria-labelledby="route-title" data-route>
+<section id="route" class="c-route" aria-labelledby="route-title" data-route data-cursor="ink">
   <div class="c-route__sticky">
     <div class="o-container c-route__head">
       <h2 class="c-route__title" id="route-title" data-reveal>{r.titleA} <span class="u-outline">{r.titleB}</span></h2>
@@ -69,10 +69,12 @@ line += ` L${width} ${Y}`;
         }
       </ol>
 
-      <p class="c-route__alongside">
-        <span class="c-route__when">{r.alongsideWhen}</span>
-        {r.alongside}
-      </p>
+      <div class="c-route__alongside">
+        <p class="c-route__lane-label" data-route-lane>
+          <span class="c-route__when">{r.alongsideWhen}</span>
+          {r.alongside}
+        </p>
+      </div>
     </div>
   </div>
 </section>

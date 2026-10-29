@@ -85,4 +85,14 @@
   [data-theme='dark'] &__ring {
     border-color: var(--work);
   }
+
+  // On gold (the route, gold halls): ink cursor, so it stays visible. Last, so it wins.
+  .cursor-ink &__dot {
+    background: var(--black);
+  }
+
+  .cursor-ink &__ring {
+    border-color: var(--black);
+    background: rgb(21 19 17 / 0.12);
+  }
 }

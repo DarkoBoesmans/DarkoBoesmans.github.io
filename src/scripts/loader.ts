@@ -10,7 +10,11 @@ export function initLoader(): void {
   const root = document.documentElement;
   const loader = document.querySelector<HTMLElement>('[data-loader]');
   const count = loader?.querySelector<HTMLElement>('[data-loader-count]');
-  if (!root.classList.contains('is-loading') || !loader || !count) return;
+  if (!root.classList.contains('is-loading') || !loader || !count) {
+    // No loader this time (repeat visit, reduced motion): the pass still blows in on arrival.
+    root.classList.add('is-loaded');
+    return;
+  }
 
   const portrait = document.querySelector<HTMLImageElement>('.c-badge__photo img');
   const tasks = [

@@ -30,6 +30,8 @@ export function initPointer(reduceMotion: boolean): void {
       root.classList.toggle('cursor-link', Boolean(target.closest('a, button, label')));
       root.classList.toggle('cursor-text', Boolean(target.closest('input, textarea')));
       root.classList.toggle('cursor-dark', Boolean(target.closest('[data-dark]')));
+      // Gold surfaces (the route, gold halls) would swallow the gold cursor: switch it to ink there.
+      root.classList.toggle('cursor-ink', Boolean(target.closest('[data-cursor="ink"]')));
 
       const el = target.closest<HTMLElement>(MAGNET);
       if (magnet && magnet !== el) magnet.style.translate = '';
@@ -44,7 +46,7 @@ export function initPointer(reduceMotion: boolean): void {
       if (reduceMotion) return;
 
       // Small things lean further than big tiles, so a tile never jumps over its grid line.
-      const pull = rect.width > 240 ? 4 : 8;
+      const pull = rect.width > 240 ? 9 : 18;
       el.style.translate = `${((x / rect.width - 0.5) * pull).toFixed(1)}px ${((y / rect.height - 0.5) * pull * 0.75).toFixed(1)}px`;
     },
     { passive: true },

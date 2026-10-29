@@ -51,17 +51,16 @@
     margin-top: clamp(56px, 10vh, 120px);
 
     h3 {
-      margin-bottom: 24px;
+      margin-bottom: 28px;
       font-size: clamp(24px, 2.2vw, 34px);
     }
   }
 
-  &__columns {
+  &__stickers {
     display: grid;
     gap: clamp(24px, 3vw, 48px);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-    padding-top: 24px;
-    border-top: 2px solid var(--ink);
+    padding-top: 12px;
   }
 
   &__note {

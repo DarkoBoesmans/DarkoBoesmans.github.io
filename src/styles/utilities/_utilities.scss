@@ -2,14 +2,16 @@
 @use '../settings/tokens' as *;
 
 // Pointer effects for every link and button (desktop, set up by scripts/pointer.ts):
-// a glow in the element's own text colour follows the cursor, and the magnetic lean eases in and out.
+// a glow in the element's own text colour follows the cursor, and the magnetic lean springs back with a
+// little overshoot when the cursor leaves (the cubic-bezier above 1).
 .has-cursor :is(a, button, .c-form__chip-label) {
   transition:
-    translate 300ms $ease,
+    translate 550ms cubic-bezier(0.34, 1.56, 0.64, 1),
     background-color $switch $ease,
     border-color $switch $ease,
     color $switch $ease,
-    transform 100ms $ease !important;
+    box-shadow 300ms $ease,
+    transform 300ms $ease !important;
 
   &:hover {
     background-image: radial-gradient(

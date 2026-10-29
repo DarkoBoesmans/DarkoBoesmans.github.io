@@ -1,5 +1,5 @@
-// Hero: the floor plan of the fair, on green. A soft spotlight follows the cursor (--spot-x/y, scripts/badge.ts).
-// Pass left at the golden ratio (38.2%), the halls right (61.8%).
+// Hero: the green venue. A soft spotlight follows the cursor (--spot-x/y, scripts/badge.ts).
+// Pass left at the golden ratio (38.2%), the paper floor plan right (61.8%).
 @use '../settings/tokens' as *;
 @use '../tools/mixins' as *;
 
@@ -35,33 +35,18 @@
     gap: 48px;
   }
 
-  // "You are here": a pin on the floor, the way a venue map marks your spot.
-  &__here {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    @include mono(13px);
-
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-  }
-
-  &__pin {
-    width: 16px;
-    height: 16px;
-    border: 3px solid var(--white);
-    border-radius: 50% 50% 50% 0;
-    background: var(--work);
-    rotate: -45deg;
-  }
-
-  // The plan: an outer wall with an entrance gap, a title row with a dimension line.
+  // The plan: printed on paper, handed out at the door. Two faint fold creases, a hard drop shadow.
   &__plan {
     position: relative;
-    padding: 18px;
-    border: 3px solid rgb(244 241 234 / 0.55);
+    padding: clamp(16px, 2vw, 24px);
+    border-radius: 4px;
+    background:
+      linear-gradient(90deg, transparent calc(50% - 1px), rgb(21 19 17 / 0.06) 50%, transparent calc(50% + 1px)),
+      linear-gradient(transparent calc(50% - 1px), rgb(21 19 17 / 0.05) 50%, transparent calc(50% + 1px)),
+      var(--white);
+    color: var(--black);
+    box-shadow: 0 30px 60px -24px rgb(0 0 0 / 0.55);
+    rotate: -0.8deg;
 
     @include from($bp-md) {
       margin-block: clamp(48px, 10vh, 120px);
@@ -70,43 +55,56 @@
 
   &__plan-head {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
     gap: 16px;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--black);
 
     @include mono(12px);
 
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.12em;
   }
 
-  // Dimension line: |—— 61.8% ——|, like on an architect's drawing.
-  &__measure {
-    flex: 1;
-    text-align: center;
-    background:
-      linear-gradient(currentcolor, currentcolor) center / 100% 1px no-repeat,
-      linear-gradient(currentcolor, currentcolor) left center / 1px 12px no-repeat,
-      linear-gradient(currentcolor, currentcolor) right center / 1px 12px no-repeat;
-
-    span {
-      padding: 0 10px;
-      background: var(--contact);
-    }
-  }
-
-  &__entrance {
-    position: absolute;
-    bottom: -12px;
-    left: 50%;
-    padding: 0 14px;
-    background: var(--contact);
-    translate: -50% 0;
+  // Legend: what the colours on the plan mean (the same colours as everywhere on the site).
+  &__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 2px solid var(--black);
 
     @include mono(12px);
 
     text-transform: uppercase;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.08em;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  &__swatch {
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--black);
+
+    &--work {
+      background: var(--work);
+    }
+
+    &--about {
+      background: var(--about);
+    }
+
+    &--ink {
+      background: var(--black);
+    }
   }
 
   &__grid {
