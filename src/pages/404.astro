@@ -5,6 +5,10 @@ import Nav from '../components/Nav.astro';
 ---
 
 <Base lang="en" title="Page not found | Darko Boesmans" description="This page does not exist.">
+  <script is:inline>
+    // GitHub Pages serves this one 404 for every project site. Lost visitors of the Bosfeesten media kit get its own page.
+    if (location.pathname.toLowerCase().startsWith('/bosfeesten')) location.replace('/bosfeesten/404.html');
+  </script>
   <Nav lang="en" always />
   <main id="main" class="o-section">
     <article class="c-legal">
